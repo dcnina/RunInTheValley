@@ -30,10 +30,27 @@ class Map{
 		std::vector<Bloc> m_listBlocs; //!< List of blocks 
 		std::vector<Enemy> m_listEnemies; //!< List of enemies
 
-
-
 	public:
+		///CONSTRUCTOR
+		/**
+		*\brief Default constructor   
+		*\details Constructor by default of Bloc
+		*/
 		Map();
+
+
+		/// GETTERS
+		/**
+		*\brief Getter World of the Game   
+		*\return current World 
+		*/
+
+		
+		//DESTRUCTOR
+		/**
+		*\brief Default destructor   
+		*\details Destructor by default of Bloc
+		*/
 		~Map();
 	
 };

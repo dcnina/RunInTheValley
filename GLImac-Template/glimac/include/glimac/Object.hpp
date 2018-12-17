@@ -12,7 +12,7 @@
 */
 
 /**
- *\class Object
+ *\class Object : abstract
  *\brief
  *  
  */
@@ -21,12 +21,24 @@
 #ifndef __OBJECT__
 #define __OBJECT__
 
+#include <vector>
 
 class Object{
 	private:
+		std::vector<double> m_position; //!< Object position
+
 	public:
-		Object();
-		~Object();
+		//CONSTRUCTOR
+		/**
+		*\brief Object constructor   
+		*/
+		Object(){};
+
+		//DESTRUCTOR
+		/**
+		*\brief Object destructor   
+		*/
+		~Object(){};
 	
 };
 
