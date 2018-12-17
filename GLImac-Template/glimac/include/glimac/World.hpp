@@ -23,6 +23,7 @@
 
 #include <glimac/World.hpp>
 #include <glimac/Map.hpp>
+#include <GL/glew.h>
 
 class World{
 	private:

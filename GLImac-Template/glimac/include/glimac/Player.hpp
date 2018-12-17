@@ -92,7 +92,7 @@ class Player{
 		/**
 		*\brief Set model of the player
 		*/
-		inline void setModel(const Model &model) { m_model = model }
+		inline void setModel(const Model &model) { m_model = model; }
 
 
 		///METHODES
@@ -108,7 +108,7 @@ class Player{
 		*\details remove the number of coins used of the player's money  
 		*\param number of coins
 		*/
-		inline void removeMoney(unsigned int &nbCoins){ m_money -= nbCoins };
+		inline void removeMoney(unsigned int &nbCoins){ m_money -= nbCoins; };
 
 
 		///DESTRUCTOR

@@ -9,7 +9,7 @@
 
 
 Player::Player()
- :m_pseudo(""), m_score(0), m_money(0), Model(){}
+ :m_pseudo(""), m_score(0), m_money(0), m_model(Model("")){}
 
 Player::Player(const std::string &pseudo, const Model &model)
  :m_pseudo(pseudo), m_score(0), m_money(0), m_model(model){}

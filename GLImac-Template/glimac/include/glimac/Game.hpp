@@ -32,7 +32,7 @@ class Game{
 		/* à voir pour le meilleur score */
 		unsigned int m_timeSpend; //!< Time spend during the game
 		Princess m_princess; //!< Character of the game 
-		Player player; //!< Player of the game
+		Player m_player; //!< Player of the game
 
 	public:
 		///CONSTRUCTOR
