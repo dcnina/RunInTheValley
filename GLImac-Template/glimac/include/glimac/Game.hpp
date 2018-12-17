@@ -21,17 +21,18 @@
 #ifndef __GAME__
 #define __GAME__
 
-#include "World.hpp"
-#include "Princess.hpp"
+#include <glimac/World.hpp>
+#include <glimac/Princess.hpp>
+#include <glimac/Player.hpp>
 
 class Game{
 	private:
-		World m_world; /*!< World */
-		unsigned int m_distance; /*!< Distance traveled during the game */
+		World m_world; //!< World 
+		unsigned int m_distance; //!< Distance traveled during the game 
 		/* à voir pour le meilleur score */
-		unsigned int m_timeSpend; /*!< Time spend during the game */
-		Princess m_princess; /*!< Character of the game */
-		Player player; /*!< Player of the game */
+		unsigned int m_timeSpend; //!< Time spend during the game
+		Princess m_princess; //!< Character of the game 
+		Player player; //!< Player of the game
 
 	public:
 		///CONSTRUCTOR
@@ -45,7 +46,7 @@ class Game{
 		*\brief Game constructor   
 		*\details Constructor of Game
 		*/
-		Game(World world, unsigned int distance, unsigned int timeSpend, Princess princess, Player player);
+		Game(const World &world, const unsigned int &distance, const unsigned int &timeSpend, const Princess &princess, const Player &player);
 		
 		
 		/// GETTERS
@@ -83,16 +84,17 @@ class Game{
 		/// SETTERS
 		/**
 		*\brief Set distance of the Game   
-		*\return set the current distance
+		*\details set the current distance
 		*/
-		inline unsigned int setDistance(const unsigned int &distance){ m_distance = distance;};
+		inline void setDistance(const unsigned int &distance){ m_distance = distance;};
 
 		/**
 		*\brief Set time of the Game   
-		*\return set the current time 
+		*\details set the current time 
 		*/
-		inline unsigned int setTimeSpend(const unsigned int &timeSpend){ m_timeSpend = timeSpend;};
+		inline void setTimeSpend(const unsigned int &timeSpend){ m_timeSpend = timeSpend;};
 
+		/// METHODS
 
 		///DESTRUCTOR
 		/**
