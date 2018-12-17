@@ -40,7 +40,7 @@ class Bonus{
 		*\brief Bonus Constructor
 		*\details Constructor of Bonus
 		*/
-		Bonus(unsigned int &type, unsigned int &startTime, unsigned int &endTime);
+		Bonus(const unsigned int &type, const unsigned int &startTime, const unsigned int &endTime);
 
 
 		///GETTERS

@@ -21,11 +21,47 @@
 #ifndef __ENEMY__
 #define __ENEMY__
 
+#include <glimac/DynamicObject.hpp>
 
-class Enemy{
+class Enemy : public DynamicObject{
 	private:
+		unsigned int m_proximity; //!< Enemy's level of proximity
+
 	public:
+		///CONSTRUCTOR
+		/**
+		*\brief Default constructor   
+		*\details Constructor by default of Enemy
+		*/
 		Enemy();
+
+		/**
+		*\brief Enemy Constructor
+		*\details Constructor of Enemy
+		*/
+		Enemy(unsigned int &proximity);
+
+
+		///GETTERS
+		/**
+		*\brief Get proximity of the enemy
+		*\return current proximity
+		*/
+		inline unsigned int getProximity() const{ return m_proximity; }
+
+
+		///SETTERS
+		/**
+		*\brief Set proximity of the enemy
+		*/
+		inline void setProximity(const unsigned int &proximity) { m_proximity = proximity; }
+
+
+		///DESTRUCTOR
+		/**
+		*\brief Default destructor   
+		*\details Destructor by default of Enemy
+		*/
 		~Enemy();
 	
 };

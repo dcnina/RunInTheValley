@@ -44,7 +44,7 @@ class Player{
 		*\brief Player Constructor
 		*\details Constructor of Player
 		*/
-		Player(std::string &pseudo, Model &model);
+		Player(const std::string &pseudo, const Model &model);
 
 
 		///GETTERS
