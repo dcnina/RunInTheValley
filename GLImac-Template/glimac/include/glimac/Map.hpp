@@ -21,9 +21,17 @@
 #ifndef __MAP__
 #define __MAP__
 
+#include <vector>
+#include <glimac/Bloc.hpp>
+#include <glimac/Enemy.hpp>
 
 class Map{
 	private:
+		std::vector<Bloc> m_listBlocs; //!< List of blocks 
+		std::vector<Enemy> m_listEnemies; //!< List of enemies
+
+
+
 	public:
 		Map();
 		~Map();
