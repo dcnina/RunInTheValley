@@ -24,10 +24,33 @@
 
 class Render{
 	private:
+		GLuint m_uMVPMatrix;
+	    GLuint m_uMVMatrix;
+	    GLuint m_uNormalMatrix;
+
+	    GLuint m_uKd;
+	    GLuint m_uKs;
+	    GLuint m_uShininess;
+	    GLuint m_uLightPos_vs;
+	    GLuint m_uLightIntensity;
+
+	    glm::vec3 m_uKd = glm::vec3(0.5,0.5,0.5);
+		glm::vec3 m_Ks = glm::vec3(0.5,0.5,0.5);
+		float m_Shininess = 0.5;
+		glm::vec4 m_LightPos_vs = glm::vec4(2.0,2.0,2.0,0.0);
+		glm::vec3 m_LightIntensity = glm::vec3(10.0,10.0,10.0);
+
 	public:
-		Render();
+
+		glimac::Program m_prog;
+		glm::mat4 m_projMatrix = glm::perspective(glm::radians(70.f),8.0f/6.0f,0.1f,100.f);
+
+		Render(std::string vShader, std::string fShader);
+
+		void reset() const;
+		void sendLight(glm::mat4 viewMatrix) const;
+		void sendMatrix(glm::mat4 MVMatrix) const;
 		~Render();
-	
 };
 
 #endif

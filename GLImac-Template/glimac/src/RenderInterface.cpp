@@ -6,3 +6,7 @@
 
 
 #include <glimac/RenderInterface.hpp>
+
+void RenderInterface::renderMenu(){
+	
+}
