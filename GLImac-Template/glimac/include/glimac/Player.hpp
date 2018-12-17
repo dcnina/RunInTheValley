@@ -77,7 +77,7 @@ class Player{
 		/**
 		*\brief Set pseudo of the player
 		*/
-		inline void setPseudo(const std::string &pseudo) { strcpy(m_pseudo, pseudo); }
+		inline void setPseudo(const std::string &pseudo) { m_pseudo = pseudo; }
 
 		/**
 		*\brief Set score of the player
