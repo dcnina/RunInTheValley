@@ -17,8 +17,9 @@
  *  
  */
 
-#include <string.h>
-#include <iostream.h>
+#include <string>
+#include <iostream>
+#include <glimac/Model.hpp>
 
 #ifndef __PLAYER__
 #define __PLAYER__
@@ -26,10 +27,10 @@
 
 class Player{
 	private:
-		std::string m_pseudo; /*!< Player's pseudo */
-		unsigned int m_score; /*!< Score of the player */
-		unsigned int m_money; /*!< Number of coins owned by the player */
-		Model m_model; /*!< Model of the player */
+		std::string m_pseudo; //!< Player's pseudo
+		unsigned int m_score; //!< Score of the player
+		unsigned int m_money; //!< Number of coins owned by the player
+		Model m_model; //!< Model of the player
 
 	public:
 		///CONSTRUCTOR
