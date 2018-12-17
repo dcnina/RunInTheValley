@@ -21,11 +21,47 @@
 #ifndef __COINS__
 #define __COINS__
 
+#include <glimac/StaticObject.hpp>
 
-class Coins{
+
+class Coins : public StaticObject{
 	private:
+		unsigned int m_value; /*!< Value of coin */
 	public:
+		///CONSTRUCTEUR
+		/**
+		*\brief Default constructor   
+		*\details Constructor by default of Coins
+		*/
 		Coins();
+
+		/**
+		*\brief Coins Constructor
+		*\details Constructor of Coins
+		*/
+		Coins(unsigned int &m_value);
+
+
+		///GETTERS
+		/**
+		*\brief Get value of the coin
+		*\return current value
+		*/
+		inline unsigned int getValue() const{ return m_value; }
+
+
+		///SETTERS
+		/**
+		*\brief Set value of the coin
+		*/
+		inline void setValue(const unsigned int &value) { m_value = value; }
+
+
+		///DESTRUCTOR
+		/**
+		*\brief Default destructor   
+		*\details Destructor by default of Coins
+		*/
 		~Coins();
 	
 };
