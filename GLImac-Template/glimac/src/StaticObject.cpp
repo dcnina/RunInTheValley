@@ -5,4 +5,4 @@
  */
 
 
-#include "StaticObject.hpp"
+#include <glimac/StaticObject.hpp>

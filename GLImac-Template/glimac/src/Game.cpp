@@ -5,7 +5,7 @@
  */
 
 
-#include "Game.hpp"
+#include <glimac/Game.hpp>
 
 
 

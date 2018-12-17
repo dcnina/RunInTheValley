@@ -5,4 +5,4 @@
  */
 
 
-#include "Bonus.hpp"
+#include <glimac/Bonus.hpp>

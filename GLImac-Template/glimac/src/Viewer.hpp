@@ -5,4 +5,4 @@
  */
 
 
-#include "Viewer.hpp"
+#include <glimac/Viewer.hpp>

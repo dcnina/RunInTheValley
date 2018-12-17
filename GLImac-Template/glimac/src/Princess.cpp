@@ -5,4 +5,4 @@
  */
 
 
-#include "Princess.hpp"
+#include <glimac/Princess.hpp>

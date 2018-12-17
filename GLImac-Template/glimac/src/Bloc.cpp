@@ -5,4 +5,4 @@
  */
 
 
-#include "Bloc.hpp"
+#include <glimac/Bloc.hpp>

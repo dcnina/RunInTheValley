@@ -5,4 +5,4 @@
  */
 
 
-#include "RenderInterface.hpp"
+#include <glimac/RenderInterface.hpp>

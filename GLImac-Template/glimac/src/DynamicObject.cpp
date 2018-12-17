@@ -5,4 +5,4 @@
  */
 
 
-#include "DynamicObject.hpp"
+#include <glimac/DynamicObject.hpp>

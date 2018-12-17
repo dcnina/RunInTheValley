@@ -5,4 +5,4 @@
  */
 
 
-#include "Map.hpp"
+#include <glimac/Map.hpp>

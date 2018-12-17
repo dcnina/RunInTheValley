@@ -5,4 +5,4 @@
  */
 
 
-#include "World.hpp"
+#include <glimac/World.hpp>
