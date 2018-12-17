@@ -10,7 +10,7 @@
 #include <glm/gtc/random.hpp>
 
 
-#include <RITV/Model.hpp>
+#include <glimac/Model.hpp>
 
 using namespace glimac;
 

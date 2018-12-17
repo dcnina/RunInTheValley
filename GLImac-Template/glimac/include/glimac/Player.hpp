@@ -18,6 +18,7 @@
  */
 
 #include <string.h>
+#include <iostream.h>
 
 #ifndef __PLAYER__
 #define __PLAYER__
