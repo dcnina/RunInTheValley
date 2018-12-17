@@ -39,7 +39,7 @@ class Coins : public StaticObject{
 		*\brief Coins Constructor
 		*\details Constructor of Coins
 		*/
-		Coins(unsigned int &m_value);
+		Coins(const unsigned int &m_value);
 
 
 		///GETTERS

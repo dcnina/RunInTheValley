@@ -10,7 +10,7 @@
 Coins::Coins()
  :m_value(1){}
 
-Coins::Coins(unsigned int &value)
+Coins::Coins(const unsigned int &value)
  :m_value(value){}
 
 Coins::~Coins(){}
