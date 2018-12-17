@@ -21,10 +21,10 @@
 #ifndef __COINS__
 #define __COINS__
 
-#include <glimac/StaticObject.hpp>
+#include <glimac/Object.hpp>
 
 
-class Coins : public StaticObject{
+class Coins : public Object{
 	private:
 		unsigned int m_value; /*!< Value of coin */
 	public:

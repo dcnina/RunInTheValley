@@ -21,8 +21,9 @@
 #ifndef __BONUS__
 #define __BONUS__
 
+#include <glimac/Object.hpp>
 
-class Bonus{
+class Bonus : public Object{
 	private:
 		unsigned int m_type; /*!< Bonus' type */
 		unsigned int m_startTime; /*!< Bonus start time */

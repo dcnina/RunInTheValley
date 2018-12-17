@@ -39,7 +39,7 @@ class Enemy : public DynamicObject{
 		*\brief Enemy Constructor
 		*\details Constructor of Enemy
 		*/
-		Enemy(unsigned int &proximity);
+		Enemy(const unsigned int &proximity);
 
 
 		///GETTERS
