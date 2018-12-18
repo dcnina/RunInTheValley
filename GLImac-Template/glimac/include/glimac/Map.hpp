@@ -80,7 +80,14 @@ class Map{
 		*\details initialise list of blocks from file
 		*\param file
 		*/
-		void initialiseListBlocFromFile(const char* filename);
+		void initialiseListBlocFromFile(const char* &filename);
+
+		/**
+		*\brief create list of Blocks   
+		*\details create list of Blocks created
+		*\param 
+		*/
+		std::vector<Bloc> createListBlocFromFile(const char* &filename);
 		
 		//DESTRUCTOR
 		/**

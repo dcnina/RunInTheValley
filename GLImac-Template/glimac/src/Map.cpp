@@ -7,7 +7,9 @@
 
 #include <glimac/Map.hpp>
 #include <iostream>
-#include <fstream>
+#include <fstream> 
+#include <vector>
+#include <glimac/Bloc.hpp>
 
 Map::Map(){
 	for(unsigned int i = 0; i < m_listBlocs.size(); i++)
@@ -25,80 +27,25 @@ Map::Map(const std::vector<Bloc> &listBlocs, const std::vector<Enemy> &listEnemi
 		m_listEnemies[i] = listEnemies[i];
 }
 
-void Map::initialiseListBlocFromFile(const char* filename){
-	/*ifstream file(filename, ios::in);
+void Map::initialiseListBlocFromFile(const char* &filename){
+	//std::ifstream file;
+	FILE *file;
+	file = fopen(filename, "r");
 
-	if(file){
-		std::string contenu;
-		int nbBlocks = 0;
-		while(file.ignore(std::numeric_limits<int>::max(), '\n')){
-			++nbBlocks;
-		}		
+	if(!file){
+		std::cerr << "erreur chargement fichier : " << filename << std::endl;
+		exit(EXIT_FAILURE);
 	}
-	std::cout << "nb blocks : " << nbBlocks << std::endl;
 
-	// if(file){
-	// 	char 
-	// }
+	// unsigned int listSize;
+	Bloc blocType;
+	// file >> listSize;
+	while(! feof(file)){
+		blocType.createBloc(file);
+		m_listBlocs.push_back(blocType);
+	}
 
-	// char ch;
-	// int nbLines = 0;
-
-	// nbLines = fgetc(file);
-
-	// for(int i = 0; i<nbLines; i++){
-		
-	// }
-if(fichier)  // si l'ouverture a fonctionné
-
-        {
-
-                string contenu;  // déclaration d'une chaîne qui contiendra la ligne lue
-
-                getline(fichier, contenu);  // on met dans "contenu" la ligne
-
-                cout << contenu;  // on affiche la ligne
-
- 
-
-                fichier.close();
-
-        }
-
-if(fichier)
-
-{
-    string ligne;
-
-    while(getline(fichier, ligne))  // tant que l'on peut mettre la ligne dans "contenu"
-
-    {
-
-        cout << ligne << endl;  // on l'affiche
-
-    }
-
-}
-
-if(fichier)
-
-        {
-
-                char caractere;  // notre variable où sera stocké le caractère
-
-                fichier.get(caractere);  // on lit un caractère et on le stocke dans caractere
-
-                cout << caractere;  // on l'affiche
-
- 
-
-                fichier.close();
-
-        }
-
-
-*/
-
+	fclose(file);
 }
 
 
