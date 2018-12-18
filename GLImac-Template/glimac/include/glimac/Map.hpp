@@ -42,7 +42,7 @@ class Map{
 		*\brief Map Constructor
 		*\details Constructor of Map
 		*/
-		Map(const std::vector<Bloc> &listBlocs, const std::vector<Enemy> &listEnemies);
+		Map(const char* filename);
 
 		/// GETTERS
 		/**
@@ -80,7 +80,7 @@ class Map{
 		*\details initialise list of blocks from file
 		*\param file
 		*/
-		void initialiseListBlocFromFile(const char* &filename);
+		void initialiseListBlocFromFile(const char* filename);
 
 		/**
 		*\brief create list of Blocks   
@@ -89,6 +89,8 @@ class Map{
 		*/
 		std::vector<Bloc> createListBlocFromFile(const char* &filename);
 		
+		void printMap();
+
 		//DESTRUCTOR
 		/**
 		*\brief Default destructor   

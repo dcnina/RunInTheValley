@@ -110,6 +110,12 @@ class World{
 
 		void deleteBonus();
 
+		/**
+		*\brief   
+		*\param 
+		*\return current player 
+		*/
+
 
 		///DESTRUCTOR
 		/**

@@ -24,13 +24,13 @@
 #include <vector>
 #include <glimac/Object.hpp>
 #include <stdio.h>
+#define ROWS 4 
+#define COLS 3 
 
 class Bloc : public Object{
 	private:
 		/* voir pour utiliser glm::vec3 ...*/
-		std::vector<std::vector<char>> m_matrixTypes; //!< Matrix of blocks' types
-		int m_rows = 4; 
-		int m_cols = 3; 
+		std::vector< std::vector<char> > m_matrixTypes; //!< Matrix of blocks' types
 		char m_direction;
 		int m_index;
 
@@ -61,6 +61,8 @@ class Bloc : public Object{
 		*/
 		inline char getDirection() const { return m_direction;}
 
+
+
 		///SETTER
 		/**
 		*\brief Set an element of the matrix of type
@@ -75,14 +77,7 @@ class Bloc : public Object{
 		inline void setDirection(const char &direction) { m_direction = direction; }
 
 		///METHODS
-		/**
-		*\brief create a block     
-		*\details create a block from a vector of types  
-		*\param file 
-		*\return Bloc
-		*/
-		Bloc createBloc(FILE* &file);
-
+		void printBlock();
 
 		///DESTRUCTOR
 		/**

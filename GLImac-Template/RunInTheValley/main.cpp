@@ -12,6 +12,7 @@
 
 #include <glimac/Model.hpp>
 #include <glimac/Render.hpp>
+#include <glimac/Map.hpp>
 
 using namespace glimac;
 
@@ -51,7 +52,12 @@ int main(int argc, char** argv) {
 
     glm::mat4 MVMatrix;
     glm::mat4 viewMatrix;
+
+    Map map("./assets/map/level.txt");
+    map.printMap();
     
+   // World(const Map &map, const GLuint &backgroundTexture, const double &speed, std::vector<Bonus> listBonus, Princess princess, Player player, std::vector<Model> listModel);
+
 
     //DEPTH Test of the GPU
     glEnable(GL_DEPTH_TEST);
