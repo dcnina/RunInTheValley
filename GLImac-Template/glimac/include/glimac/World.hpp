@@ -25,11 +25,20 @@
 
 #include <glimac/World.hpp>
 #include <glimac/Map.hpp>
+#include <glimac/Bonus.hpp>
+#include <glimac/Princess.hpp>
+#include <glimac/Player.hpp>
+#include <glimac/Model.hpp>
+
 class World{
 	private:
 		Map m_map; //!< Map of World
 		GLuint m_backgroundTexture; //!< background texture of World 
 		double m_speed; //!< Speed camera world
+		std::vector<Bonus> m_listBonus; //!< Bonus list of the World
+		Princess m_princess; //!< Character of the game 
+		Player m_player; //!< Player of the game
+		std::vector<Model> m_listModel; //!< Model list of the world
 
 	public:
 		//CONSTRUCTOR
@@ -43,7 +52,7 @@ class World{
 		*\brief World constructor   
 		*\details Constructor of World
 		*/
-		World(const Map &map, const GLuint &backgroundTexture, const double &speed);
+		World(const Map &map, const GLuint &backgroundTexture, const double &speed, std::vector<Bonus> listBonus, Princess princess, Player player, std::vector<Model> listModel);
 
 
 		// GETTERS
@@ -83,8 +92,24 @@ class World{
 		inline void setSpeed(const double &speed){ m_speed = speed;};
 
 
+		/**
+		*\brief Get princess of the World  
+		*\return current princess
+		*/
+		inline Princess getPrincess()const{ return m_princess;};
+
+		/**
+		*\brief Get Player of the World   
+		*\return current player 
+		*/
+		inline Player getPlayer()const{ return m_player;};
+
 
 		/// METHODS
+		void addBonus(unsigned int m_type, unsigned int m_time);
+
+		void deleteBonus();
+
 
 		///DESTRUCTOR
 		/**

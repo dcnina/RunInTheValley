@@ -11,7 +11,7 @@
 World::World()
 	:m_map(Map()), m_speed(0), m_backgroundTexture(0){}
 
-World::World(const Map &map, const GLuint &backgroundTexture, const double &speed)
-	:m_map(map), m_backgroundTexture(backgroundTexture), m_speed(speed){}
+World::World(const Map &map, const GLuint &backgroundTexture, const double &speed, std::vector<Bonus> listBonus, Princess princess, Player player, std::vector<Model> listModel)
+	:m_map(map), m_backgroundTexture(backgroundTexture), m_speed(speed), m_listBonus(listBonus), m_princess(princess), m_player(player), m_listModel(listModel){}
 
 World::~World(){}

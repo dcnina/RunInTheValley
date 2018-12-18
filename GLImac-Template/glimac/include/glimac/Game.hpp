@@ -31,8 +31,6 @@ class Game{
 		unsigned int m_distance; //!< Distance traveled during the game 
 		/* à voir pour le meilleur score */
 		unsigned int m_timeSpend; //!< Time spend during the game
-		Princess m_princess; //!< Character of the game 
-		Player m_player; //!< Player of the game
 
 	public:
 		///CONSTRUCTOR
@@ -46,7 +44,7 @@ class Game{
 		*\brief Game constructor   
 		*\details Constructor of Game
 		*/
-		Game(const World &world, const unsigned int &distance, const unsigned int &timeSpend, const Princess &princess, const Player &player);
+		Game(const World &world, const unsigned int &distance, const unsigned int &timeSpend);
 		
 		
 		/// GETTERS
@@ -67,19 +65,6 @@ class Game{
 		*\return current time 
 		*/
 		inline unsigned int getTimeSpend()const{ return m_timeSpend;};
-
-		/**
-		*\brief Get princess of the Game   
-		*\return current princess
-		*/
-		inline Princess getPrincess()const{ return m_princess;};
-
-		/**
-		*\brief Get Player of the Game   
-		*\return current player 
-		*/
-		inline Player getPlayer()const{ return m_player;};
-
 
 		/// SETTERS
 		/**

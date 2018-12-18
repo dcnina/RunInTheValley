@@ -22,12 +22,12 @@
 #define __BONUS__
 
 #include <glimac/Object.hpp>
+#include <ctime>
 
 class Bonus : public Object{
 	private:
 		unsigned int m_type; /*!< Bonus' type */
-		unsigned int m_startTime; /*!< Bonus start time */
-		unsigned int m_endTime; /*!< Bonus end time */
+		unsigned int m_time; /*!< Bonus start time */
 
 	public:
 		///CONSTRUCTOR
@@ -41,7 +41,7 @@ class Bonus : public Object{
 		*\brief Bonus Constructor
 		*\details Constructor of Bonus
 		*/
-		Bonus(const unsigned int &type, const unsigned int &startTime, const unsigned int &endTime);
+		Bonus(const unsigned int &type, const unsigned int &_time);
 
 
 		///GETTERS
@@ -49,20 +49,29 @@ class Bonus : public Object{
 		*\brief Get type of the bonus
 		*\return current type
 		*/
-		inline unsigned int getType() const{ return m_type; }
+		inline unsigned int getType() const{ return m_type;}
 
 		/**
 		*\brief Get start time of the bonus
 		*\return current start time
 		*/
-		inline unsigned int getStartTime() const{ return m_startTime; }
+		inline unsigned int getTime() const{ return m_time;}
+
+
+		///SETTERS
+		/**
+		*\brief Set type of bonus
+		*/
+		inline void setType(const unsigned int type) { m_type = type;}
 
 		/**
-		*\brief Get end time of the bonus
-		*\return current end time
+		*\brief Set start time of bonus
 		*/
-		inline unsigned int getEndTime() const{ return m_endTime; }
+		inline void setTime(const unsigned int _time) { m_time = _time;}
 
+
+		///METHODS
+		inline void decrementTime(){ if (getTime() > 0){m_time--;}};
 
 		///DESTRUCTOR
 		/**

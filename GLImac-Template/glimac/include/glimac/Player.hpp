@@ -20,6 +20,7 @@
 #include <string>
 #include <iostream>
 #include <glimac/Model.hpp>
+ #include <glimac/Bonus.hpp>
 
 #ifndef __PLAYER__
 #define __PLAYER__
@@ -52,25 +53,25 @@ class Player{
 		*\brief Get pseudo of the player
 		*\return current pseudo
 		*/
-		inline std::string getPseudo() const{ return m_pseudo; }
+		inline std::string getPseudo() const{ return m_pseudo;}
 
 		/**
 		*\brief Get score of the player
 		*\return current score
 		*/
-		inline unsigned int getScore() const{ return m_score; }
+		inline unsigned int getScore() const{ return m_score;}
 
 		/**
-		*\brief Get money of the player
+		*\brief Get  of the player
 		*\return current money
 		*/
-		inline unsigned int getMoney() const{ return m_money; }
+		inline unsigned int getMoney() const{ return m_money;}
 
 		/**
 		*\brief Get model of the player
 		*\return current model
 		*/
-		inline Model getModel() const{ return m_model; }
+		inline Model getModel() const{ return m_model;}
 
 
 		///SETTERS
