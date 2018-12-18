@@ -47,10 +47,12 @@ class Render{
 
 	public:
 
-		glimac::Program m_prog;
+		glimac::Program *m_prog;
 		glm::mat4 m_projMatrix = glm::perspective(glm::radians(70.f),8.0f/6.0f,0.1f,100.f);
 		glm::mat4 m_MVMatrix = glm::translate(glm::mat4(),glm::vec3(0.0f, 0.0f, -5.0f));
-		Render(std::string vShader, std::string fShader);
+		Render(){};
+		Render(const Render& render);
+		Render(glimac::Program *prog);
 
 		void reset() const;
 		void sendLight(glm::mat4 viewMatrix) const;

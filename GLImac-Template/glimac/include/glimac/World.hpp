@@ -29,6 +29,7 @@
 #include <glimac/Princess.hpp>
 #include <glimac/Player.hpp>
 #include <glimac/Model.hpp>
+#include <glimac/Render.hpp>
 
 class World{
 	private:
@@ -39,6 +40,7 @@ class World{
 		Princess m_princess; //!< Character of the game 
 		Player m_player; //!< Player of the game
 		std::vector<Model> m_listModel; //!< Model list of the world
+		Render m_render; //!< Render for the drawing
 
 	public:
 		//CONSTRUCTOR
@@ -46,14 +48,14 @@ class World{
 		*\brief World default constructor   
 		*\details Constructor by default of World
 		*/
-		World();
+		World(){};
 
 		/**
 		*\brief World constructor   
 		*\details Constructor of World
 		*/
-		World(const Map &map, const GLuint &backgroundTexture, const double &speed, std::vector<Bonus> listBonus, Princess princess, Player player, std::vector<Model> listModel);
-
+		World(const Map &map, const GLuint &backgroundTexture, std::vector<Bonus> listBonus, Princess princess, Player player, std::vector<Model> listModel,Render render);
+		World(const World& world);
 
 		// GETTERS
 		/**
@@ -109,6 +111,8 @@ class World{
 		void addBonus(unsigned int m_type, unsigned int m_time);
 
 		void deleteBonus();
+
+		void drawWorld();
 
 		/**
 		*\brief   

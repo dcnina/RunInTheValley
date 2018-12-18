@@ -13,6 +13,10 @@
 #include <glimac/Model.hpp>
 #include <glimac/Render.hpp>
 #include <glimac/Map.hpp>
+#include <glimac/Bonus.hpp>
+#include <glimac/Princess.hpp>
+#include <glimac/Player.hpp>
+#include <glimac/World.hpp>
 
 using namespace glimac;
 
@@ -42,9 +46,9 @@ int main(int argc, char** argv) {
     const GLuint VERTEX_ATTR_NORM = 1;
 
     FilePath appPath(argv[0]);
-    Render render(appPath.dirPath() + "shaders/3D.vs.glsl",appPath.dirPath() + "shaders/pointlight.fs.glsl");
-
-    Model model1("assets/obj/dice.obj");
+    glimac::Program prog = glimac::loadProgram(appPath.dirPath() + "shaders/3D.vs.glsl",appPath.dirPath() + "shaders/pointlight.fs.glsl");
+    Render render(&prog);
+    Model princessModel("assets/obj/princess.obj");
 
     Model bloc("assets/obj/bloc.obj");
     Model bonus("assets/obj/bonus.obj");
@@ -55,8 +59,17 @@ int main(int argc, char** argv) {
 
     Map map("./assets/map/level.txt");
     map.printMap();
+    std::vector<Bonus> listBonus;
+    Princess princess;
+    Player player("pseudo",coin);
+    std::vector<Model> globalModel;
+
+    globalModel.push_back(princessModel);
+    globalModel.push_back(bloc);
+    globalModel.push_back(bonus);
+    globalModel.push_back(coin);
     
-   // World(const Map &map, const GLuint &backgroundTexture, const double &speed, std::vector<Bonus> listBonus, Princess princess, Player player, std::vector<Model> listModel);
+    World world(map, 0, listBonus, princess, player, globalModel, render);
 
 
     //DEPTH Test of the GPU
@@ -115,14 +128,15 @@ int main(int argc, char** argv) {
          * HERE SHOULD COME THE RENDERING CODE
          *********************************/
 
-        render.reset();
+        /*render.reset();
         MVMatrix = glm::translate(glm::mat4(), glm::vec3(0, 0, 0)); 
 
         MVMatrix = viewMatrix*MVMatrix;
         render.sendMatrix(MVMatrix);
 
         render.sendLight(viewMatrix);
-        bonus.draw();
+        bonus.draw();*/
+        world.drawWorld();
 
         // Update the display
         windowManager.swapBuffers();

@@ -26,6 +26,7 @@ class Render3D{
 	private:
 	public:
 		Render3D();
+
 		~Render3D();
 	
 };
