@@ -37,18 +37,19 @@ class Render{
 	    GLuint m_uShininess;
 	    GLuint m_uLightDir_vs;
 	    GLuint m_uLightIntensity;
+	    GLuint m_uTexture;
 
 	    glm::vec3 m_Kd = glm::vec3(0.5,0.5,0.5);
 		glm::vec3 m_Ks = glm::vec3(0.5,0.5,0.5);
 		float m_Shininess = 0.5;
 		glm::vec4 m_LightDir_vs = glm::vec4(1, 1, 1, 0);
-		glm::vec3 m_LightIntensity = glm::vec3(10.0,10.0,10.0);
+		glm::vec3 m_LightIntensity = glm::vec3(50.0,50.0,50.0);
 
 	public:
 
 		glimac::Program m_prog;
 		glm::mat4 m_projMatrix = glm::perspective(glm::radians(70.f),8.0f/6.0f,0.1f,100.f);
-
+		glm::mat4 m_MVMatrix = glm::translate(glm::mat4(),glm::vec3(0.0f, 0.0f, -5.0f));
 		Render(std::string vShader, std::string fShader);
 
 		void reset() const;

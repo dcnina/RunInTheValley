@@ -21,6 +21,7 @@ Render::Render(std::string vShader, std::string fShader){
     m_uShininess = glGetUniformLocation(m_prog.getGLId(),"uShininess");
     m_uLightDir_vs = glGetUniformLocation(m_prog.getGLId(),"uLightDir_vs");
     m_uLightIntensity = glGetUniformLocation(m_prog.getGLId(),"uLightIntensity");
+    m_uTexture = glGetUniformLocation(m_prog.getGLId(), "uTexture");
 
     m_prog.use();
 }

@@ -43,11 +43,11 @@ int main(int argc, char** argv) {
     FilePath appPath(argv[0]);
     Render render(appPath.dirPath() + "shaders/3D.vs.glsl",appPath.dirPath() + "shaders/pointlight.fs.glsl");
 
-    Model model1(appPath.dirPath() + "assets/obj/dice.obj");
+    Model model1("assets/obj/dice.obj");
 
-    Model bloc(appPath.dirPath() + "assets/obj/bloc.obj");
-    Model bonus(appPath.dirPath() + "assets/obj/bonus.obj");
-    Model coin(appPath.dirPath() + "assets/obj/coin.obj");
+    Model bloc("assets/obj/bloc.obj");
+    Model bonus("assets/obj/bonus.obj");
+    Model coin("assets/obj/coin.obj");
 
     glm::mat4 MVMatrix;
     glm::mat4 viewMatrix;
@@ -110,12 +110,12 @@ int main(int argc, char** argv) {
          *********************************/
 
         render.reset();
-        render.sendLight(viewMatrix);
         MVMatrix = glm::translate(glm::mat4(), glm::vec3(0, 0, 0)); 
 
         MVMatrix = viewMatrix*MVMatrix;
         render.sendMatrix(MVMatrix);
 
+        render.sendLight(viewMatrix);
         bonus.draw();
 
         // Update the display
