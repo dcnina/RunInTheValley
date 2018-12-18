@@ -23,7 +23,7 @@
 
 
 class DynamicObject{
-	private:
+	protected:
 		unsigned int m_relativePosition = 1; //!< Object position
 
 	public:

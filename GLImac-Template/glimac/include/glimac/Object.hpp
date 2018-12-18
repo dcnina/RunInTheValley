@@ -28,13 +28,37 @@ class Object{
 		std::vector<double> m_position; //!< Object position
 
 	public:
-		//CONSTRUCTOR
+		///CONSTRUCTOR
 		/**
 		*\brief Object constructor   
 		*/
 		Object(){};
 
-		//DESTRUCTOR
+		/**
+		*\brief Object constructor
+		*/
+		Object(const std::vector<double> &position);
+
+
+		///GETTER
+		/**
+		*\brief Get the current position of object   
+		*\return the current object position
+		*/
+		inline std::vector<double> getPosition()const{ return m_position;}
+
+
+		///SETTER
+		/**
+		*\brief Set the current position of a Object
+		*/
+		inline void setPosition(const std:vector<double> &position){ 
+			for(unsigned int i =0; i<position.size(); i++)
+				m_position[i] = position[i];
+		}
+
+
+		///DESTRUCTOR
 		/**
 		*\brief Object destructor   
 		*/
