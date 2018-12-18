@@ -111,6 +111,19 @@ class Player{
 		*/
 		inline void removeMoney(unsigned int &nbCoins){ m_money -= nbCoins; };
 
+		/**
+		*\brief add points to the player score       
+		*\param number of points
+		*/
+		inline void addScore(unsigned int &score){ m_score += score; }
+
+		/**
+		*\brief remove coins of the player money     
+		*\details remove the number of coins used of the player's money  
+		*\param number of coins
+		*/
+		inline void removeScore(unsigned int &score){ m_score -= score; };
+
 
 		///DESTRUCTOR
 		/**

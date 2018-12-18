@@ -30,7 +30,7 @@ class Game{
 		World m_world; //!< World 
 		unsigned int m_distance; //!< Distance traveled during the game 
 		/* à voir pour le meilleur score */
-		unsigned int m_timeSpend; //!< Time spend during the game
+		//unsigned int m_timeSpend; //!< Time spend during the game
 
 	public:
 		///CONSTRUCTOR
@@ -44,7 +44,7 @@ class Game{
 		*\brief Game constructor   
 		*\details Constructor of Game
 		*/
-		Game(const World &world, const unsigned int &distance, const unsigned int &timeSpend);
+		Game(const World &world, const unsigned int &distance);
 		
 		
 		/// GETTERS
@@ -60,11 +60,6 @@ class Game{
 		*/
 		inline unsigned int getDistance()const{ return m_distance;};
 
-		/**
-		*\brief Get time of the Game   
-		*\return current time 
-		*/
-		inline unsigned int getTimeSpend()const{ return m_timeSpend;};
 
 		/// SETTERS
 		/**
@@ -73,13 +68,21 @@ class Game{
 		*/
 		inline void setDistance(const unsigned int &distance){ m_distance = distance;};
 
-		/**
-		*\brief Set time of the Game   
-		*\details set the current time 
-		*/
-		inline void setTimeSpend(const unsigned int &timeSpend){ m_timeSpend = timeSpend;};
 
 		/// METHODS
+		/**
+		*\brief increment the travelled distance      
+		*\param the distance to increment
+		*/
+		inline void incrementDistance(unsigned int distance){ m_distance += distance;};
+
+		/**
+		*\brief check the end of the game      
+		*\ return true if the end is ended, else false
+		*/
+		bool endGame();
+
+
 
 		///DESTRUCTOR
 		/**
