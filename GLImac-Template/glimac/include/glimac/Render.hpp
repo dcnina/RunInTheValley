@@ -21,6 +21,10 @@
 #ifndef __RENDER__
 #define __RENDER__
 
+#include <GL/glew.h>
+#include <glimac/glm.hpp>
+#include <GL/gl.h>
+#include <glimac/Program.hpp>
 
 class Render{
 	private:
@@ -34,7 +38,7 @@ class Render{
 	    GLuint m_uLightPos_vs;
 	    GLuint m_uLightIntensity;
 
-	    glm::vec3 m_uKd = glm::vec3(0.5,0.5,0.5);
+	    glm::vec3 m_Kd = glm::vec3(0.5,0.5,0.5);
 		glm::vec3 m_Ks = glm::vec3(0.5,0.5,0.5);
 		float m_Shininess = 0.5;
 		glm::vec4 m_LightPos_vs = glm::vec4(2.0,2.0,2.0,0.0);

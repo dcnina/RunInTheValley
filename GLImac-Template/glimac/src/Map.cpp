@@ -22,28 +22,83 @@ Map::Map(const std::vector<Bloc> &listBlocs, const std::vector<Enemy> &listEnemi
 		m_listBlocs[i] = listBlocs[i];
 
 	for(unsigned int i = 0; i < listEnemies.size(); i++)
-		m_listEnemies] = listEnemies[i];
+		m_listEnemies[i] = listEnemies[i];
 }
 
 void Map::initialiseListBlocFromFile(const char* filename){
-	/*fstream file;
+	ifstream file(filename, ios::in);
 
-	file.open(filename, ios::in);
-
-	if(!file){
-		////////////exception
-		std::cout << "error in opening file " << std::endl;
-		return 0;
+	if(file){
+		std::string contenu;
+		int nbBlocks = 0;
+		while(file.ignore(std::numeric_limits<int>::max(), '\n')){
+			++nbBlocks;
+		}		
 	}
+	std::cout << "nb blocks : " << nbBlocks << std::endl;
 
-	char ch;
-	int nbLines = 0;
+	// if(file){
+	// 	char 
+	// }
 
-	nbLines = fgetc(file);
+	// char ch;
+	// int nbLines = 0;
 
-	for(int i = 0; i<nbLines; i++){
+	// nbLines = fgetc(file);
+
+	// for(int i = 0; i<nbLines; i++){
 		
-	}*/
+	// }
+if(fichier)  // si l'ouverture a fonctionné
+
+        {
+
+                string contenu;  // déclaration d'une chaîne qui contiendra la ligne lue
+
+                getline(fichier, contenu);  // on met dans "contenu" la ligne
+
+                cout << contenu;  // on affiche la ligne
+
+ 
+
+                fichier.close();
+
+        }
+
+if(fichier)
+
+{
+    string ligne;
+
+    while(getline(fichier, ligne))  // tant que l'on peut mettre la ligne dans "contenu"
+
+    {
+
+        cout << ligne << endl;  // on l'affiche
+
+    }
+
+}
+
+if(fichier)
+
+        {
+
+                char caractere;  // notre variable où sera stocké le caractère
+
+                fichier.get(caractere);  // on lit un caractère et on le stocke dans caractere
+
+                cout << caractere;  // on l'affiche
+
+ 
+
+                fichier.close();
+
+        }
+
+
+
+
 }
 
 
