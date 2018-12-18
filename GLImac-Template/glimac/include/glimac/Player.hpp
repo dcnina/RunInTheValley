@@ -95,7 +95,7 @@ class Player{
 		inline void setModel(const Model &model) { m_model = model; }
 
 
-		///METHODES
+		///METHODS
 		/**
 		*\brief add coins to the player money     
 		*\details add the number of coins earned to the player's money  

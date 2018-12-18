@@ -27,6 +27,7 @@ class RenderInterface{
 	public:
 		RenderInterface();
 		~RenderInterface();
+		void renderMenu();
 	
 };
 

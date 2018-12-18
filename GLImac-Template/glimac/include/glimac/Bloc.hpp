@@ -22,11 +22,14 @@
 #define __BLOC__
 
 #include <vector>
-
+#include <glimac/Object.hpp>
 
 class Bloc : public Object{
 	private:
-		std::vector<std::vector<char>> m_listTypes; //!< List of blocks' types 
+		/* voir pour utiliser glm::vec3 ...*/
+		std::vector<std::vector<char>> m_matriceTypes; //!< Matrice of blocks' types
+		int m_rows = 4; 
+		int m_cols = 3; 
 
 	public:
 		///CONSTRUCTOR
@@ -40,7 +43,13 @@ class Bloc : public Object{
 		*\brief Bloc Constructor
 		*\details Constructor of Bloc
 		*/
-		Bloc(const std::vector<std::vector<char>> &listTypes);
+		Bloc(const std::vector<std::vector<char>> &matriceTypes);
+
+		///GETTER
+		inline std::vector<std::vector<char>> getMatriceTypes() const { return m_matriceTypes;}
+
+		///SETTER
+
 
 		///DESTRUCTOR
 		/**

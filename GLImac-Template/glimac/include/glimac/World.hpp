@@ -48,16 +48,40 @@ class World{
 
 		// GETTERS
 		/**
-		*\brief Getter World of the Game   
-		*\return current World 
+		*\brief Get the map of the World   
+		*\return current Map 
 		*/
 		inline Map getMap()const{ return m_map;};
 
+		/**
+		*\brief Get backgroundTexture   
+		*\return current GLuint background texture 
+		*/
+		inline GLuint getBackgroundTexture()const{ return m_backgroundTexture;};
+
+		/**
+		*\brief Get current speed of the World   
+		*\return current speed 
+		*/
+		inline double getSpeed()const{ return m_speed;};
+
+
 		/// SETTERS
 		/**
-		*\brief Set distance of the Game   
-		*\details set the current distance
+		*\brief Set current map of the World  
 		*/
+		inline void setMap(const Map &map){ m_map = map;};
+
+		/**
+		*\brief Set current backgroundTexture of the World   
+		*/
+		inline void setBackgroundTexture(const GLuint &backgroundTexture){ m_backgroundTexture = backgroundTexture;};
+
+		/**
+		*\brief Set current speed of the World   
+		*/
+		inline void setSpeed(const double &speed){ m_speed = speed;};
+
 
 
 		/// METHODS

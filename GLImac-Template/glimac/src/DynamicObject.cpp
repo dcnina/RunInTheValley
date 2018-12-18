@@ -6,3 +6,14 @@
 
 
 #include <glimac/DynamicObject.hpp>
+
+
+
+
+DynamicObject::DynamicObject()
+	:m_relativePosition(1){}
+
+DynamicObject::DynamicObject(const unsigned int &relativePosition)
+	:m_relativePosition(relativePosition){}
+
+DynamicObject::~DynamicObject(){}

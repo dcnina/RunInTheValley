@@ -27,29 +27,25 @@
 
 class Menu{
 	private:
-		unsigned int m_gameState; //!< game State
-		unsigned int m_windowDimension; //!< window dimension
+		std::string m_backgroundImage //!< Background Image of the Menu
 	public:
 		///CONSTRUCTOR
 		/**
 		*\brief Default constructor   
-		*\details Constructor by default of Player
+		*\details Constructor by default of Menu
 		*/
-		GameManager();
-
-		///GETTERS
-		/**
-		*\brief Get game State
-		*\return current gameState
-		*/
-		inline unsigned int getGameState() const{ return m_gameState; }
+		Menu(std::string backgroundImage);
 
 		///METHODS
 		/**
 		*\brief Get game State
 		*\return current gameState
 		*/
-		void launchGame();
+		void drawMenu();
+
+		void drawBackground();
+
+		void drawButtons();
 
 		/**
 		*\brief Initialize the game, create Window, load GLEW
