@@ -6,5 +6,5 @@
 
 
 #include <glimac/Princess.hpp>
-
-Princess::~Princess(){};
+Princess::Princess(){}
+Princess::~Princess(){}
