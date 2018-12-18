@@ -49,7 +49,7 @@ class GameManager{
 		*\brief Get game State
 		*\return current gameState
 		*/
-		void launchGame();
+		void launchGame(int argc, char** argv);
 
 		/**
 		*\brief Initialize the game, create Window, load GLEW

@@ -7,16 +7,23 @@
 
 #include <glimac/GameManager.hpp>
 #include <glimac/SDLWindowManager.hpp>
+#include <glimac/FilePath.hpp>
 #include <GL/glew.h>
 #include <iostream>
+#include <glimac/Menu.hpp>
 
 GameManager::GameManager()
  :m_gameState(0), m_windowDimension(800){}
 
 
-void GameManager::launchGame(){
+void GameManager::launchGame(int argc, char** argv){
 	//create the SDL window + GLEW
 	glimac::SDLWindowManager windowManager = this->initializeGame();
+
+    glimac::FilePath appPath(argv[0]);
+    Menu menu(appPath.dirPath()+"assets/textures/menu.png");
+    menu.initializeMenu(appPath.dirPath()+"shaders/tex2D.vs.glsl",
+                                appPath.dirPath()+"shaders/tex2D.fs.glsl");
 
 	// Application loop:
     bool done = false;

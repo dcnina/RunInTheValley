@@ -6,3 +6,5 @@
 
 
 #include <glimac/Princess.hpp>
+
+Princess::~Princess(){};

@@ -21,10 +21,10 @@
 #ifndef __WORLD__
 #define __WORLD__
 
-#include <glimac/World.hpp>
-#include <glimac/Map.hpp>
 #include <GL/glew.h>
 
+#include <glimac/World.hpp>
+#include <glimac/Map.hpp>
 class World{
 	private:
 		Map m_map; //!< Map of World

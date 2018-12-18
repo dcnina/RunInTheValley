@@ -26,7 +26,7 @@ Map::Map(const std::vector<Bloc> &listBlocs, const std::vector<Enemy> &listEnemi
 }
 
 void Map::initialiseListBlocFromFile(const char* filename){
-	ifstream file(filename, ios::in);
+	/*ifstream file(filename, ios::in);
 
 	if(file){
 		std::string contenu;
@@ -97,7 +97,7 @@ if(fichier)
         }
 
 
-
+*/
 
 }
 
