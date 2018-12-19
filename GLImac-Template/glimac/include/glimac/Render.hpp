@@ -43,7 +43,7 @@ class Render{
 		glm::vec3 m_Ks = glm::vec3(0.5,0.5,0.5);
 		float m_Shininess = 0.5;
 		glm::vec4 m_LightDir_vs = glm::vec4(1, 1, 1, 0);
-		glm::vec3 m_LightIntensity = glm::vec3(50.0,50.0,50.0);
+		glm::vec3 m_LightIntensity = glm::vec3(30.0,30.0,30.0);
 
 	public:
 

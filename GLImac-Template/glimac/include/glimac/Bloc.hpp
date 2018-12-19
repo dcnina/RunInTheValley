@@ -23,6 +23,8 @@
 
 #include <vector>
 #include <glimac/Object.hpp>
+#include <glimac/Model.hpp>
+#include <glimac/Render.hpp>
 #include <stdio.h>
 #define ROWS 4 
 #define COLS 3 
@@ -60,7 +62,13 @@ class Bloc : public Object{
 		*\return current direction
 		*/
 		inline char getDirection() const { return m_direction;}
-
+		
+		/**
+		*\brief Get index of the block   
+		*\return current index
+		*/
+		inline int getIndex() const { return m_index;};
+		
 
 
 		///SETTER
@@ -78,6 +86,8 @@ class Bloc : public Object{
 
 		///METHODS
 		void printBlock();
+
+		void drawBlock(std::vector<Model>  &listModel, glm::mat4 viewMatrix, Render render,glm::mat4 MVMatrix);
 
 		///DESTRUCTOR
 		/**

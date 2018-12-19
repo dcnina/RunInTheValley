@@ -19,5 +19,5 @@ vec3 blinnPhong(){
 
 void main()
 {
-	fFragColor = vec3(texture(uTexture,vTexCoords).xyz)*blinnPhong();
+	fFragColor = vec3(texture(uTexture,vTexCoords).xyz);
 };
