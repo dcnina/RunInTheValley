@@ -57,6 +57,17 @@ class Enemy : public DynamicObject{
 		inline void setProximity(const unsigned int &proximity) { m_proximity = proximity; }
 
 
+		///METHODS
+		/**
+		*\brief decrease distance of proximity of the enemy
+		*/
+		inline void decreaseProximity(){ m_proximity--; }
+
+		/**
+		*\brief increase distance of proximity of the enemy
+		*/
+		inline void increaseProximity(){ m_proximity++; }
+
 		///DESTRUCTOR
 		/**
 		*\brief Default destructor   
