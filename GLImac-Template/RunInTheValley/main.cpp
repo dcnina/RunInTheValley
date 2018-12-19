@@ -46,7 +46,7 @@ int main(int argc, char** argv) {
     const GLuint VERTEX_ATTR_NORM = 1;
 
     FilePath appPath(argv[0]);
-    glimac::Program prog = glimac::loadProgram(appPath.dirPath() + "shaders/3D.vs.glsl",appPath.dirPath() + "shaders/pointlight.fs.glsl");
+    glimac::Program prog = glimac::loadProgram(appPath.dirPath() + "shaders/3D.vs.glsl",appPath.dirPath() + "shaders/directionallight.fs.glsl");
     Render render(&prog);
     Model princessModel("assets/obj/princess.obj");
 
@@ -70,23 +70,23 @@ int main(int argc, char** argv) {
     globalModel.push_back(coin);
     
     World world(map, 0, listBonus, princess, player, globalModel, render);
-
+    
 
     //DEPTH Test of the GPU
     glEnable(GL_DEPTH_TEST);
 
     //Create a new Camera
 
-    TrackballCamera trackCamera;
+    /*TrackballCamera trackCamera;
     int prevX = 0;
-    int prevY = 0;
+    int prevY = 0;*/
 
     // Application loop:
     bool done = false;
     while(!done) {
 
         glClearColor( 255, 255 ,255, 1.0 );
-        viewMatrix = trackCamera.getViewMatrix();
+       /* viewMatrix = trackCamera.getViewMatrix();*/
         // Event loop:
         SDL_Event e;
         while(windowManager.pollEvent(e)) {
@@ -94,7 +94,7 @@ int main(int argc, char** argv) {
                 done = true; // Leave the loop after this iteration
             }
             else if(e.type == SDL_MOUSEMOTION){
-                glm::ivec2 v = windowManager.getMousePosition();
+               /* glm::ivec2 v = windowManager.getMousePosition();
                 if(prevX-v.x>0){
                     trackCamera.rotateLeft(5);
                 }
@@ -108,17 +108,17 @@ int main(int argc, char** argv) {
                     trackCamera.rotateUp(-5);
                 }
                 prevX = v.x;
-                prevY=v.y;
+                prevY=v.y;*/
             }
             else if(e.type == SDL_MOUSEBUTTONDOWN){
-                if(e.button.button == SDL_BUTTON_WHEELUP) // scroll up
+                /*if(e.button.button == SDL_BUTTON_WHEELUP) // scroll up
                 {
                     trackCamera.moveFront(1.0);
                 }
                 else if(e.button.button == SDL_BUTTON_WHEELDOWN) // scroll down
                 {
                     trackCamera.moveFront(-1.0);
-                }
+                }*/
 
             }
         }

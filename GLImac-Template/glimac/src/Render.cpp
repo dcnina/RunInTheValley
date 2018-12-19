@@ -7,7 +7,6 @@
 #include <iostream>
 #include <glimac/Render.hpp>
 
-
 Render::Render(const Render& render)
     :m_prog(render.m_prog), m_uMVPMatrix(render.m_uMVPMatrix), m_uMVMatrix(render.m_uMVMatrix),m_uNormalMatrix(render.m_uNormalMatrix),    m_uKd(render.m_uKd), m_uKs(render.m_uKs), m_uShininess(render.m_uShininess), m_uLightDir_vs(render.m_uLightDir_vs),m_uLightIntensity(render.m_uLightIntensity), m_uTexture(render.m_uTexture),m_Kd(render.m_Kd), m_Ks(render.m_Ks),m_Shininess(render.m_Shininess),m_LightDir_vs(render.m_LightDir_vs),m_LightIntensity(render.m_LightIntensity), m_projMatrix(render.m_projMatrix),m_MVMatrix(render.m_MVMatrix){}
 
