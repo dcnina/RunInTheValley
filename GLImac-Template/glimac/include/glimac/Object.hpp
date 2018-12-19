@@ -52,7 +52,7 @@ class Object{
 		/**
 		*\brief Set the current position of a Object
 		*/
-		inline void setPosition(const std:vector<double> &position){ 
+		inline void setPosition(const std::vector<double> &position){ 
 			for(unsigned int i =0; i<position.size(); i++)
 				m_position[i] = position[i];
 		}
