@@ -24,6 +24,7 @@
 #include <glimac/World.hpp>
 #include <glimac/Princess.hpp>
 #include <glimac/Player.hpp>
+#include <glimac/Bonus.hpp>
 
 class Game{
 	private:
@@ -76,12 +77,19 @@ class Game{
 		*/
 		inline void incrementDistance(unsigned int distance){ m_distance += distance;};
 
+
 		/**
 		*\brief check the end of the game      
 		*\ return true if the end is ended, else false
 		*/
 		bool endGame();
 
+		void checkBonusAndCoins();
+
+		/**
+		*\brief play a game      
+		*/
+		void playGame();
 
 
 		///DESTRUCTOR

@@ -56,7 +56,7 @@ class World{
 		*/
 		World(const Map &map, const GLuint &backgroundTexture, std::vector<Bonus> listBonus, Princess princess, Player player, std::vector<Model> listModel,Render render);
 		
-		
+
 		World(const World& world);
 
 		// GETTERS
@@ -65,6 +65,12 @@ class World{
 		*\return current Map 
 		*/
 		inline Map getMap()const{ return m_map;};
+
+		/**
+		*\brief Get the map of the World   
+		*\return current Map 
+		*/
+		inline std::vector<Bonus> getListBonus()const{ return m_listBonus;};
 
 		/**
 		*\brief Get backgroundTexture   

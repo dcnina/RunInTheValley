@@ -73,6 +73,8 @@ class Bonus : public Object{
 		///METHODS
 		inline void decrementTime(){ if (getTime() > 0){m_time--;}};
 
+		Bonus generateBonus();
+
 		///DESTRUCTOR
 		/**
 		*\brief Default destructor   
