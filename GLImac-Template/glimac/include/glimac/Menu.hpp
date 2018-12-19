@@ -5,7 +5,7 @@
  */
 
 /**
- *\file GameManager.hpp
+ *\file Menu.hpp
  *\author  {Audrey.C, Nina.DC, Lucas.L}
  *\date 17 december 2018
  *\brief class Menu
@@ -24,45 +24,55 @@
 #include <GL/gl.h>
 #include <vector>
 #include <glimac/Program.hpp>
+#include <glimac/Texture2D.hpp>
+#include <glimac/Button.hpp>
 
 #ifndef __MENU__
 #define __MENU__
 
 
-struct Vertex2DUV{
-    glm::vec2 position;
-    glm::vec2 texture;
-    Vertex2DUV(const glm::vec2 &pos, const glm::vec2 &tex):position(pos), texture(tex){};
-};
-
-
 class Menu{
 	private:
-		GLuint m_idText;
-		std::string m_backgroundImage; //!< Background Image of the Menu
-		//std::vector<Button> m_buttons;
-		GLuint uModelMatrix;
-		GLuint uTexture;
+		Texture2D m_menuTexture;
+		std::vector<Button> m_buttons;
+		// GLuint uModelMatrix;
+		// GLuint uTexture;
+
 	public:
 		
-		glimac::Program m_prog;
 		///CONSTRUCTOR
 		/**
 		*\brief Default constructor   
 		*\details Constructor by default of Menu
 		*/
-		Menu(std::string bgImage);
+		Menu(std::string textureImage);
 
-		///METHODS
 		/**
-		*\brief Get game State
-		*\return current gameState
+		*\brief initialize the texture 
+		*\params vShaders and fShader
+		*\return gluint : vbo 
 		*/
-		void drawMenu(std::string vShader, std::string fShader);
-		void initializeMenu(std::string vShader, std::string fShader);
-		void drawBackground(GLuint &vao);
+		GLuint initializeMenu(std::string vShader, std::string fShader);
 
-		void drawButtons();
+		/**
+		*\brief create and bind the menu vao 
+		*\params gluint vbo
+		*\return gluint : vao 
+		*/
+		GLuint createMenu(const GLuint &vbo);
+
+		/**
+		*\brief draw the background menu texture 
+		*\params gluint vao 
+		*/
+		void drawBackground(const GLuint &vao);
+
+		/**
+		*\brief free the menu texture, vao and vbo 
+		*\params vao and vbo 
+		*/
+		void freeMenuTexture(const GLuint &vao, const GLuint &vbo);	
+		
 
 		/**
 		*\brief Initialize the game, create Window, load GLEW
@@ -79,12 +89,5 @@ class Menu{
 	
 };
 
-class Button{
-	private:
-		int m_posX;
-		int m_posY;
-	public:
-		void drawButton();
-};
 
 #endif
