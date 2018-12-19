@@ -86,13 +86,11 @@ class Princess : public DynamicObject{
 		*\brief detect collision which make the player lose
 		*\details detect the collision of a block "P" or "O" or "V" with the princess 
 		*\return 0 : nothing 
-		*\return 1 : collision with a wall or an obstacle (princess die)
-		*\return 2 : fall in a empty block
-		*\return 3 : collision with a small obstacle (princess doesn't die)
-		*\return 4 : Bonus
-		*\return 5 : Coins
+		*\return 1 : collision with a wall or an obstacle (princess die) or fall in a empty block
+		*\return 2 : Bonus
+		*\return 3 : Coins
 		*/
-		int collisionPrincessWithBlock(Bloc &bloc);
+		int collisionWithBlock(Bloc &bloc);
 
 		///DESTRUCTOR
 		/**
