@@ -7,7 +7,7 @@
 #include <iostream>
 #include <glimac/Bloc.hpp>
 #include <stdio.h>
-#define SIZEX 0.33333333
+#define SIZEX 0.33333
 #define SIZEY 1.0
 
 
@@ -45,31 +45,49 @@ void Bloc::printBlock(){
 
 void Bloc::drawBlock(std::vector<Model> &listModel, glm::mat4 viewMatrix, Render render,glm::mat4 MVMatrix){
 
-    glm::mat4 newMVMatrix;
-    MVMatrix = glm::scale(MVMatrix,glm::vec3(0.333,1.0,1.0));
+    glm::mat4 newMVMatrix, tmpMVMatrix;
+    MVMatrix = glm::scale(MVMatrix,glm::vec3(SIZEX,1.0,1.0));
+    MVMatrix = glm::translate(MVMatrix, glm::vec3(-1.0, 0.0, 0));
+    render.sendMatrix(MVMatrix);
+
     for(int i = ROWS-1; i>=0; i--){
+        if(i == ROWS-1)
+            MVMatrix = glm::translate(MVMatrix,glm::vec3(0, SIZEY, 0));
+        else{
+            MVMatrix = glm::translate(MVMatrix,glm::vec3(0, SIZEY/2, 0));    
+        }
+        tmpMVMatrix = MVMatrix; 
     	for(int j = 0; j<COLS;j++){
-    		MVMatrix = glm::translate(MVMatrix, glm::vec3(j*SIZEX, (ROWS-(i+1))*SIZEY, 0));
-        	
-        	render.sendMatrix(MVMatrix);
         	switch(m_matrixTypes[i][j]){
         		case 'B': 	//Bonus
+                    newMVMatrix = glm::scale(tmpMVMatrix,glm::vec3(3.0,1.0,1.0));
+                    render.sendMatrix(newMVMatrix);
     				listModel[2].draw();
         			break;
         		case 'F': 	//Full
+                    render.sendMatrix(tmpMVMatrix);
     				listModel[1].draw();
         			break;
-        		case '0':	//Obstacle
-    				listModel[1].draw();
+        		case 'O':	//Obstacle
+                    if(i != ROWS-1){
+                        newMVMatrix = glm::scale(tmpMVMatrix,glm::vec3(1.0,SIZEY/2,1.0));
+                        newMVMatrix = glm::translate(newMVMatrix,glm::vec3(0, SIZEY/2, 0)); 
+                        render.sendMatrix(newMVMatrix);
+                    }
+                    else{
+                        render.sendMatrix(tmpMVMatrix);
+                    }
+    				listModel[4].draw();
         			break;
         		case 'C':	//Coins
-    				newMVMatrix = glm::rotate(MVMatrix, float(M_PI/2.0), glm::vec3(0, M_PI/2.0, 0));
-        			render.sendMatrix(newMVMatrix);
+                    newMVMatrix = glm::scale(tmpMVMatrix,glm::vec3(3.0,1.0,1.0));
+                    render.sendMatrix(newMVMatrix);
     				listModel[3].draw();
         			break;
         		default: 	//Empty
         			break;
         	}
+            tmpMVMatrix = glm::translate(tmpMVMatrix, glm::vec3(1.0, 0.0/*(ROWS-(i+1))*SIZEY*/, 0));
     	}
     }
 }

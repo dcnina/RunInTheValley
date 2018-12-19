@@ -1,7 +1,7 @@
 # Blender v2.79 (sub 0) OBJ File: 'untitled.blend'
 # www.blender.org
-mtllib bloc.mtl
-o Cube_Cube.001
+mtllib obstacle.mtl
+o Cube.001_Cube.000
 v 0.500000 -0.500000 -0.500000
 v 0.500000 -0.500000 0.500000
 v -0.500000 -0.500000 0.500000

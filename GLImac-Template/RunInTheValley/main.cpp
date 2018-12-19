@@ -53,6 +53,7 @@ int main(int argc, char** argv) {
     Model bloc("assets/obj/bloc.obj");
     Model bonus("assets/obj/bonus.obj");
     Model coin("assets/obj/coin.obj");
+    Model obstacle("assets/obj/obstacle.obj");
 
     glm::mat4 MVMatrix;
     glm::mat4 viewMatrix;
@@ -68,6 +69,7 @@ int main(int argc, char** argv) {
     globalModel.push_back(bloc);
     globalModel.push_back(bonus);
     globalModel.push_back(coin);
+    globalModel.push_back(obstacle);
     
     World world(map, 0, listBonus, princess, player, globalModel, render);
     
@@ -85,7 +87,7 @@ int main(int argc, char** argv) {
     bool done = false;
     while(!done) {
 
-        glClearColor( 255, 255 ,255, 1.0 );
+       // glClearColor( 255, 255 ,255, 1.0 );
        /* viewMatrix = trackCamera.getViewMatrix();*/
         // Event loop:
         SDL_Event e;
