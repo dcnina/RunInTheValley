@@ -29,6 +29,7 @@ class Map{
 	private:
 		std::vector<Bloc> m_listBlocs; //!< List of blocks 
 		std::vector<Enemy> m_listEnemies; //!< List of enemies
+		unsigned int m_listBlocsSize = 0; //!< Size of the list of blocks
 
 	public:
 		///CONSTRUCTOR
@@ -49,13 +50,20 @@ class Map{
 		*\brief Get list of blocks of the map   
 		*\return current list of blocks
 		*/
-		inline std::vector<Bloc> getListBlocs() const{ return m_listBlocs; }
+		inline std::vector<Bloc> getListBlocs() const{ return m_listBlocs;}
 
 		/**
 		*\brief Get list of enemies of the map   
 		*\return current list of enemies
 		*/
-		inline std::vector<Enemy> getListEnemies() const{ return m_listEnemies; }
+		inline std::vector<Enemy> getListEnemies() const{ return m_listEnemies;}
+
+		/**
+		*\brief Get size of the list of blocks of the map   
+		*\return size of the current list of blocks
+		*/
+		inline unsigned int getListBlocsSize() const{ return m_listBlocsSize;}
+
 
 		///SETTERS
 		/**
@@ -74,6 +82,11 @@ class Map{
 				m_listEnemies[i] = listEnemies[i];
 		}
 
+		/**
+		*\brief Set the size of the listBlocs of the map
+		*/
+		inline void setListBlocsSize(const unsigned int size) { m_listBlocsSize = size;}
+
 		///METHODS
 		/**
 		*\brief initialise list of Blocks   
@@ -85,11 +98,45 @@ class Map{
 		/**
 		*\brief create list of Blocks   
 		*\details create list of Blocks created
-		*\param 
+		*\param file 
 		*/
 		std::vector<Bloc> createListBlocFromFile(const char* &filename);
 		
+		/**
+		*\brief print elements of the map   
+		*\details print the current elements of the map 
+		*/
 		void printMap();
+
+		/**
+		*\brief add a bloc to listBlocs
+		*\details add a bloc to the current list of blocs
+		*/
+		inline void addBlocToList(const Bloc &bloc){ 
+			m_listBlocs.push_back(bloc);
+			m_listBlocsSize++;
+		};
+
+		/**
+		*\brief add an enemy to listEnemies
+		*\details add an enemy to the current list of enemies
+		*/
+		inline void addEnemyToList(const Enemy &enemy){ m_listEnemies.push_back(enemy);};
+
+		/**
+		*\brief delete a bloc of listBlocs at a given index
+		*\details delete a bloc to the current list of blocs at a given index
+		*/
+		inline void deleteBlocOfList(const unsigned int index){ 
+			m_listBlocs.erase(m_listBlocs.begin()+index);
+			m_listBlocsSize--;
+		};
+
+		/**
+		*\brief delete a bloc of listBlocs at a given index
+		*\details delete a bloc to the current list of blocs at a given index
+		*/
+		inline void deleteEnemyOfList(const unsigned int index){ m_listEnemies.erase(m_listEnemies.begin()+index);};
 
 		//DESTRUCTOR
 		/**

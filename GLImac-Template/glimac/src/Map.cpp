@@ -13,10 +13,10 @@
 
 Map::Map(){
 	for(unsigned int i = 0; i < m_listBlocs.size(); i++)
-		m_listBlocs[i] = Bloc();
+		addBlocToList(Bloc());
 
 	for(unsigned int i = 0; i < m_listEnemies.size(); i++)
-		m_listEnemies[i] = Enemy();
+		addEnemyToList(Enemy());
 }
 
 Map::Map(const char* filename){
@@ -47,7 +47,7 @@ void Map::initialiseListBlocFromFile(const char* filename){
 		}
 		fscanf(file," %c\n",&direction);
 		Bloc bloc(tmpMatrix, direction, index);
-		m_listBlocs.push_back(bloc);
+		addBlocToList(bloc);
 	}
 	fclose(file);
 }
