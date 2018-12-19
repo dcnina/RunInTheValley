@@ -55,6 +55,8 @@ class World{
 		*\details Constructor of World
 		*/
 		World(const Map &map, const GLuint &backgroundTexture, std::vector<Bonus> listBonus, Princess princess, Player player, std::vector<Model> listModel,Render render);
+		
+		
 		World(const World& world);
 
 		// GETTERS
