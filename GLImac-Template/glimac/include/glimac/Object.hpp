@@ -32,7 +32,7 @@ class Object{
 		/**
 		*\brief Object constructor   
 		*/
-		Object();
+		Object(){};
 
 		/**
 		*\brief Object constructor
