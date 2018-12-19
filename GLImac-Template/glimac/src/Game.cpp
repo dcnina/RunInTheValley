@@ -61,7 +61,8 @@ void Game::playGame(){
 		}
 	}
 
-	
+	//m_world.deleteBonus();
+
 }
 
 
