@@ -25,27 +25,27 @@
 #include <glimac/Princess.hpp>
 #include <glimac/Player.hpp>
 #include <glimac/Bonus.hpp>
+#include <glimac/SDLWindowManager.hpp>
 
 class Game{
 	private:
-		World m_world; //!< World 
-		unsigned int m_distance; //!< Distance traveled during the game 
+		World *m_world; //!< World 
+		double m_distance; //!< Distance traveled during the game 
 		/* à voir pour le meilleur score */
 		//unsigned int m_timeSpend; //!< Time spend during the game
+		TrackballCamera *m_trackballCam;
+		Render m_render; //!< Render for the drawing
+		Princess *m_princess; //!< Character of the game 
 
 	public:
 		///CONSTRUCTOR
-		/**
-		*\brief Game default constructor   
-		*\details Constructor by default of Game
-		*/
-		Game();
+		
 		
 		/**
 		*\brief Game constructor   
 		*\details Constructor of Game
 		*/
-		Game(const World &world, const unsigned int &distance);
+		Game(const char* levelFile,std::vector<Model> listModel, Render render);
 		
 		
 		/// GETTERS
@@ -53,13 +53,13 @@ class Game{
 		*\brief Getter World of the Game   
 		*\return current World 
 		*/
-		inline World getWorld()const{ return m_world;};
+		inline World getWorld()const{ return *m_world;};
 
 		/**
 		*\brief Get distance of the Game   
 		*\return current distance
 		*/
-		inline unsigned int getDistance()const{ return m_distance;};
+		inline double getDistance()const{ return m_distance;};
 
 
 		/// SETTERS
@@ -67,7 +67,7 @@ class Game{
 		*\brief Set distance of the Game   
 		*\details set the current distance
 		*/
-		inline void setDistance(const unsigned int &distance){ m_distance = distance;};
+		inline void setDistance(const double &distance){ m_distance = distance;};
 
 
 		/// METHODS
@@ -75,7 +75,7 @@ class Game{
 		*\brief increment the travelled distance      
 		*\param the distance to increment
 		*/
-		inline void incrementDistance(unsigned int distance){ m_distance += distance;};
+		inline void incrementDistance(double distance){ m_distance += distance;};
 
 
 		/**
@@ -91,6 +91,15 @@ class Game{
 		*/
 		void playGame();
 
+		/**
+		*\brief draw all element of the game      
+		*/
+		void drawAll();
+
+		/**
+		*\brief manage events       
+		*/
+		bool eventManager(glimac::SDLWindowManager &window);
 
 		///DESTRUCTOR
 		/**

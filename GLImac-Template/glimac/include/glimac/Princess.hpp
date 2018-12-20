@@ -91,7 +91,7 @@ class Princess : public DynamicObject{
 		*\return 3 : Coins
 		*/
 		int collisionWithBlock(Bloc &bloc);
-
+		void drawPrincess();
 		///DESTRUCTOR
 		/**
 		*\brief Default destructor   

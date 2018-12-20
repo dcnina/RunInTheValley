@@ -96,4 +96,8 @@ int Princess::collisionWithBlock(Bloc &bloc){
 	return 0;
 }
 
+void Princess::drawPrincess(){
+	
+}
+
 Princess::~Princess(){}

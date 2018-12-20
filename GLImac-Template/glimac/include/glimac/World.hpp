@@ -31,19 +31,17 @@
 #include <glimac/Model.hpp>
 #include <glimac/Render.hpp>
 #include <glimac/TrackballCamera.hpp>
+
+#define SIZE_BLOCK 1.0
+
 	
 class World{
 	private:
 		Map *m_map; //!< Map of World
 		double m_speed; //!< Speed camera world
 		std::vector<Bonus> m_listBonus; //!< Bonus list of the World
-		Princess *m_princess; //!< Character of the game 
 		Player *m_player; //!< Player of the game
 		std::vector<Model> m_listModel; //!< Model list of the world
-		Render m_render; //!< Render for the drawing
-
-		TrackballCamera *m_trackballCam;
-
 	public:
 		//CONSTRUCTOR
 		/**
@@ -56,7 +54,7 @@ class World{
 		*\brief World constructor   
 		*\details Constructor of World
 		*/
-		World(const char* levelFile, std::vector<Model> listModel, Render render);
+		World(const char* levelFile, std::vector<Model> listModel);
 		
 
 		World(const World& world);
@@ -99,13 +97,6 @@ class World{
 		*/
 		inline void setSpeed(const double &speed){ m_speed = speed;};
 
-
-		/**
-		*\brief Get princess of the World  
-		*\return current princess
-		*/
-		inline Princess getPrincess()const{ return *m_princess;};
-
 		/**
 		*\brief Get Player of the World   
 		*\return current player 
@@ -118,7 +109,7 @@ class World{
 
 		void deleteBonus();
 
-		void drawWorld();
+		void drawWorld( glm::mat4 MVMatrix,glm::mat4 viewMatrix, Render render);
 
 		/**
 		*\brief   

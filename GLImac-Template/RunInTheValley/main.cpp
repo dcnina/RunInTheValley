@@ -16,7 +16,7 @@
 #include <glimac/Bonus.hpp>
 #include <glimac/Princess.hpp>
 #include <glimac/Player.hpp>
-#include <glimac/World.hpp>
+#include <glimac/Game.hpp>
 
 using namespace glimac;
 
@@ -65,8 +65,7 @@ int main(int argc, char** argv) {
     globalModel.push_back(obstacle);
     globalModel.push_back(fond);
     
-    World world("./assets/map/level.txt", globalModel, render);
-    
+    Game game("./assets/map/level.txt", globalModel, render);
 
     //DEPTH Test of the GPU
     glEnable(GL_DEPTH_TEST);
@@ -83,51 +82,26 @@ int main(int argc, char** argv) {
 
        // glClearColor( 255, 255 ,255, 1.0 );
        /* viewMatrix = trackCamera.getViewMatrix();*/
-        // Event loop:
-        SDL_Event e;
-        while(windowManager.pollEvent(e)) {
-            if(e.type == SDL_QUIT) {
-                done = true; // Leave the loop after this iteration
-            }
-            else if(e.type == SDL_MOUSEMOTION){
-               /* glm::ivec2 v = windowManager.getMousePosition();
-                if(prevX-v.x>0){
-                    trackCamera.rotateLeft(5);
-                }
-                if(prevX-v.x<0){
-                    trackCamera.rotateLeft(-5);
-                }
-                if(prevY-v.y>0){
-                    trackCamera.rotateUp(5);
-                }
-                if(prevY-v.y<0){
-                    trackCamera.rotateUp(-5);
-                }
-                prevX = v.x;
-                prevY=v.y;*/
-            }
-            else if(e.type == SDL_MOUSEBUTTONDOWN){
-                /*if(e.button.button == SDL_BUTTON_WHEELUP) // scroll up
-                {
-                    trackCamera.moveFront(1.0);
-                }
-                else if(e.button.button == SDL_BUTTON_WHEELDOWN) // scroll down
-                {
-                    trackCamera.moveFront(-1.0);
-                }*/
-
-            }
-        }
-    
+        // Event loop: 
+        // SDL_Event e;
+        // while(windowManager.pollEvent(e)) {
+        //         if(e.type == SDL_QUIT) {
+        //             done= true; // Leave the loop after this iteration
+        //         }
+        //     }
 
         /*********************************
          * HERE SHOULD COME THE RENDERING CODE
          *********************************/
-
-        world.drawWorld();
+        done = game.eventManager(windowManager);
+        
+    std::cout << "6" << std::endl;
+        game.drawAll();
+    std::cout << "7" << std::endl;
 
         // Update the display
         windowManager.swapBuffers();
+    std::cout << "7" << std::endl;
     }
     return EXIT_SUCCESS;
 }
