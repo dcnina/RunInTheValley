@@ -47,6 +47,8 @@ bool Game::endGame(){
 void Game::playGame(){
 	checkBonusAndCoins();
 
+	/* Increment score of the player */ 
+	m_world.getPlayer().addScore(1);
 
 	/* Apply bonus on the game */
 	for (unsigned int i = 0; i < m_world.getListBonus().size(); i++){
@@ -61,9 +63,13 @@ void Game::playGame(){
 		}
 	}
 
-	//m_world.deleteBonus();
 
+	/// Incrementer position de tous les blocs
+	
+	//m_world.deleteBonus();
+	incrementDistance(1);
 }
 
+void deplaceAllBlocks();
 
 Game::~Game(){}

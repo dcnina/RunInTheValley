@@ -138,6 +138,8 @@ class Map{
 		*/
 		inline void deleteEnemyOfList(const unsigned int index){ m_listEnemies.erase(m_listEnemies.begin()+index);};
 
+
+
 		//DESTRUCTOR
 		/**
 		*\brief Default destructor   
