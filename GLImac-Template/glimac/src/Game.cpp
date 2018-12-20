@@ -18,18 +18,20 @@ Game::Game(const char* levelFile,std::vector<Model> listModel, Render render)
 }
 
 void Game::checkBonusAndCoins(){
-	int result = m_princess->collisionWithBlock(m_world->getMap().getListBlocs()[m_distance]);
-	Bonus bonus;
-	if (result == 2) //collision with a bonus
+	int result = m_princess->collisionWithBlock(m_world->getMap().getListBlocs()[(int)m_time]);
+	
+	if (result == 2){ //collision with a bonus
+		Bonus bonus;
 		m_world->getListBonus().push_back(bonus.generateBonus());
+	}
 	else if (result == 3) // collision with a coin
 		m_world->getPlayer().addMoney(1);
 }
 
 bool Game::endGame(){
 	/* End of the map */ 
-	if (m_distance == m_world->getMap().getListBlocsSize())
-		return true;
+	if ((int)m_time == m_world->getMap().getListBlocsSize())
+		return true; 
 
 	/* Collision with a block or an empty block */
 	for (unsigned int i = 0; i < m_world->getMap().getListBlocsSize(); i++){
@@ -58,8 +60,8 @@ void Game::playGame(){
 		switch(m_world->getListBonus()[i].getType()){
 			case 1: m_world->getPlayer().addMoney(10); //BONUS TYPE 1 : add 2 coins every loop tour 
 			case 2: 
-				m_world->getPlayer().addScore(100);
-				m_world->getListBonus()[i].setTime(0);
+				m_world->getPlayer().addScore(10);
+				m_world->getListBonus()[i].setTime(5);
 			case 3: 
 				m_world->getPlayer().addMoney(100);
 				m_world->getListBonus()[i].setTime(0);
@@ -75,17 +77,18 @@ void Game::playGame(){
 
 
 void Game::drawAll(){
-	glm::mat4 MVMatrix;
+  
+
+    glm::mat4 MVMatrix;
     glm::mat4 newMVMatrix;
     glm::mat4 viewMatrix;
 
     viewMatrix = m_trackballCam->getViewMatrix();
 
     m_render.reset();
-    MVMatrix= glm::translate(glm::mat4(), glm::vec3(0, -1.0, 0)); 
+	MVMatrix= glm::translate(glm::mat4(), glm::vec3(0, -1.0, 0)); 
     MVMatrix = viewMatrix*MVMatrix;
     m_render.sendLight(viewMatrix);
-
     /*if(m_time-m_princess->getTimeChange()>SIZE_BLOCK){
     	m_princess->backToNormalState(m_time);
     }*/
@@ -94,9 +97,9 @@ void Game::drawAll(){
     m_princess->draw(m_render,sizeBlock,MVMatrix);
 
 	MVMatrix = glm::translate(MVMatrix, glm::vec3(0.0, -(SIZE_BLOCK), m_distance));
-    
-	MVMatrix = glm::rotate(MVMatrix, float(m_direction*(M_PI/2.0)), glm::vec3(0, 1.0, 0));
-    m_direction = 0;
+	MVMatrix = MVMatrix*glm::rotate(MVMatrix, float(m_direction*(M_PI/2.0)), glm::vec3(0, 1.0, 0));
+   // m_globalPosition = glm::rotate(MVMatrix, float(m_direction*(M_PI/2.0)), glm::vec3(0, 1.0, 0))*m_globalPosition;	
+	//m_direction = 0;
 
     m_render.sendMatrix(MVMatrix);
     m_world->drawWorld(MVMatrix,viewMatrix,m_render);
