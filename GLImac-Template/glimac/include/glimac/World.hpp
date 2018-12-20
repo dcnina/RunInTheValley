@@ -30,17 +30,19 @@
 #include <glimac/Player.hpp>
 #include <glimac/Model.hpp>
 #include <glimac/Render.hpp>
-
+#include <glimac/TrackballCamera.hpp>
+	
 class World{
 	private:
-		Map m_map; //!< Map of World
-		GLuint m_backgroundTexture; //!< background texture of World 
+		Map *m_map; //!< Map of World
 		double m_speed; //!< Speed camera world
 		std::vector<Bonus> m_listBonus; //!< Bonus list of the World
-		Princess m_princess; //!< Character of the game 
-		Player m_player; //!< Player of the game
+		Princess *m_princess; //!< Character of the game 
+		Player *m_player; //!< Player of the game
 		std::vector<Model> m_listModel; //!< Model list of the world
 		Render m_render; //!< Render for the drawing
+
+		TrackballCamera *m_trackballCam;
 
 	public:
 		//CONSTRUCTOR
@@ -54,7 +56,7 @@ class World{
 		*\brief World constructor   
 		*\details Constructor of World
 		*/
-		World(const Map &map, const GLuint &backgroundTexture, std::vector<Bonus> listBonus, Princess princess, Player player, std::vector<Model> listModel,Render render);
+		World(const char* levelFile, std::vector<Model> listModel, Render render);
 		
 
 		World(const World& world);
@@ -64,7 +66,7 @@ class World{
 		*\brief Get the map of the World   
 		*\return current Map 
 		*/
-		inline Map getMap()const{ return m_map;};
+		inline Map getMap()const{ return *m_map;};
 
 		/**
 		*\brief Get the map of the World   
@@ -76,7 +78,7 @@ class World{
 		*\brief Get backgroundTexture   
 		*\return current GLuint background texture 
 		*/
-		inline GLuint getBackgroundTexture()const{ return m_backgroundTexture;};
+		//inline GLuint getBackgroundTexture()const{ return m_backgroundTexture;};
 
 		/**
 		*\brief Get current speed of the World   
@@ -86,15 +88,11 @@ class World{
 
 
 		/// SETTERS
-		/**
-		*\brief Set current map of the World  
-		*/
-		inline void setMap(const Map &map){ m_map = map;};
 
 		/**
 		*\brief Set current backgroundTexture of the World   
 		*/
-		inline void setBackgroundTexture(const GLuint &backgroundTexture){ m_backgroundTexture = backgroundTexture;};
+		//inline void setBackgroundTexture(const GLuint &backgroundTexture){ m_backgroundTexture = backgroundTexture;};
 
 		/**
 		*\brief Set current speed of the World   
@@ -106,13 +104,13 @@ class World{
 		*\brief Get princess of the World  
 		*\return current princess
 		*/
-		inline Princess getPrincess()const{ return m_princess;};
+		inline Princess getPrincess()const{ return *m_princess;};
 
 		/**
 		*\brief Get Player of the World   
 		*\return current player 
 		*/
-		inline Player getPlayer()const{ return m_player;};
+		inline Player getPlayer()const{ return *m_player;};
 
 
 		/// METHODS

@@ -54,7 +54,7 @@ void Bloc::drawBlock(std::vector<Model> &listModel, glm::mat4 viewMatrix, Render
         if(i == ROWS-1)
             MVMatrix = glm::translate(MVMatrix,glm::vec3(0, SIZEY, 0));
         else{
-            MVMatrix = glm::translate(MVMatrix,glm::vec3(0, SIZEY/2, 0));    
+            MVMatrix = glm::translate(MVMatrix,glm::vec3(0, SIZEY/3.0, 0));    
         }
         tmpMVMatrix = MVMatrix; 
     	for(int j = 0; j<COLS;j++){
@@ -70,8 +70,8 @@ void Bloc::drawBlock(std::vector<Model> &listModel, glm::mat4 viewMatrix, Render
         			break;
         		case 'O':	//Obstacle
                     if(i != ROWS-1){
-                        newMVMatrix = glm::scale(tmpMVMatrix,glm::vec3(1.0,SIZEY/2,1.0));
-                        newMVMatrix = glm::translate(newMVMatrix,glm::vec3(0, SIZEY/2, 0)); 
+                        newMVMatrix = glm::scale(tmpMVMatrix,glm::vec3(1.0,SIZEY/3.0,1.0));
+                        newMVMatrix = glm::translate(newMVMatrix,glm::vec3(0, SIZEY, 0)); 
                         render.sendMatrix(newMVMatrix);
                     }
                     else{
