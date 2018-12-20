@@ -48,21 +48,14 @@ int main(int argc, char** argv) {
     FilePath appPath(argv[0]);
     glimac::Program prog = glimac::loadProgram(appPath.dirPath() + "shaders/3D.vs.glsl",appPath.dirPath() + "shaders/directionallight.fs.glsl");
     Render render(&prog);
-    Model princessModel("assets/obj/princess.obj");
 
+    Model princessModel("assets/obj/princess.obj");
     Model bloc("assets/obj/bloc.obj");
     Model bonus("assets/obj/bonus.obj");
     Model coin("assets/obj/coin.obj");
-    Model obstacle("assets/obj/obstacle.obj");
+    Model obstacle("assets/obj/obstacle.obj"); 
+    Model fond("assets/obj/fond1.obj");    
 
-    glm::mat4 MVMatrix;
-    glm::mat4 viewMatrix;
-
-    Map map("./assets/map/level.txt");
-    map.printMap();
-    std::vector<Bonus> listBonus;
-    Princess princess;
-    Player player("pseudo",coin);
     std::vector<Model> globalModel;
 
     globalModel.push_back(princessModel);
@@ -70,8 +63,9 @@ int main(int argc, char** argv) {
     globalModel.push_back(bonus);
     globalModel.push_back(coin);
     globalModel.push_back(obstacle);
+    globalModel.push_back(fond);
     
-    World world(map, 0, listBonus, princess, player, globalModel, render);
+    World world("./assets/map/level.txt", globalModel, render);
     
 
     //DEPTH Test of the GPU
@@ -130,14 +124,6 @@ int main(int argc, char** argv) {
          * HERE SHOULD COME THE RENDERING CODE
          *********************************/
 
-        /*render.reset();
-        MVMatrix = glm::translate(glm::mat4(), glm::vec3(0, 0, 0)); 
-
-        MVMatrix = viewMatrix*MVMatrix;
-        render.sendMatrix(MVMatrix);
-
-        render.sendLight(viewMatrix);
-        bonus.draw();*/
         world.drawWorld();
 
         // Update the display
