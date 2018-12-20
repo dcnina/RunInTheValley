@@ -76,9 +76,9 @@ int main(int argc, char** argv) {
     GLuint vboMenu = menuBackground.initializeMenu(appPath.dirPath() + "shaders/tex2D.vs.glsl", appPath.dirPath() + "shaders/tex2D.fs.glsl");
     GLuint vaoMenu = menuBackground.createMenu(vboMenu);
 
-    Button buttonPlay(appPath.dirPath() + "assets/textures/play.png");
+    Button buttonPlay(0.5f, 0.5f, appPath.dirPath() + "assets/textures/play.png");
     GLuint vboButton = buttonPlay.initializeButton(appPath.dirPath() + "shaders/tex2D.vs.glsl", appPath.dirPath() + "shaders/tex2D.fs.glsl");
-    GLuint vaoButton = buttonPlay.createMButton(vboButton);
+    GLuint vaoButton = buttonPlay.createButton(vboButton);
    // menuBackground.initializeMenu(appPath.dirPath() + "shaders/text2D.vs.glsl", appPath.dirPath() + "shaders/text2D.fs.glsl");
 
 
