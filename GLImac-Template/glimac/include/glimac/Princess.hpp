@@ -27,6 +27,7 @@
 class Princess : public DynamicObject{
 	private:
 		int m_state = 1;//!< Princess state
+		double m_timeChange = 0.0;
 
 	public:
 		///CONSTRUCTOR
@@ -50,6 +51,7 @@ class Princess : public DynamicObject{
 		*/
 		inline int getState()const{ return m_state;}
 		inline std::vector<double> getPosition()const {return m_position;};
+		inline double getTimeChange() const{return m_timeChange;};
 
 		///METHODS
 		/**
@@ -68,19 +70,19 @@ class Princess : public DynamicObject{
 		*\brief princess jump  
 		*\return boolean
 		*/
-		bool jump();
+		bool jump(double &timeChange);
 
 		/**
 		*\brief princess bend down  
 		*\return boolean
 		*/
-		bool bendDown();
+		bool bendDown(double &timeChange);
 
 		/**
 		*\brief princess come back to normal state 
 		*\return boolean
 		*/
-		void backToNormalState();
+		void backToNormalState(double &timeChange);
 
 		/**
 		*\brief detect collision which make the player lose

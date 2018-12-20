@@ -11,8 +11,8 @@
 Game::Game(const char* levelFile,std::vector<Model> listModel, Render render)
 {
 	m_world = new World(levelFile,listModel);
-	m_distance = 0.0;
-	m_trackballCam= new TrackballCamera(5.0f,5.0f,0.0f);
+	m_distance = 0.05;
+	m_trackballCam= new TrackballCamera(5.0f,5.0f,-60.0f);
 	m_render = render; 
 	m_princess = new Princess(listModel[0]);  
 }
@@ -85,20 +85,24 @@ void Game::drawAll(){
     MVMatrix= glm::translate(glm::mat4(), glm::vec3(0, -1.0, 0)); 
     MVMatrix = viewMatrix*MVMatrix;
     m_render.sendLight(viewMatrix);
-   
-    //std::vector<Model> listModTmp = m_listModel;
-    //listModTmp.erase(listModTmp.begin()); //Remove the princess model
-    //unsigned int sizeList = m_map->getListBlocsSize();
-    //std::vector<Bloc> listBloc= m_map->getListBlocs();
 
-    newMVMatrix = glm::translate(MVMatrix, glm::vec3(0,0, 0));
-    m_render.sendMatrix(newMVMatrix);
+    /*if(m_time-m_princess->getTimeChange()>SIZE_BLOCK){
+    	m_princess->backToNormalState(m_time);
+    }*/
+
     double sizeBlock = SIZE_BLOCK;
     m_princess->draw(m_render,sizeBlock,MVMatrix);
 
 	MVMatrix = glm::translate(MVMatrix, glm::vec3(0.0, -(SIZE_BLOCK), m_distance));
+    
+	MVMatrix = glm::rotate(MVMatrix, float(m_direction*(M_PI/2.0)), glm::vec3(0, 1.0, 0));
+    m_direction = 0;
+
     m_render.sendMatrix(MVMatrix);
     m_world->drawWorld(MVMatrix,viewMatrix,m_render);
+
+    //Incremet global time
+    m_time+=m_distance;
 }
 
 bool Game::eventManager(glimac::SDLWindowManager &window){
@@ -111,13 +115,29 @@ bool Game::eventManager(glimac::SDLWindowManager &window){
         	switch(e.key.keysym.sym){
         		case SDLK_q:
         			m_princess->goLeft();
+        			if(m_world->getMap().getListBlocs()[(int)m_time].getDirection()=='L'){
+        				std::cout << "GO LEFT " << m_time << std::endl;
+        				m_direction = -1;
+        			}
         			break;
         		case SDLK_s: 
+        			m_princess->bendDown(m_time);
         			break;
         		case SDLK_d: 
         			m_princess->goRight();
+        			if(m_world->getMap().getListBlocs()[(int)m_time].getDirection()=='R'){
+        				std::cout << "GO RIGHT" << std::endl;
+        				m_direction = 1;
+        			}
         			break;
-        		case SDLK_z: 
+        		case SDLK_z:
+        			break;
+        	}
+        }
+        else if(e.type == SDL_KEYUP){
+        	switch(e.key.keysym.sym){
+        		case SDLK_s: 
+        			m_princess->backToNormalState(m_time);
         			break;
         	}
         }

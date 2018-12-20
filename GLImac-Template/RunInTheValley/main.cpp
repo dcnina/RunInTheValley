@@ -22,8 +22,6 @@ using namespace glimac;
 
 int main(int argc, char** argv) {
 
-    
-
     // Initialize SDL and open a window
     SDLWindowManager windowManager(800, 800, "GLImac");
 
@@ -95,13 +93,10 @@ int main(int argc, char** argv) {
          *********************************/
         done = game.eventManager(windowManager);
         
-    std::cout << "6" << std::endl;
         game.drawAll();
-    std::cout << "7" << std::endl;
 
         // Update the display
         windowManager.swapBuffers();
-    std::cout << "7" << std::endl;
     }
     return EXIT_SUCCESS;
 }

@@ -36,6 +36,8 @@ class Game{
 		TrackballCamera *m_trackballCam;
 		Render m_render; //!< Render for the drawing
 		Princess *m_princess; //!< Character of the game 
+		double m_time = 0.0; //!< Time of the game 
+		int m_direction = 0;
 
 	public:
 		///CONSTRUCTOR

@@ -8,10 +8,10 @@
 #include <glimac/Princess.hpp>
 
 Princess::Princess()
-:m_state(1), DynamicObject(){}
+:DynamicObject(){}
 
 Princess::Princess(Model &model)
-:m_state(1), DynamicObject(model){}
+:DynamicObject(model){}
 
 bool Princess::goLeft(){
 	if(m_relativePosition != 0){
@@ -29,24 +29,27 @@ bool Princess::goRight(){
 	return false;
 }
 
-bool Princess::jump(){
+bool Princess::jump(double &timeChange){
 	if(m_state != 2){
 		m_state++;
+		m_timeChange = timeChange;
 		return true;
 	}
 	return false;
 }
 
-bool Princess::bendDown(){
+bool Princess::bendDown(double &timeChange){
 	if(m_state != 0){
 		m_state--;
+		m_timeChange = timeChange;
 		return true;
 	}
 	return false;
 }
 
-void Princess::backToNormalState(){
+void Princess::backToNormalState(double &timeChange){
 	m_state = 1;
+	m_timeChange = timeChange;
 }
 
 
@@ -97,7 +100,9 @@ int Princess::collisionWithBlock(Bloc &bloc){
 }
 
 void Princess::draw(Render &render, double &sizeBlock, glm::mat4 MVMatrix){
-	glm::mat4 newMVMatrix = glm::translate(MVMatrix, glm::vec3(m_relativePosition*sizeBlock/3,0, 0));
+	glm::mat4 newMVMatrix = glm::translate(MVMatrix, glm::vec3(-sizeBlock/3+m_relativePosition*sizeBlock/3,-sizeBlock/2.0, 0));
+ 	if(m_state==0)
+		newMVMatrix = glm::rotate(MVMatrix, float(M_PI/2.0), glm::vec3(1.0, 0, 0));
  	render.sendMatrix(newMVMatrix);
 	m_model.draw();
 }
