@@ -22,9 +22,10 @@
 #define __OBJECT__
 
 #include <vector>
+#include <glimac/Render.hpp>
 
 class Object{
-	private:
+	protected:
 		std::vector<double> m_position; //!< Object position
 
 	public:
@@ -32,12 +33,7 @@ class Object{
 		/**
 		*\brief Object constructor   
 		*/
-		Object(){};
-
-		/**
-		*\brief Object constructor
-		*/
-		Object(const std::vector<double> &position);
+		Object(){}
 
 
 		///GETTER
@@ -47,7 +43,7 @@ class Object{
 		*/
 		inline std::vector<double> getPosition()const{ return m_position;}
 
-
+		virtual void draw(Render &render, double &sizeBlock) = 0;
 		///SETTER
 		/**
 		*\brief Set the current position of a Object
@@ -62,7 +58,7 @@ class Object{
 		/**
 		*\brief Object destructor   
 		*/
-		~Object(){};
+		~Object(){}
 	
 };
 

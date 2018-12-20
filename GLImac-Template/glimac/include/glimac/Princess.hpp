@@ -40,7 +40,7 @@ class Princess : public DynamicObject{
 		*\brief Princess constructor   
 		*\details Constructor of Princess
 		*/
-		Princess(const int &state);
+		Princess(Model &model);
 
 
 		///GETTER
@@ -49,7 +49,7 @@ class Princess : public DynamicObject{
 		*\return the current state
 		*/
 		inline int getState()const{ return m_state;}
-
+		inline std::vector<double> getPosition()const {return m_position;};
 
 		///METHODS
 		/**
@@ -91,7 +91,7 @@ class Princess : public DynamicObject{
 		*\return 3 : Coins
 		*/
 		int collisionWithBlock(Bloc &bloc);
-		void drawPrincess();
+		void draw(Render &render, double &sizeBlock, glm::mat4 MVMatrix);
 		///DESTRUCTOR
 		/**
 		*\brief Default destructor   

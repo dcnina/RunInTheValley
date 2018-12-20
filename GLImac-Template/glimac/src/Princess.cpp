@@ -2,16 +2,16 @@
  * COMBE Audrey, DE CASTRO Nina, LAVALLE Lucas
  * IMAC2 - TD2 
  * RunInTheValley - Princess.cpp 
- */
+*/
 
 
 #include <glimac/Princess.hpp>
 
 Princess::Princess()
-:m_state(1){}
+:m_state(1), DynamicObject(){}
 
-Princess::Princess(const int &state)
-:m_state(state){}
+Princess::Princess(Model &model)
+:m_state(1), DynamicObject(model){}
 
 bool Princess::goLeft(){
 	if(m_relativePosition != 0){
@@ -96,8 +96,10 @@ int Princess::collisionWithBlock(Bloc &bloc){
 	return 0;
 }
 
-void Princess::drawPrincess(){
-	
+void Princess::draw(Render &render, double &sizeBlock, glm::mat4 MVMatrix){
+	glm::mat4 newMVMatrix = glm::translate(MVMatrix, glm::vec3(m_relativePosition*sizeBlock/3,0, 0));
+ 	render.sendMatrix(newMVMatrix);
+	m_model.draw();
 }
 
 Princess::~Princess(){}

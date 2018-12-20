@@ -29,7 +29,7 @@
 #define ROWS 4 
 #define COLS 3 
 
-class Bloc : public Object{
+class Bloc /*: public Object*/{
 	private:
 		/* voir pour utiliser glm::vec3 ...*/
 		std::vector< std::vector<char> > m_matrixTypes; //!< Matrix of blocks' types
@@ -86,6 +86,7 @@ class Bloc : public Object{
 
 		///METHODS
 		void printBlock();
+		void draw(Render &render, double &sizeBlock);
 
 		void drawBlock(std::vector<Model>  &listModel, glm::mat4 viewMatrix, Render render,glm::mat4 MVMatrix);
 

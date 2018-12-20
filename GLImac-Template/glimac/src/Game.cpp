@@ -12,9 +12,9 @@ Game::Game(const char* levelFile,std::vector<Model> listModel, Render render)
 {
 	m_world = new World(levelFile,listModel);
 	m_distance = 0.0;
-	m_trackballCam= new TrackballCamera(5.0f,5.0f,-30.0f);
+	m_trackballCam= new TrackballCamera(5.0f,5.0f,0.0f);
 	m_render = render; 
-	m_princess = new Princess();  
+	m_princess = new Princess(listModel[0]);  
 }
 
 void Game::checkBonusAndCoins(){
@@ -91,7 +91,10 @@ void Game::drawAll(){
     //unsigned int sizeList = m_map->getListBlocsSize();
     //std::vector<Bloc> listBloc= m_map->getListBlocs();
 
-    m_princess->drawPrincess();
+    newMVMatrix = glm::translate(MVMatrix, glm::vec3(0,0, 0));
+    m_render.sendMatrix(newMVMatrix);
+    double sizeBlock = SIZE_BLOCK;
+    m_princess->draw(m_render,sizeBlock,MVMatrix);
 
 	MVMatrix = glm::translate(MVMatrix, glm::vec3(0.0, -(SIZE_BLOCK), m_distance));
     m_render.sendMatrix(MVMatrix);
@@ -107,10 +110,12 @@ bool Game::eventManager(glimac::SDLWindowManager &window){
         else if(e.type == SDL_KEYDOWN){
         	switch(e.key.keysym.sym){
         		case SDLK_q:
+        			m_princess->goLeft();
         			break;
         		case SDLK_s: 
         			break;
         		case SDLK_d: 
+        			m_princess->goRight();
         			break;
         		case SDLK_z: 
         			break;

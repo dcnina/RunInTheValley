@@ -24,7 +24,7 @@
 #include <glimac/Object.hpp>
 
 
-class Coins : public Object{
+class Coins /*: public Object*/{
 	private:
 		unsigned int m_value; /*!< Value of coin */
 	public:
@@ -56,7 +56,7 @@ class Coins : public Object{
 		*/
 		inline void setValue(const unsigned int &value) { m_value = value; }
 
-
+		inline void draw(Render &render, double &sizeBlock){};
 		///DESTRUCTOR
 		/**
 		*\brief Default destructor   

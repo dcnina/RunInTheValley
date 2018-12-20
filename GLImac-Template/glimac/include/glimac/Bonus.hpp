@@ -24,7 +24,7 @@
 #include <glimac/Object.hpp>
 #include <ctime>
 
-class Bonus : public Object{
+class Bonus /*: public Object*/{
 	private:
 		unsigned int m_type; /*!< Bonus' type */
 		unsigned int m_time; /*!< Bonus start time */
@@ -50,7 +50,6 @@ class Bonus : public Object{
 		*\return current type
 		*/
 		inline unsigned int getType() const{ return m_type;}
-
 		/**
 		*\brief Get start time of the bonus
 		*\return current start time
@@ -72,7 +71,7 @@ class Bonus : public Object{
 
 		///METHODS
 		inline void decrementTime(){ if (getTime() > 0){m_time--;}};
-
+		inline void draw(Render &render, double &sizeBlock){};
 		Bonus generateBonus();
 
 		///DESTRUCTOR

@@ -49,6 +49,7 @@ class Model{
         Mesh processMesh(aiMesh *mesh, const aiScene *scene);
         std::vector<Texture> loadMaterialTextures(aiMaterial *mat, aiTextureType type, std::string typeName);
     public:
+        Model(){};
         Model(std::string path){
             loadModel(path);
         }

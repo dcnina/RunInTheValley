@@ -17,14 +17,18 @@
  *  
  */
 
+#include <glimac/Model.hpp>
+#include <glimac/Object.hpp>
 
 #ifndef __DYNAMICOBJECT__
 #define __DYNAMICOBJECT__
 
 
-class DynamicObject{
+class DynamicObject/*: public Object*/{
 	protected:
 		unsigned int m_relativePosition = 1; //!< Object position
+		Model m_model;
+		std::vector<double> m_position;
 
 	public:
 		///CONSTRUCTOR
@@ -33,18 +37,15 @@ class DynamicObject{
 		*\details Constructor by default of DynamicObject
 		*/
 		DynamicObject();
-
-		/**
-		*\brief DynamicObject constructor   
-		*\details Constructor of DynamicObject
-		*/
-		DynamicObject(const unsigned int &relativePosition);
+		
+		DynamicObject(Model &model);
 
 		///GETTER
 		/**
 		*\brief Get the current position of a DynamicObject   
 		*\return the current m_relativePosition
 		*/
+
 		inline unsigned int getRelativePosition()const{ return m_relativePosition;}
 
 		///SETTER
@@ -53,13 +54,14 @@ class DynamicObject{
 		*/
 		inline void setRelativePosition(const unsigned int &relativePosition){ m_relativePosition = relativePosition;}
 
+		virtual void draw(Render &render, double &sizeBlock, glm::mat4 MVMatrix) =0;
 
 		///DESTRUCTOR
 		/**
 		*\brief DynamicObject default Ddestructor   
 		*\details Destructor by default of Bloc
 		*/
-		~DynamicObject();
+		~DynamicObject(){};
 	
 };
 
