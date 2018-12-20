@@ -13,11 +13,20 @@ using namespace glimac;
 
 
 
-Texture2D::Texture2D(std::string bgImage)
- :m_textureImage(bgImage){}
+// Texture2D::Texture2D(std::string bgImage)
+//  :m_textureImage(bgImage){}
+
+Texture2D::Texture2D(glimac::Program *prog)
+ {  
+    m_prog = prog;
+    uModelMatrix = glGetUniformLocation(m_prog->getGLId(), "uModelMatrix");
+    uTexture = glGetUniformLocation(m_prog->getGLId(), "uTexture"); 
+
+    m_prog->use();
+ }
 
 Texture2D::Texture2D(const Texture2D &texture)
- :m_idText(texture.m_idText), m_textureImage(texture.m_textureImage), uModelMatrix(texture.uModelMatrix), uTexture(texture.uTexture)
+ :m_prog(texture.m_prog),m_idText(texture.m_idText), m_textureImage(texture.m_textureImage), uModelMatrix(texture.uModelMatrix), uTexture(texture.uTexture)
  {}
 
 glm::mat3 Texture2D::translate(float tx, float ty)const {
@@ -28,10 +37,11 @@ glm::mat3 Texture2D::scale(float sx, float sy)const {
     return glm::mat3(glm::vec3(sx, 0, 0), glm::vec3(0, sy, 0), glm::vec3(0, 0, 1));
 }
 
-GLuint Texture2D::initializeTexture2D(std::string vShader, std::string fShader){
+GLuint Texture2D::initializeTexture2D(std::string bgImage){
 
-    m_prog = loadProgram(vShader, fShader);
-    m_prog.use();
+    // m_prog = loadProgram(vShader, fShader);
+    // m_prog.use();
+    m_textureImage = bgImage;
     std::unique_ptr<Image> texture = loadImage(m_textureImage);
 
     if(texture == NULL)
@@ -44,8 +54,7 @@ GLuint Texture2D::initializeTexture2D(std::string vShader, std::string fShader){
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glBindTexture(GL_TEXTURE_2D,0);
 
-    uModelMatrix = glGetUniformLocation(m_prog.getGLId(), "uModelMatrix");
-    uTexture = glGetUniformLocation(m_prog.getGLId(), "uTexture"); 
+    
 
     GLuint vbo;
     glGenBuffers(1,&vbo);

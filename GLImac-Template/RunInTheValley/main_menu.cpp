@@ -19,6 +19,7 @@
 #include <glimac/World.hpp>
 #include <glimac/Menu.hpp>
 #include <glimac/Button.hpp>
+#include <glimac/Texture2D.hpp>
 
 using namespace glimac;
 
@@ -67,18 +68,46 @@ int main(int argc, char** argv) {
      *********************************/
     const GLuint VERTEX_ATTR_POS = 0;
     const GLuint VERTEX_ATTR_NORM = 1;
+    
+    const float BTN_SCORE_POS_X = 0.35f;
+    const float BTN_SCORE_POS_Y = -0.28f;
+    const float BTN_SCORE_SCALE_X = 0.25f;
+    const float BTN_SCORE_SCALE_Y = 0.25f;
+   
+    const float BTN_PLAY_POS_X = -0.35f;
+    const float BTN_PLAY_POS_Y = -0.28f;
+    const float BTN_PLAY_SCALE_X = 0.25f;
+    const float BTN_PLAY_SCALE_Y = 0.25f;
+
+    const float BTN_QUIT_POS_X = 0.8f;
+    const float BTN_QUIT_POS_Y = 0.87f;
+    const float BTN_QUIT_SCALE_X = 0.15f;
+    const float BTN_QUIT_SCALE_Y = 0.15f;
+    
 
     FilePath appPath(argv[0]);
     glimac::Program prog = glimac::loadProgram(appPath.dirPath() + "shaders/3D.vs.glsl",appPath.dirPath() + "shaders/pointlight.fs.glsl"); 
     Render render(&prog);
-    
-    Menu menuBackground(appPath.dirPath() + "assets/textures/menu.png");
-    GLuint vboMenu = menuBackground.initializeMenu(appPath.dirPath() + "shaders/tex2D.vs.glsl", appPath.dirPath() + "shaders/tex2D.fs.glsl");
+
+    glimac::Program progMenu = glimac::loadProgram(appPath.dirPath() + "shaders/tex2D.vs.glsl", appPath.dirPath() + "shaders/tex2D.fs.glsl");
+    Texture2D texture2D(&progMenu);
+
+    Button buttonScore(BTN_SCORE_POS_X, BTN_SCORE_POS_Y, BTN_SCORE_SCALE_X, BTN_SCORE_SCALE_Y, texture2D);
+    GLuint vboButtonScore = buttonScore.initializeButton(appPath.dirPath() + "assets/textures/score.png");
+    GLuint vaoButtonScore = buttonScore.createButton(vboButtonScore);
+
+    Button buttonPlay(BTN_PLAY_POS_X, BTN_PLAY_POS_Y, BTN_PLAY_SCALE_X, BTN_PLAY_SCALE_Y, texture2D);
+    GLuint vboButtonPlay = buttonPlay.initializeButton(appPath.dirPath() + "assets/textures/play.png");
+    GLuint vaoButtonPlay = buttonPlay.createButton(vboButtonPlay);
+
+    Button buttonQuit(BTN_QUIT_POS_X, BTN_QUIT_POS_Y, BTN_QUIT_SCALE_X, BTN_QUIT_SCALE_Y, texture2D);
+    GLuint vboButtonQuit = buttonQuit.initializeButton(appPath.dirPath() + "assets/textures/quit.png");
+    GLuint vaoButtonQuit = buttonQuit.createButton(vboButtonQuit);
+   
+    Menu menuBackground(texture2D);
+    GLuint vboMenu = menuBackground.initializeMenu(appPath.dirPath() + "assets/textures/menu.png");
     GLuint vaoMenu = menuBackground.createMenu(vboMenu);
 
-    Button buttonPlay(0.5f, 0.5f, appPath.dirPath() + "assets/textures/play.png");
-    GLuint vboButton = buttonPlay.initializeButton(appPath.dirPath() + "shaders/tex2D.vs.glsl", appPath.dirPath() + "shaders/tex2D.fs.glsl");
-    GLuint vaoButton = buttonPlay.createButton(vboButton);
    // menuBackground.initializeMenu(appPath.dirPath() + "shaders/text2D.vs.glsl", appPath.dirPath() + "shaders/text2D.fs.glsl");
 
 
@@ -119,12 +148,11 @@ int main(int argc, char** argv) {
     bool done = false;
 
     while(!done) {
-       // glCheckError();
-       // glClear(GL_COLOR_BUFFER_BIT);
-
+        buttonScore.drawButton(vaoButtonScore);
+        buttonPlay.drawButton(vaoButtonPlay);
+        buttonQuit.drawButton(vaoButtonQuit);
         menuBackground.drawBackground(vaoMenu);
-        buttonPlay.drawButton(vaoButton, 0.5f, 0.5f);
-       //glClearColor( 255, 255 ,255, 1.0 );
+       
        // viewMatrix = trackCamera.getViewMatrix();
         // Event loop:
         SDL_Event e;
@@ -182,7 +210,10 @@ int main(int argc, char** argv) {
         // Update the display
         windowManager.swapBuffers();
     }
+    buttonScore.freeButtonTexture(vaoButtonScore, vboButtonScore);
+    buttonPlay.freeButtonTexture(vaoButtonPlay, vboButtonPlay);
+    buttonPlay.freeButtonTexture(vaoButtonQuit, vboButtonQuit);
     menuBackground.freeMenuTexture(vaoMenu, vboMenu);
-    buttonPlay.freeButtonTexture(vaoMenu, vboMenu);
+
     return EXIT_SUCCESS;
 }

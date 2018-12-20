@@ -29,12 +29,14 @@ class Button{
 		Texture2D m_buttonTexture;
 		float m_posX;
 		float m_posY;
+		float m_scaleX;
+		float m_scaleY;
 	public:
 		///CONSTRUCTOR
 		/**
 		*\brief Button constructor   
 		*/
-		Button(const float posX, const float posY, std::string bgImage);
+		Button(const float posX, const float posY, const float scaleX, const float scaleY, const Texture2D &texture);
 
 		///METHODS
 		/**
@@ -42,7 +44,7 @@ class Button{
 		*\params vShaders and fShader
 		*\return gluint : vbo 
 		*/
-		GLuint initializeButton(std::string vShader, std::string fShader);
+		GLuint initializeButton(const std::string bgImage);
 			
 		/**
 		*\brief create and bind the button vao 
@@ -55,7 +57,7 @@ class Button{
 		*\brief draw the background button texture 
 		*\params gluint vao 
 		*/
-		void drawButton(const GLuint &vao, const float &posX, const float &posY);
+		void drawButton(const GLuint &vao);
 
 		/**
 		*\brief free the button texture, vao and vbo 

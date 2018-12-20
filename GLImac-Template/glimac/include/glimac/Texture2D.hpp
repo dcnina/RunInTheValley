@@ -43,14 +43,14 @@ class Texture2D{
 		GLuint uTexture;
 
 	public:
-		glimac::Program m_prog;
+		glimac::Program *m_prog;
 		///CONSTRUCTOR
 		/**
 		*\brief Default constructor   
 		*\details Constructor by default of Texture2D
 		*/
-		Texture2D(std::string bgImage);
-
+		Texture2D(glimac::Program *prog);
+	
 		/**
 		*\brief copy constructor   
 		*\details Constructor by copy of Texture2D
@@ -97,8 +97,8 @@ class Texture2D{
 		*\params vShaders and fShader
 		*\return gluint : vbo 
 		*/
-		GLuint initializeTexture2D(std::string vShader, std::string fShader);
-		
+		GLuint initializeTexture2D(std::string bgImage);
+
 		/**
 		*\brief create and bind vao 
 		*\params gluint vbo

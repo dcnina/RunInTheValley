@@ -13,11 +13,11 @@ using namespace glimac;
 
 
 
-Menu::Menu(std::string bgImage)
- :m_menuTexture(Texture2D(bgImage)){}
+Menu::Menu(const Texture2D &texture)
+ :m_menuTexture(Texture2D(texture)){}
 
-GLuint Menu::initializeMenu(std::string vShader, std::string fShader){
-    GLuint vboMenu = m_menuTexture.initializeTexture2D(vShader, fShader);
+GLuint Menu::initializeMenu(const std::string bgImage){
+    GLuint vboMenu = m_menuTexture.initializeTexture2D(bgImage);
     return vboMenu;
 }
 GLuint Menu::createMenu(const GLuint &vbo){

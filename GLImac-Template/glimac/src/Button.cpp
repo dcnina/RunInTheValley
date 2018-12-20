@@ -11,11 +11,11 @@
 
 using namespace glimac;
 
-Button::Button(const float posX, const float posY, std::string bgImage)
-:m_buttonTexture(Texture2D(bgImage)), m_posX(posX), m_posY(posY){}
+Button::Button(const float posX, const float posY, const float scaleX, const float scaleY, const Texture2D &texture)
+:m_buttonTexture(Texture2D(texture)), m_posX(posX), m_posY(posY), m_scaleX(scaleX), m_scaleY(scaleY){}
  
-GLuint Button::initializeButton(std::string vShader, std::string fShader){
-    GLuint vboButton = m_buttonTexture.initializeTexture2D(vShader, fShader);
+GLuint Button::initializeButton(const std::string bgImage){
+    GLuint vboButton = m_buttonTexture.initializeTexture2D(bgImage);
     return vboButton;
 }
 
@@ -24,11 +24,11 @@ GLuint Button::createButton(const GLuint &vbo){
     return vaoButton;
 }
 
-void Button::drawButton(const GLuint &vao, const float &posX, const float &posY){
+void Button::drawButton(const GLuint &vao){
     glBindVertexArray(vao);
     glUniform1i(m_buttonTexture.getUTexture(),0);
 
-    glUniformMatrix3fv(m_buttonTexture.getUModelMatrix(), 1, GL_FALSE, glm::value_ptr(m_buttonTexture.translate(0.25f, 0.25f)*m_buttonTexture.scale(0.5f, 0.5f)));
+    glUniformMatrix3fv(m_buttonTexture.getUModelMatrix(), 1, GL_FALSE, glm::value_ptr(m_buttonTexture.translate(m_posX, m_posY)*m_buttonTexture.scale(m_scaleX, m_scaleY)));
 
     glBindTexture(GL_TEXTURE_2D,m_buttonTexture.getIdText());
 

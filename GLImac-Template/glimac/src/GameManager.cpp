@@ -20,10 +20,10 @@ void GameManager::launchGame(int argc, char** argv){
 	//create the SDL window + GLEW
 	glimac::SDLWindowManager windowManager = this->initializeGame();
 
-    glimac::FilePath appPath(argv[0]);
-    Menu menu(appPath.dirPath()+"assets/textures/menu.png");
-    menu.initializeMenu(appPath.dirPath()+"shaders/tex2D.vs.glsl",
-                                appPath.dirPath()+"shaders/tex2D.fs.glsl");
+    // glimac::FilePath appPath(argv[0]);
+    // Menu menu(appPath.dirPath()+"assets/textures/menu.png");
+    // menu.initializeMenu(appPath.dirPath()+"shaders/tex2D.vs.glsl",
+    //                             appPath.dirPath()+"shaders/tex2D.fs.glsl");
 
 	// Application loop:
     bool done = false;
