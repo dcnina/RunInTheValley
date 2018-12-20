@@ -25,7 +25,7 @@
 #include <vector>
 #include <glimac/Program.hpp>
 #include <glimac/Texture2D.hpp>
-#include <glimac/Button.hpp>
+//#include <glimac/Button.hpp>
 
 #ifndef __MENU__
 #define __MENU__
@@ -34,7 +34,7 @@
 class Menu{
 	private:
 		Texture2D m_menuTexture;
-		std::vector<Button> m_buttons;
+		//std::vector<Button> m_buttons;
 		// GLuint uModelMatrix;
 		// GLuint uTexture;
 
@@ -45,14 +45,14 @@ class Menu{
 		*\brief Default constructor   
 		*\details Constructor by default of Menu
 		*/
-		Menu(std::string textureImage);
+		Menu(const Texture2D &texture);
 
 		/**
 		*\brief initialize the texture 
 		*\params vShaders and fShader
 		*\return gluint : vbo 
 		*/
-		GLuint initializeMenu(std::string vShader, std::string fShader);
+		GLuint initializeMenu(const std::string bgImage);
 
 		/**
 		*\brief create and bind the menu vao 
