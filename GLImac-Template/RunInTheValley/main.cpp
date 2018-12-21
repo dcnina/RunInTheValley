@@ -39,9 +39,9 @@ int main(int argc, char** argv) {
     std::cout << "OpenGL Version : " << glGetString(GL_VERSION) << std::endl;
     std::cout << "GLEW Version : " << glewGetString(GLEW_VERSION) << std::endl;
 
-    /*//Sound initialization
+    //Sound initialization
     if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 1024) == -1)
-        printf("%s\n", Mix_GetError());
+       std::cout << Mix_GetError() << std::endl;
     Mix_Music *music; //creation of musique
 
 
