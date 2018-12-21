@@ -12,7 +12,7 @@ Game::Game(const char* levelFile,std::vector<Model> listModel, Render render)
 {
 	m_world = new World(levelFile,listModel);
 	m_distance = 0.05;
-	m_trackballCam= new TrackballCamera(5.0f,5.0f,-0.0f);
+	m_trackballCam= new TrackballCamera(3.0f,0.5f,-0.0f);
 	m_render = render; 
 	m_princess = new Princess(listModel[0]);  
 }
@@ -22,9 +22,9 @@ void Game::checkBonusAndCoins(){
 	int result = m_princess->collisionWithBlock(m_world->getMap()->getListBlocs()[(int)m_time]);
 
 	if (result == 2){ //collision with a bonus
-		std::cout << "Collision bonus" << std::endl;
+		std::cout << "COLLISION BONUS" << std::endl;
 		Bonus bonus;
-		m_world->getListBonus().push_back(bonus.generateBonus());
+		m_listBonus.push_back(bonus.generateBonus());
 		m_world->getMap()->convertBlocTypeToEmpty((int)m_time, m_princess->getState(), m_princess->getRelativePosition());
 	}
 	else if (result == 3) {// collision with a coin
@@ -32,7 +32,6 @@ void Game::checkBonusAndCoins(){
 		std::cout << "Collision coin" << std::endl;
 		m_world->getMap()->convertBlocTypeToEmpty((int)m_time, m_princess->getState(), m_princess->getRelativePosition());
 	}
-	std::cout << "je suis à la fin de check" << std::endl;
 }
 
 bool Game::endGame(){
@@ -63,25 +62,29 @@ void Game::playGame(){
 	player->addScore(1);
 	
 	/* Apply bonus on the game */
-
-	for (unsigned int i = 0; i < m_world->getListBonus().size(); i++){
-		switch(m_world->getListBonus()[i].getType()){
+	//std::cout << "***************************** switch type: "<< m_listBonus.size() << std::endl;
+	for (unsigned int i = 0; i < m_listBonus.size(); i++){
+		//std::cout << "***************************** switch type: "<< m_world->getListBonus()[i].getType() << std::endl;
+		switch(m_listBonus[i].getType()){
 			case 1: 
-				player->addMoney(10); //BONUS TYPE 1 : add 2 coins every loop tour 
+				//std::cout << "***************************** case 1" << std::endl;
+				player->addMoney(2); //BONUS TYPE 1 : add 2 coins every loop tour 
 				break;
 			case 2: 
-				player->addScore(10);
-				m_world->getListBonus()[i].setTime(5);
+				//std::cout << "***************************** case 2" << std::endl;
+				player->addScore(5);
+				m_listBonus[i].setTime(5);
 				break;
 			case 3: 
-				player->addMoney(100);
-				m_world->getListBonus()[i].setTime(0);
+				//std::cout << "***************************** case 3" << std::endl;
+				player->addMoney(10);
+				m_listBonus[i].setTime(0);
 				break;
 		}
 	}
 
-	m_world->deleteBonus();
-	m_world->getPlayer()->printInfosPlayer();
+	manageDeleteAndIncrementBonus();
+	//m_world->getPlayer()->printInfosPlayer();
 }
 
 
@@ -162,6 +165,16 @@ bool Game::eventManager(glimac::SDLWindowManager &window){
         }
     }
     return false;
+}
+
+
+void Game::manageDeleteAndIncrementBonus(){
+	for (unsigned int i = 0; i < m_listBonus.size(); i++){
+		if(m_listBonus[i].getTime() == 0)
+			m_listBonus.erase(m_listBonus.begin()+i);
+		else 
+			m_listBonus[i].decrementTime();
+	}
 }
 
 Game::~Game(){}

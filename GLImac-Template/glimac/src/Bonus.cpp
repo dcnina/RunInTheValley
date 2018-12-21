@@ -17,10 +17,9 @@ Bonus::Bonus(const unsigned int &type, const unsigned int &_time)
 	:m_type(type), m_time(_time){}
 
 Bonus Bonus::generateBonus(){
-	std::srand((int)time(0));;
 	unsigned int randomType = (std::rand()%3) + 1; 
 	unsigned int randomTime = (std::rand()%10) + 5;
-
+	std::cout << "########## aleatoire: ##########################" << randomType << " " << randomTime << std::endl;
 	return Bonus(randomType, randomTime);
 }
 

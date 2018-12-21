@@ -9,7 +9,6 @@
 #include <glimac/TrackballCamera.hpp>
 #include <glm/gtc/random.hpp>
 
-
 #include <glimac/Model.hpp>
 #include <glimac/Render.hpp>
 #include <glimac/Map.hpp>
@@ -21,9 +20,15 @@
 using namespace glimac;
 
 int main(int argc, char** argv) {
+    /* Initialization of SDL 
+    if(-1 == SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO)) {
+        fprintf(stderr, "Impossible to initialize SDL. End of programme.\n");
+        return EXIT_FAILURE;
+    }*/
 
     // Initialize SDL and open a window
     SDLWindowManager windowManager(800, 800, "GLImac");
+
 
     // Initialize glew for OpenGL3+ support
     GLenum glewInitError = glewInit();
@@ -34,7 +39,15 @@ int main(int argc, char** argv) {
     std::cout << "OpenGL Version : " << glGetString(GL_VERSION) << std::endl;
     std::cout << "GLEW Version : " << glewGetString(GLEW_VERSION) << std::endl;
 
-  
+    /*//Sound initialization
+    if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 1024) == -1)
+        printf("%s\n", Mix_GetError());
+    Mix_Music *music; //creation of musique
+
+
+    music = Mix_LoadMUS("assets/sound/music.mp3");
+    Mix_PlayMusic(music, -1);
+    Mix_VolumeMusic(MIX_MAX_VOLUME);*/
 
    
     /*********************************
@@ -76,7 +89,7 @@ int main(int argc, char** argv) {
 
 
 
-
+    std::srand((int)time(0));;
     // Application loop:
     bool done = false;
     while(!done) {
@@ -104,5 +117,9 @@ int main(int argc, char** argv) {
         // Update the display
         windowManager.swapBuffers();
     }
+
+/*    //Free music data
+    Mix_FreeMusic(music);
+    Mix_CloseAudio();*/
     return EXIT_SUCCESS;
 }

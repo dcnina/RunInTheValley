@@ -39,6 +39,7 @@ class Game{
 		double m_time = 0.0; //!< Time of the game 
 		int m_direction = 0;
 		//glm::mat4 m_globalPosition = glm::mat4();
+		std::vector<Bonus> m_listBonus; //!< Bonus list of the World
 
 	public:
 		///CONSTRUCTOR
@@ -63,6 +64,12 @@ class Game{
 		*\return current distance
 		*/
 		inline double getDistance()const{ return m_distance;};
+
+		/**
+		*\brief Get the map of the World   
+		*\return current Map 
+		*/
+		inline std::vector<Bonus> getListBonus()const{ return m_listBonus;};
 
 
 		/// SETTERS
@@ -103,6 +110,8 @@ class Game{
 		*\brief manage events       
 		*/
 		bool eventManager(glimac::SDLWindowManager &window);
+
+		void manageDeleteAndIncrementBonus();
 
 		///DESTRUCTOR
 		/**

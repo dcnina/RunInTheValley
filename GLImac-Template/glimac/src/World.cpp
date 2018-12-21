@@ -13,23 +13,16 @@ World::World(const char* levelFile, std::vector<Model> listModel){
 	m_map = new Map(levelFile); 
 	m_listModel = listModel;
 	m_player = new Player("audrey",listModel[0]);
-	std::vector<Bonus> listBonus;
-	m_listBonus = listBonus;
+	//std::vector<Bonus> listBonus;
+	//m_listBonus = listBonus;
 }
 
 World::World(const World& world){
 	m_speed = world.m_speed;
 	m_map = world.m_map;
-	m_listBonus = world.m_listBonus;
+	//m_listBonus = world.m_listBonus;
 	m_player = world.m_player;
 	m_listModel = world.m_listModel;
-}
-
-void World::deleteBonus(){
-	for (unsigned int i = 0; i<m_listBonus.size(); i++){
-		if(m_listBonus[i].getTime() == 0)
-			m_listBonus.erase(m_listBonus.begin()+i-1);
-	}
 }
 
 

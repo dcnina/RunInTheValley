@@ -39,7 +39,6 @@ class World{
 	private:
 		Map *m_map; //!< Map of World
 		double m_speed; //!< Speed camera world
-		std::vector<Bonus> m_listBonus; //!< Bonus list of the World
 		Player *m_player; //!< Player of the game
 		std::vector<Model> m_listModel; //!< Model list of the world
 	public:
@@ -66,11 +65,7 @@ class World{
 		*/
 		inline Map* getMap()const{ return m_map;};
 
-		/**
-		*\brief Get the map of the World   
-		*\return current Map 
-		*/
-		inline std::vector<Bonus> getListBonus()const{ return m_listBonus;};
+		
 
 		/**
 		*\brief Get backgroundTexture   
@@ -105,9 +100,9 @@ class World{
 
 
 		/// METHODS
-		void deleteBonus();
 
 		void drawWorld( glm::mat4 MVMatrix,glm::mat4 viewMatrix, Render render);
+
 
 		/**
 		*\brief   
