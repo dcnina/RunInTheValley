@@ -127,11 +127,8 @@ class Map{
 		*\brief delete a bloc of listBlocs at a given index
 		*\details delete a bloc to the current list of blocs at a given index
 		*/
-		inline void deleteBlocOfList(const unsigned int index){ 
-			m_listBlocs.erase(m_listBlocs.begin()+index);
-			m_listBlocsSize--;
-		};
-
+		void convertBlocTypeToEmpty(const unsigned int &index, const int &princessState, const int &princessRelativePosition);
+		
 		/**
 		*\brief delete a bloc of listBlocs at a given index
 		*\details delete a bloc to the current list of blocs at a given index
