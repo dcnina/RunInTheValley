@@ -85,10 +85,10 @@ int Princess::collisionWithBlock(Bloc &bloc){
 		switch(bloc.getMatrixTypes()[3][m_relativePosition]){
 			case 'E' : return 1;
 				break;
-			case 'F' : return 1;
-				break;
-			case 'O' : return 1;
-				break;
+			// case 'F' : return 1;
+			// 	break;
+			// case 'O' : return 1;
+			// 	break;
 		}
 		return 0;
 	}
