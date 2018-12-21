@@ -63,7 +63,7 @@ int main(int argc, char** argv) {
     globalModel.push_back(obstacle);
     globalModel.push_back(fond);
     
-    Game game("./assets/map/level-test-obstacles.txt", globalModel, render);
+    Game game("./assets/map/level-test-bonus.txt", globalModel, render);
 
     //DEPTH Test of the GPU
     glEnable(GL_DEPTH_TEST);
@@ -96,15 +96,11 @@ int main(int argc, char** argv) {
          *********************************/
         done = game.eventManager(windowManager);
         
-        if (game.endGame() == true){
-            std::cout << "coucou je sors" << std::endl;
-            done = true;
-        }
-        else{
-            //game.playGame();
-            game.drawAll();
-        }
+        game.playGame();
+        game.drawAll();
 
+        if (game.endGame() == true)
+            done = true;
         // Update the display
         windowManager.swapBuffers();
     }

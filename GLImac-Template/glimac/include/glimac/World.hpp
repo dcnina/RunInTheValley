@@ -64,7 +64,7 @@ class World{
 		*\brief Get the map of the World   
 		*\return current Map 
 		*/
-		inline Map getMap()const{ return *m_map;};
+		inline Map* getMap()const{ return m_map;};
 
 		/**
 		*\brief Get the map of the World   
@@ -101,7 +101,7 @@ class World{
 		*\brief Get Player of the World   
 		*\return current player 
 		*/
-		inline Player getPlayer()const{ return *m_player;};
+		inline Player* getPlayer(){ return m_player;};
 
 
 		/// METHODS

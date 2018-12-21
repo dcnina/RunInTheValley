@@ -12,7 +12,7 @@ World::World(const char* levelFile, std::vector<Model> listModel){
 	m_speed = 0.05;
 	m_map = new Map(levelFile); 
 	m_listModel = listModel;
-	m_player = new Player("",listModel[0]);
+	m_player = new Player("audrey",listModel[0]);
 	std::vector<Bonus> listBonus;
 	m_listBonus = listBonus;
 }

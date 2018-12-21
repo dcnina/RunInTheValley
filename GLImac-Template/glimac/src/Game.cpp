@@ -18,28 +18,30 @@ Game::Game(const char* levelFile,std::vector<Model> listModel, Render render)
 }
 
 void Game::checkBonusAndCoins(){
-	int result = m_princess->collisionWithBlock(m_world->getMap().getListBlocs()[(int)m_time]);
-	
+	//std::cout << "je suis dans checkBonusAndCoins" << std::endl;
+	int result = m_princess->collisionWithBlock(m_world->getMap()->getListBlocs()[(int)m_time]);
+	std::cout << "je suis dans checkBonusAndCoins2" << std::endl;
 	if (result == 2){ //collision with a bonus
+		std::cout << "Collision bonus" << std::endl;
 		Bonus bonus;
 		m_world->getListBonus().push_back(bonus.generateBonus());
 	}
-	else if (result == 3) // collision with a coin
-		m_world->getPlayer().addMoney(1);
+	else if (result == 3) {// collision with a coin
+		m_world->getPlayer()->addMoney(1);
+		std::cout << "Collision coin" << std::endl;
+	}
 }
 
 bool Game::endGame(){
 	/* Collision with a block or an empty block */
 
-	if (m_princess->collisionWithBlock(m_world->getMap().getListBlocs()[(int)m_time]) == 1){
+	/*if (m_princess->collisionWithBlock(m_world->getMap().getListBlocs()[(int)m_time]) == 1){
 		std::cout << "collision block" << std::endl;
 		return true;
-	}
+	}*/
 	/* End of the map */ 
-	if ((int)m_time == m_world->getMap().getListBlocsSize()-1){
-		std::cout << "je suis à la fin" << std::endl; 
+	if ((int)m_time == m_world->getMap()->getListBlocsSize())
 		return true; 
-	}
 
 	/* Collision with a enemy */
 	//if (m_world->getMap().getListEnemies()[0].getProximity() == 0)
@@ -52,32 +54,32 @@ bool Game::endGame(){
 
 
 void Game::playGame(){
-	m_world->getMap().printMap();
 	checkBonusAndCoins();
-	Player player = m_world->getPlayer();
+	Player *player = m_world->getPlayer();
 	/* Increment score of the player */ 
-	player.addScore(1);
-
+	player->addScore(1);
+	//std::cout << "je suis dans playGame4" << std::endl;
+	
 	/* Apply bonus on the game */
+
 	for (unsigned int i = 0; i < m_world->getListBonus().size(); i++){
 		switch(m_world->getListBonus()[i].getType()){
-			case 1: player.addMoney(10); //BONUS TYPE 1 : add 2 coins every loop tour 
+			case 1: 
+				player->addMoney(10); //BONUS TYPE 1 : add 2 coins every loop tour 
+				break;
 			case 2: 
-				player.addScore(10);
+				player->addScore(10);
 				m_world->getListBonus()[i].setTime(5);
+				break;
 			case 3: 
-				player.addMoney(100);
+				player->addMoney(100);
 				m_world->getListBonus()[i].setTime(0);
+				break;
 		}
 	}
 
-
-	/// Incrementer position des tous les blocs
-
 	m_world->deleteBonus();
-	incrementTime(0.1);
-
-	player.printInfosPlayer();
+	m_world->getPlayer()->printInfosPlayer();
 }
 
 
@@ -125,7 +127,7 @@ bool Game::eventManager(glimac::SDLWindowManager &window){
         	switch(e.key.keysym.sym){
         		case SDLK_q:
         			m_princess->goLeft();
-        			if(m_world->getMap().getListBlocs()[(int)m_time].getDirection()=='L'){
+        			if(m_world->getMap()->getListBlocs()[(int)m_time].getDirection()=='L'){
         				std::cout << "GO LEFT " << m_time << std::endl;
         				//m_direction = -1;
         			}
@@ -135,7 +137,7 @@ bool Game::eventManager(glimac::SDLWindowManager &window){
         			break;
         		case SDLK_d: 
         			m_princess->goRight();
-        			if(m_world->getMap().getListBlocs()[(int)m_time].getDirection()=='R'){
+        			if(m_world->getMap()->getListBlocs()[(int)m_time].getDirection()=='R'){
         				std::cout << "GO RIGHT" << std::endl;
         				m_direction = 1;
         			}
