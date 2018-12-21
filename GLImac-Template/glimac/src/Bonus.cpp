@@ -19,7 +19,7 @@ Bonus::Bonus(const unsigned int &type, const unsigned int &_time)
 Bonus Bonus::generateBonus(){
 	std::srand((int)time(0));;
 	unsigned int randomType = (std::rand()%3) + 1; 
-	unsigned int randomTime = (std::rand()%30) + 10;
+	unsigned int randomTime = (std::rand()%10) + 5;
 
 	return Bonus(randomType, randomTime);
 }

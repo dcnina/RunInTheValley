@@ -74,6 +74,9 @@ int main(int argc, char** argv) {
     int prevX = 0;
     int prevY = 0;*/
 
+
+
+
     // Application loop:
     bool done = false;
     while(!done) {

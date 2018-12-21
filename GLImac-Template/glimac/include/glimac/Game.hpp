@@ -38,6 +38,7 @@ class Game{
 		Princess *m_princess; //!< Character of the game 
 		double m_time = 0.0; //!< Time of the game 
 		int m_direction = 0;
+		//glm::mat4 m_globalPosition = glm::mat4();
 
 	public:
 		///CONSTRUCTOR
