@@ -115,7 +115,7 @@ class Player{
 		*\brief add points to the player score       
 		*\param number of points
 		*/
-		inline void addScore(unsigned int score){ std::cout << "je suis dans" << std::endl; m_score += score; }
+		inline void addScore(unsigned int score){ m_score += score; }
 
 		/**
 		*\brief remove coins of the player money     

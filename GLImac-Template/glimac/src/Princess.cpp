@@ -71,7 +71,7 @@ int Princess::collisionWithBlock(Bloc &bloc){
 
 	//Test if princess stands up
 	if(m_state == 1){
-		switch(bloc.getMatrixTypes()[m_state][m_relativePosition]){
+		switch(bloc.getMatrixTypes()[1][m_relativePosition]){
 			case 'F' : return 1;
 				break;
 			case 'O' : return 1;
@@ -81,20 +81,10 @@ int Princess::collisionWithBlock(Bloc &bloc){
 			case 'C' : return 3;
 				break;
 		}
-
-		switch(bloc.getMatrixTypes()[3][m_relativePosition]){
-			case 'E' : return 1;
-				break;
-			// case 'F' : return 1;
-			// 	break;
-			// case 'O' : return 1;
-			// 	break;
-		}
-		return 0;
 	}
 
-	//test if princess is bend down
-	if(m_state == 0){
+	if(m_state == 1 || m_state == 0){
+
 		switch(bloc.getMatrixTypes()[2][m_relativePosition]){
 			case 'F' : return 1;
 				break;

@@ -20,25 +20,27 @@ Game::Game(const char* levelFile,std::vector<Model> listModel, Render render)
 void Game::checkBonusAndCoins(){
 	//std::cout << "je suis dans checkBonusAndCoins" << std::endl;
 	int result = m_princess->collisionWithBlock(m_world->getMap()->getListBlocs()[(int)m_time]);
-	std::cout << "je suis dans checkBonusAndCoins2" << std::endl;
+	//std::cout << "je suis dans checkBonusAndCoins2" << std::endl;
 	if (result == 2){ //collision with a bonus
 		std::cout << "Collision bonus" << std::endl;
 		Bonus bonus;
 		m_world->getListBonus().push_back(bonus.generateBonus());
+		m_world->getMap()->deleteBlocOfList((int)m_time);
 	}
 	else if (result == 3) {// collision with a coin
 		m_world->getPlayer()->addMoney(1);
 		std::cout << "Collision coin" << std::endl;
+		m_world->getMap()->deleteBlocOfList((int)m_time);
 	}
 }
 
 bool Game::endGame(){
 	/* Collision with a block or an empty block */
 
-	/*if (m_princess->collisionWithBlock(m_world->getMap().getListBlocs()[(int)m_time]) == 1){
+	if (m_princess->collisionWithBlock(m_world->getMap()->getListBlocs()[(int)m_time]) == 1){
 		std::cout << "collision block" << std::endl;
 		return true;
-	}*/
+	}
 	/* End of the map */ 
 	if ((int)m_time == m_world->getMap()->getListBlocsSize())
 		return true; 
