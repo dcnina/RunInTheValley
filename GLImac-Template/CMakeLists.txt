@@ -25,5 +25,6 @@ add_subdirectory(glimac)
 
 file(GLOB RunInTheValley_DIRECTORIES "RunInTheValley*")
 
+
 foreach(RunInTheValley ${RunInTheValley_DIRECTORIES}   add_subdirectory(${RunInTheValley})
 endforeach()
