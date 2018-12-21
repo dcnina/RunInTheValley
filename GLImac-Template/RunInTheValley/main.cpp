@@ -47,7 +47,7 @@ int main(int argc, char** argv) {
 
     music = Mix_LoadMUS("assets/sound/music.mp3");
     Mix_PlayMusic(music, -1);
-    Mix_VolumeMusic(MIX_MAX_VOLUME);*/
+    Mix_VolumeMusic(MIX_MAX_VOLUME);
 
    
     /*********************************

@@ -56,6 +56,8 @@ class Bloc /*: public Object*/{
 		*\return current matrix of types of block
 		*/
 		inline std::vector<std::vector<char>> getMatrixTypes() const { return m_matrixTypes;}
+
+		inline char getMatrixTypesElement(const int &i, const int &j) const{return m_matrixTypes[i][j];}
 		
 		/**
 		*\brief Get direction of the block   

@@ -12,12 +12,12 @@
 
 
 Bloc::Bloc()
-:m_direction('T'), m_index(0)
+:m_direction('S'), m_index(0)
 {
 	for (int i = 0; i < ROWS; i++){
 		std::vector<char> vectTmp;
 		for (int j = 0; j < COLS; j++)
-			vectTmp.push_back('V');
+			vectTmp.push_back('E');
 		m_matrixTypes.push_back(vectTmp);
 	}
 }
