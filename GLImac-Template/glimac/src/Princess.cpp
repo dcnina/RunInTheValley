@@ -58,9 +58,13 @@ int Princess::collisionWithBlock(Bloc &bloc){
 	if(m_state == 2){
 		switch(bloc.getMatrixTypes()[0][m_relativePosition]){
 			case 'F' : return 1;
+				break;
 			case 'O' : return 1;
+				break;
 			case 'B' : return 2;
+				break;
 			case 'C' : return 3;
+				break;
 		}
 		return 0;
 	}
@@ -69,15 +73,22 @@ int Princess::collisionWithBlock(Bloc &bloc){
 	if(m_state == 1){
 		switch(bloc.getMatrixTypes()[m_state][m_relativePosition]){
 			case 'F' : return 1;
+				break;
 			case 'O' : return 1;
+				break;
 			case 'B' : return 2;
+				break;
 			case 'C' : return 3;
+				break;
 		}
 
 		switch(bloc.getMatrixTypes()[3][m_relativePosition]){
 			case 'E' : return 1;
+				break;
 			case 'F' : return 1;
+				break;
 			case 'O' : return 1;
+				break;
 		}
 		return 0;
 	}
@@ -86,9 +97,13 @@ int Princess::collisionWithBlock(Bloc &bloc){
 	if(m_state == 0){
 		switch(bloc.getMatrixTypes()[2][m_relativePosition]){
 			case 'F' : return 1;
+				break;
 			case 'O' : return 1;
+				break;
 			case 'B' : return 2;
+				break;
 			case 'C' : return 3;
+				break;
 		}
 
 		if(bloc.getMatrixTypes()[3][m_relativePosition] == 'E')
