@@ -20,7 +20,7 @@
 using namespace glimac;
 
 int main(int argc, char** argv) {
-    /* Initialization of SDL 
+    /* Initialization of SDL
     if(-1 == SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO)) {
         fprintf(stderr, "Impossible to initialize SDL. End of programme.\n");
         return EXIT_FAILURE;
@@ -49,7 +49,7 @@ int main(int argc, char** argv) {
     Mix_PlayMusic(music, -1);
     Mix_VolumeMusic(MIX_MAX_VOLUME);*/
 
-   
+
     /*********************************
      * HERE SHOULD COME THE INITIALIZATION CODE
      *********************************/
@@ -64,8 +64,8 @@ int main(int argc, char** argv) {
     Model bloc("assets/obj/bloc.obj");
     Model bonus("assets/obj/bonus.obj");
     Model coin("assets/obj/coin.obj");
-    Model obstacle("assets/obj/obstacle.obj"); 
-    Model fond("assets/obj/fond1.obj");    
+    Model obstacle("assets/obj/obstacle.obj");
+    Model fond("assets/obj/fond1.obj");
 
     std::vector<Model> globalModel;
 
@@ -75,7 +75,7 @@ int main(int argc, char** argv) {
     globalModel.push_back(coin);
     globalModel.push_back(obstacle);
     globalModel.push_back(fond);
-    
+
     Game game("./assets/map/level-test-bonus.txt", globalModel, render);
 
     //DEPTH Test of the GPU
@@ -96,7 +96,7 @@ int main(int argc, char** argv) {
 
        // glClearColor( 255, 255 ,255, 1.0 );
        /* viewMatrix = trackCamera.getViewMatrix();*/
-        // Event loop: 
+        // Event loop:
         // SDL_Event e;
         // while(windowManager.pollEvent(e)) {
         //         if(e.type == SDL_QUIT) {
@@ -108,7 +108,7 @@ int main(int argc, char** argv) {
          * HERE SHOULD COME THE RENDERING CODE
          *********************************/
         done = game.eventManager(windowManager);
-        
+
         game.playGame();
         game.drawAll();
 
