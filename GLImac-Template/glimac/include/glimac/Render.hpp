@@ -23,7 +23,13 @@
 
 #include <GL/glew.h>
 #include <glimac/glm.hpp>
+
+#ifdef __APPLE__
+#include <openGL/gl.h>
+#else
 #include <GL/gl.h>
+#endif
+
 #include <glimac/Program.hpp>
 
 class Render{
