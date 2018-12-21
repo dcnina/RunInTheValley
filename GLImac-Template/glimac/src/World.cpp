@@ -25,6 +25,15 @@ World::World(const World& world){
 	m_listModel = world.m_listModel;
 }
 
+void World::deleteBonus(){
+	for (unsigned int i = 0; i<m_listBonus.size(); i++){
+		if(m_listBonus[i].getTime() == 0)
+			m_listBonus.erase(m_listBonus.begin()+i-1);
+	}
+}
+
+
+
 void World::drawWorld(glm::mat4 MVMatrix,glm::mat4 viewMatrix, Render render){
     glm::mat4 newMVMatrix;
 	//Draw background

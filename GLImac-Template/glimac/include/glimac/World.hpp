@@ -105,8 +105,6 @@ class World{
 
 
 		/// METHODS
-		void addBonus(unsigned int m_type, unsigned int m_time);
-
 		void deleteBonus();
 
 		void drawWorld( glm::mat4 MVMatrix,glm::mat4 viewMatrix, Render render);

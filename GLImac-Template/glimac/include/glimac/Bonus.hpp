@@ -70,7 +70,7 @@ class Bonus /*: public Object*/{
 
 
 		///METHODS
-		inline void decrementTime(){ if (getTime() > 0){m_time--;}};
+		inline void decrementTime(){ if (m_time > 0){m_time--;}};
 		inline void draw(Render &render, double &sizeBlock){};
 		Bonus generateBonus();
 
