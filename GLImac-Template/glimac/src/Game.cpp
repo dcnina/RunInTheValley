@@ -127,6 +127,7 @@ bool Game::eventManager(glimac::SDLWindowManager &window){
         }
         else if(e.type == SDL_KEYDOWN){
         	switch(e.key.keysym.sym){
+        		case SDLK_LEFT:
         		case SDLK_q:
         			m_princess->goLeft();
         			if(m_world->getMap()->getListBlocs()[(int)m_time].getDirection()=='L'){
@@ -134,9 +135,11 @@ bool Game::eventManager(glimac::SDLWindowManager &window){
         				//m_direction = -1;
         			}
         			break;
+        		case SDLK_DOWN:
         		case SDLK_s: 
         			m_princess->bendDown(m_time);
         			break;
+        		case SDLK_RIGHT:
         		case SDLK_d: 
         			m_princess->goRight();
         			if(m_world->getMap()->getListBlocs()[(int)m_time].getDirection()=='R'){
@@ -144,6 +147,7 @@ bool Game::eventManager(glimac::SDLWindowManager &window){
         				m_direction = 1;
         			}
         			break;
+        		case SDLK_UP:	
         		case SDLK_z:
         			m_princess->jump(m_time);
         			break;
