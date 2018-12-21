@@ -50,7 +50,8 @@ void World::drawWorld(glm::mat4 MVMatrix,glm::mat4 viewMatrix, Render render){
     MVMatrix = glm::translate(MVMatrix, glm::vec3(0.0, -(SIZE_BLOCK), m_speed));
     
     m_speed += 0.05;render.sendMatrix(MVMatrix);
-    for(int i = 0; i<sizeList;i++){char direction = listBloc[i].getDirection();
+    for(int i = 0; i<sizeList;i++){
+    	char direction = listBloc[i].getDirection();
 		
     	
     	listBloc[i].drawBlock(m_listModel, viewMatrix, render,MVMatrix);

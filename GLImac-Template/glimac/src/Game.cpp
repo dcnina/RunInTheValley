@@ -145,6 +145,7 @@ bool Game::eventManager(glimac::SDLWindowManager &window){
         			}
         			break;
         		case SDLK_z:
+        			m_princess->jump(m_time);
         			break;
         	}
         }

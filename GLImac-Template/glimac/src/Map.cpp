@@ -53,7 +53,7 @@ void Map::initialiseListBlocFromFile(const char* filename){
 }
 
 void Map::convertBlocTypeToEmpty(const unsigned int &index, const int &princessState, const int &princessRelativePosition){ 
-	m_listBlocs[index].setMatrixTypesElement('E', princessState-1, princessRelativePosition-1);
+	m_listBlocs[index].setMatrixTypesElement('E', princessState, princessRelativePosition);
 };
 
 
