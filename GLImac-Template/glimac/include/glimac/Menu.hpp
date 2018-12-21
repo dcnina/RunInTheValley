@@ -21,7 +21,13 @@
 #include <iostream>
 #include <glimac/SDLWindowManager.hpp>
 #include <GL/glew.h>
+
+#ifdef __APPLE__
+#include <openGL/gl.h>
+#else
 #include <GL/gl.h>
+#endif
+
 #include <vector>
 #include <glimac/Program.hpp>
 #include <glimac/Texture2D.hpp>
