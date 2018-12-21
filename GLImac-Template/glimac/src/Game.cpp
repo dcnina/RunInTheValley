@@ -38,7 +38,7 @@ void Game::checkBonusAndCoins(){
 bool Game::endGame(){
 	/* End of the map */ 
 	if ((int)m_time == m_world->getMap()->getListBlocsSize()){
-		m_world->getMap()->printMap();
+		//m_world->getMap()->printMap();
 		return true; 
 	}
 
@@ -98,9 +98,9 @@ void Game::drawAll(){
 	MVMatrix= glm::translate(glm::mat4(), glm::vec3(0, -1.0, 0)); 
     MVMatrix = viewMatrix*MVMatrix;
     m_render.sendLight(viewMatrix);
-    /*if(m_time-m_princess->getTimeChange()>SIZE_BLOCK){
+    if(m_time-m_princess->getTimeChange()>SIZE_BLOCK*3){
     	m_princess->backToNormalState(m_time);
-    }*/
+    }
 
     newMVMatrix = glm::translate(MVMatrix, glm::vec3(0,0, 0));
 	m_render.sendMatrix(newMVMatrix);
