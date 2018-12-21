@@ -37,7 +37,6 @@ void World::drawWorld(glm::mat4 MVMatrix,glm::mat4 viewMatrix, Render render){
     listModTmp.erase(listModTmp.begin());
     unsigned int sizeList = m_map->getListBlocsSize();
     std::vector<Bloc> listBloc= m_map->getListBlocs();
-	MVMatrix = MVMatrix*;
 
     MVMatrix = glm::translate(MVMatrix, glm::vec3(0.0, -(SIZE_BLOCK), m_speed));
     
