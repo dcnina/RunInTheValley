@@ -124,6 +124,7 @@ class Player{
 		*/
 		inline void removeScore(unsigned int &score){ m_score -= score; };
 
+		void printInfosPlayer();
 
 		///DESTRUCTOR
 		/**
