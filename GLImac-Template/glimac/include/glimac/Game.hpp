@@ -78,7 +78,7 @@ class Game{
 		*\brief increment the travelled distance      
 		*\param the distance to increment
 		*/
-		inline void incrementDistance(double distance){ m_distance += distance;};
+		inline void incrementTime(double distance){ m_time += m_time;};
 
 
 		/**
