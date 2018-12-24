@@ -11,36 +11,40 @@
 
 using namespace glimac;
 
-Button::Button(const float posX, const float posY, const float scaleX, const float scaleY, const Texture2D &texture)
-:m_buttonTexture(Texture2D(texture)), m_posX(posX), m_posY(posY), m_scaleX(scaleX), m_scaleY(scaleY){}
+Button::Button(float posX,float posY, float scaleX, float scaleY, Texture2D *texture)
+:m_buttonTexture(texture), m_posX(posX), m_posY(posY), m_scaleX(scaleX), m_scaleY(scaleY){}
  
-GLuint Button::initializeButton(const std::string bgImage){
-    GLuint vboButton = m_buttonTexture.initializeTexture2D(bgImage);
-    return vboButton;
+void Button::initializeButton(std::unique_ptr<glimac::Image> &bgImage){
+    m_buttonTexture->initializeTexture2D(bgImage);
+}
+void Button::createButton(){
+    m_buttonTexture->createAndBindVao();    
 }
 
-GLuint Button::createButton(const GLuint &vbo){
-    GLuint vaoButton = m_buttonTexture.createAndBindVao(vbo);    
-    return vaoButton;
+glm::mat3 translateMat(float tx, float ty) {
+    return glm::mat3(glm::vec3(1, 0, 0), glm::vec3(0, 1, 0), glm::vec3(tx, ty, 1));
 }
 
-void Button::drawButton(const GLuint &vao){
-    glBindVertexArray(vao);
-    glUniform1i(m_buttonTexture.getUTexture(),0);
+glm::mat3 scaleMat(float sx, float sy){
+    return glm::mat3(glm::vec3(sx, 0, 0), glm::vec3(0, sy, 0), glm::vec3(0, 0, 1));
+}
+void Button::drawButton(){
+    float width = 1.0/float(WINDOW_WIDTH)*float(m_scaleX);
+    float height = 1.0/float(WINDOW_HEIGHT)*float(m_scaleY);
 
-    glUniformMatrix3fv(m_buttonTexture.getUModelMatrix(), 1, GL_FALSE, glm::value_ptr(m_buttonTexture.translate(m_posX, m_posY)*m_buttonTexture.scale(m_scaleX, m_scaleY)));
+    float transX = (float(m_posX+m_scaleX/2.0)/float(WINDOW_WIDTH)*2.0)-1.0;
+    float transY = 1.0-float(m_posY+m_scaleY/2.0)/float(WINDOW_HEIGHT)*2.0;
 
-    glBindTexture(GL_TEXTURE_2D,m_buttonTexture.getIdText());
-
-    glDrawArrays(GL_TRIANGLES,0,6);
-    glBindTexture(GL_TEXTURE_2D,0);
-
-    glBindVertexArray(0);
+    glUniformMatrix3fv(m_buttonTexture->getUModelMatrix(), 1, GL_FALSE, glm::value_ptr(translateMat(transX,transY)*scaleMat(width,height)));
+    m_buttonTexture->drawTexture2D();
 }
 
-void Button::freeButtonTexture(const GLuint &vao, const GLuint &vbo){
-    m_buttonTexture.freeTexture2D(vao, vbo);
+bool Button::mouseHover(const int mouseX, const int mouseY) const{
+	if(mouseX >= m_posY && mouseX <= m_posX + m_scaleX){
+		if(mouseY >= m_posY && mouseY <= m_posY + m_scaleY){
+			return true;
+		}
+	}
+	return false;
 }
-
-
 Button::~Button(){}

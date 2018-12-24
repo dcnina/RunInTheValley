@@ -40,14 +40,14 @@ int main(int argc, char** argv) {
     std::cout << "GLEW Version : " << glewGetString(GLEW_VERSION) << std::endl;
 
     //Sound initialization
-    if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 1024) == -1)
+    /*if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 1024) == -1)
        std::cout << Mix_GetError() << std::endl;
-    Mix_Music *music; //creation of musique
+    Mix_Music *music; //creation of musique*/
 
 
-    music = Mix_LoadMUS("assets/sound/music.mp3");
+    /*music = Mix_LoadMUS("assets/sound/music.mp3");
     Mix_PlayMusic(music, -1);
-    Mix_VolumeMusic(MIX_MAX_VOLUME);
+    Mix_VolumeMusic(MIX_MAX_VOLUME);*/
 
    
     /*********************************

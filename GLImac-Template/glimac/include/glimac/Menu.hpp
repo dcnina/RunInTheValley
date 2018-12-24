@@ -25,7 +25,7 @@
 #include <vector>
 #include <glimac/Program.hpp>
 #include <glimac/Texture2D.hpp>
-//#include <glimac/Button.hpp>
+#include <glimac/Button.hpp>
 
 #ifndef __MENU__
 #define __MENU__
@@ -33,8 +33,8 @@
 
 class Menu{
 	private:
-		Texture2D m_menuTexture;
-		//std::vector<Button> m_buttons;
+		Texture2D *m_menuTexture;
+		std::vector<Button> m_buttons;
 		// GLuint uModelMatrix;
 		// GLuint uTexture;
 
@@ -45,35 +45,33 @@ class Menu{
 		*\brief Default constructor   
 		*\details Constructor by default of Menu
 		*/
-		Menu(const Texture2D &texture);
+		Menu(Texture2D *texture);
+
+		inline std::vector<Button> getButtons(){
+			return m_buttons;
+		}
 
 		/**
 		*\brief initialize the texture 
 		*\params vShaders and fShader
 		*\return gluint : vbo 
 		*/
-		GLuint initializeMenu(const std::string bgImage);
+		void initializeMenu(const std::string bgImage);
 
 		/**
 		*\brief create and bind the menu vao 
 		*\params gluint vbo
 		*\return gluint : vao 
 		*/
-		GLuint createMenu(const GLuint &vbo);
-
+		void createMenu();
+		inline void addButton(Button &button){
+			m_buttons.push_back(button);
+		}
 		/**
-		*\brief draw the background menu texture 
-		*\params gluint vao 
+		*\brief draw the menu with texture 
 		*/
-		void drawBackground(const GLuint &vao);
-
-		/**
-		*\brief free the menu texture, vao and vbo 
-		*\params vao and vbo 
-		*/
-		void freeMenuTexture(const GLuint &vao, const GLuint &vbo);	
+		void drawMenu();
 		
-
 		/**
 		*\brief Initialize the game, create Window, load GLEW
 		*\return current gameState

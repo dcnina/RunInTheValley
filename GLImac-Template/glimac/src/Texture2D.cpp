@@ -12,40 +12,33 @@
 using namespace glimac;
 
 
+glm::mat3 scale(float sx, float sy){
+    return glm::mat3(glm::vec3(sx, 0, 0), glm::vec3(0, sy, 0), glm::vec3(0, 0, 1));
+}
 
 // Texture2D::Texture2D(std::string bgImage)
 //  :m_textureImage(bgImage){}
 
-Texture2D::Texture2D(glimac::Program *prog)
+Texture2D::Texture2D(glimac::Program *prog,glimac::FilePath path)
+    :m_textureImage(path), m_prog(prog)
  {  
-    m_prog = prog;
-    uModelMatrix = glGetUniformLocation(m_prog->getGLId(), "uModelMatrix");
-    uTexture = glGetUniformLocation(m_prog->getGLId(), "uTexture"); 
+    m_uModelMatrix = glGetUniformLocation(m_prog->getGLId(), "uModelMatrix");
+    m_uTexture = glGetUniformLocation(m_prog->getGLId(), "uTexture"); 
 
-    m_prog->use();
+    //m_prog->use();
  }
 
-Texture2D::Texture2D(const Texture2D &texture)
- :m_prog(texture.m_prog),m_idText(texture.m_idText), m_textureImage(texture.m_textureImage), uModelMatrix(texture.uModelMatrix), uTexture(texture.uTexture)
- {}
 
-glm::mat3 Texture2D::translate(float tx, float ty)const {
-    return glm::mat3(glm::vec3(1, 0, 0), glm::vec3(0, 1, 0), glm::vec3(tx, ty, 1));
+std::unique_ptr<glimac::Image> Texture2D::loadImg()
+{
+    std::unique_ptr<glimac::Image> image = loadImage(m_textureImage);
+    if(image == NULL){
+        //Error mess
+    }
+    return image;
 }
+void Texture2D::initializeTexture2D(std::unique_ptr<glimac::Image> &texture){
 
-glm::mat3 Texture2D::scale(float sx, float sy)const {
-    return glm::mat3(glm::vec3(sx, 0, 0), glm::vec3(0, sy, 0), glm::vec3(0, 0, 1));
-}
-
-GLuint Texture2D::initializeTexture2D(std::string bgImage){
-
-    // m_prog = loadProgram(vShader, fShader);
-    // m_prog.use();
-    m_textureImage = bgImage;
-    std::unique_ptr<Image> texture = loadImage(m_textureImage);
-
-    if(texture == NULL)
-        std::cout << "erreur chargement image menu "<<std::endl;
 
     glGenTextures(1,&m_idText);
     glBindTexture(GL_TEXTURE_2D,m_idText);
@@ -54,11 +47,13 @@ GLuint Texture2D::initializeTexture2D(std::string bgImage){
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glBindTexture(GL_TEXTURE_2D,0);
 
-    
+    createAndBindVao();
+}
 
-    GLuint vbo;
-    glGenBuffers(1,&vbo);
-    glBindBuffer(GL_ARRAY_BUFFER,vbo);
+void Texture2D::createAndBindVao(){
+
+    glGenBuffers(1,&m_vbo);
+    glBindBuffer(GL_ARRAY_BUFFER,m_vbo);
 
     Vertex2DUV verts[] = {
         Vertex2DUV(glm::vec2(-1.f, -1.f), glm::vec2(0.f, 1.f)),
@@ -70,48 +65,38 @@ GLuint Texture2D::initializeTexture2D(std::string bgImage){
     };
     glBufferData(GL_ARRAY_BUFFER,6*sizeof(Vertex2DUV),verts,GL_STATIC_DRAW);
     glBindBuffer(GL_ARRAY_BUFFER,0);
-
-    return vbo;
-}
-
-GLuint Texture2D::createAndBindVao(const GLuint &vbo){
-    GLuint vao;
-    glGenVertexArrays(1,&vao);
-    glBindVertexArray(vao);
+    glGenVertexArrays(1,&m_vao);
+    glBindVertexArray(m_vao);
 
     glEnableVertexAttribArray(0);
     glEnableVertexAttribArray(1);
 
-    glBindBuffer(GL_ARRAY_BUFFER,vbo);
+    glBindBuffer(GL_ARRAY_BUFFER,m_vbo);
 
     glVertexAttribPointer(0,2,GL_FLOAT,GL_FALSE,sizeof(Vertex2DUV),(const GLvoid*)(offsetof(Vertex2DUV,position)));
     glVertexAttribPointer(1,2,GL_FLOAT,GL_FALSE,sizeof(Vertex2DUV),(const GLvoid*)(offsetof(Vertex2DUV,texture)));
     glBindBuffer(GL_ARRAY_BUFFER,0);
 
     glBindVertexArray(0);
-
-    return vao;
 }
 
-void Texture2D::drawTexture2D(const GLuint &vao){
-    glBindVertexArray(vao);
-    glUniform1i(uTexture,0);
-
-    glUniformMatrix3fv(uModelMatrix, 1, GL_FALSE, glm::value_ptr(scale(1.0f, 1.0f)));
-
+void Texture2D::drawTexture2D(){
+    glBindVertexArray(m_vao);
     glBindTexture(GL_TEXTURE_2D,m_idText);
+    glUniform1i(m_uTexture,0);
+
+    //glUniformMatrix3fv(m_uModelMatrix, 1, GL_FALSE, glm::value_ptr(scale(1.0f, 1.0f)));
+
 
     glDrawArrays(GL_TRIANGLES,0,6);
-    glBindTexture(GL_TEXTURE_2D,0);
 
     glBindVertexArray(0);
+    glBindTexture(GL_TEXTURE_2D,0);
 }
 
-void Texture2D::freeTexture2D(const GLuint &vao, const GLuint &vbo){
-    glDeleteBuffers(1, &vbo);
-    glDeleteVertexArrays(1, &vao);
+
+Texture2D::~Texture2D(){
+    glDeleteBuffers(1, &m_vbo);
+    glDeleteVertexArrays(1, &m_vao);
     glDeleteTextures(1, &m_idText);
 }
-
-Texture2D::~Texture2D(){}
-

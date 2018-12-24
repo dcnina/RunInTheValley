@@ -68,12 +68,12 @@ int main(int argc, char** argv) {
      *********************************/
     const GLuint VERTEX_ATTR_POS = 0;
     const GLuint VERTEX_ATTR_NORM = 1;
-    
+
     const float BTN_SCORE_POS_X = 0.35f;
     const float BTN_SCORE_POS_Y = -0.28f;
     const float BTN_SCORE_SCALE_X = 0.25f;
     const float BTN_SCORE_SCALE_Y = 0.25f;
-   
+
     const float BTN_PLAY_POS_X = -0.35f;
     const float BTN_PLAY_POS_Y = -0.28f;
     const float BTN_PLAY_SCALE_X = 0.25f;
@@ -86,72 +86,56 @@ int main(int argc, char** argv) {
     
 
     FilePath appPath(argv[0]);
-    glimac::Program prog = glimac::loadProgram(appPath.dirPath() + "shaders/3D.vs.glsl",appPath.dirPath() + "shaders/pointlight.fs.glsl"); 
-    Render render(&prog);
 
     glimac::Program progMenu = glimac::loadProgram(appPath.dirPath() + "shaders/tex2D.vs.glsl", appPath.dirPath() + "shaders/tex2D.fs.glsl");
-    Texture2D texture2D(&progMenu);
+    progMenu.use();
 
-    Button buttonScore(BTN_SCORE_POS_X, BTN_SCORE_POS_Y, BTN_SCORE_SCALE_X, BTN_SCORE_SCALE_Y, texture2D);
-    GLuint vboButtonScore = buttonScore.initializeButton(appPath.dirPath() + "assets/textures/score.png");
-    GLuint vaoButtonScore = buttonScore.createButton(vboButtonScore);
+    Texture2D backgroundMainText(&progMenu,appPath.dirPath()+"assets/textures/menu.png");
+    std::unique_ptr<glimac::Image> backgroundMenuImg = backgroundMainText.loadImg();
+    backgroundMainText.initializeTexture2D(backgroundMenuImg);
+    
+    Texture2D textureScore(&progMenu,appPath.dirPath()+"assets/textures/score.png");
+    std::unique_ptr<glimac::Image> backgroundScore = textureScore.loadImg();
+    
+    Texture2D texturePlay(&progMenu,appPath.dirPath()+"assets/textures/play.png");
+    std::unique_ptr<glimac::Image> backgroundPlay = texturePlay.loadImg();
+    
+    Texture2D textureQuit(&progMenu,appPath.dirPath()+"assets/textures/quit.png");
+    std::unique_ptr<glimac::Image> backgroundQuit = textureQuit.loadImg();
+    
+    Button buttonScore(430, 410, 200, 200, &textureScore);
+    buttonScore.initializeButton(backgroundScore);
+    buttonScore.createButton();
 
-    Button buttonPlay(BTN_PLAY_POS_X, BTN_PLAY_POS_Y, BTN_PLAY_SCALE_X, BTN_PLAY_SCALE_Y, texture2D);
-    GLuint vboButtonPlay = buttonPlay.initializeButton(appPath.dirPath() + "assets/textures/play.png");
-    GLuint vaoButtonPlay = buttonPlay.createButton(vboButtonPlay);
+    Button buttonPlay(170, 410, 200, 200, &texturePlay);
+    buttonPlay.initializeButton(backgroundPlay);
+    buttonPlay.createButton();
 
-    Button buttonQuit(BTN_QUIT_POS_X, BTN_QUIT_POS_Y, BTN_QUIT_SCALE_X, BTN_QUIT_SCALE_Y, texture2D);
-    GLuint vboButtonQuit = buttonQuit.initializeButton(appPath.dirPath() + "assets/textures/quit.png");
-    GLuint vaoButtonQuit = buttonQuit.createButton(vboButtonQuit);
+    Button buttonQuit(700, 0, 100, 100, &textureQuit);
+    buttonQuit.initializeButton(backgroundQuit);
+    buttonQuit.createButton();
    
-    Menu menuBackground(texture2D);
-    GLuint vboMenu = menuBackground.initializeMenu(appPath.dirPath() + "assets/textures/menu.png");
-    GLuint vaoMenu = menuBackground.createMenu(vboMenu);
+    Menu menuBackground(&backgroundMainText);
 
-   // menuBackground.initializeMenu(appPath.dirPath() + "shaders/text2D.vs.glsl", appPath.dirPath() + "shaders/text2D.fs.glsl");
-
-
-    //  Model princessModel("assets/obj/princess.obj");
-
-   // Model bloc("assets/obj/bloc.obj");
-   // Model bonus("assets/obj/bonus.obj");
-   // Model coin("assets/obj/coin.obj");
+    //Adding button to menu
+    menuBackground.addButton(buttonScore);
+    menuBackground.addButton(buttonPlay);
+    menuBackground.addButton(buttonQuit);
 
     glm::mat4 MVMatrix;
     glm::mat4 viewMatrix;
 
-   // Map map("./assets/map/level.txt");
-    // map.printMap();
-    // std::vector<Bonus> listBonus;
-    // Princess princess;
-    // Player player("pseudo",coin);
-    // std::vector<Model> globalModel;
-
-    // globalModel.push_back(princessModel);
-    // globalModel.push_back(bloc);
-    // globalModel.push_back(bonus);
-    // globalModel.push_back(coin);
-    
-    // World world(map, 0, listBonus, princess, player, globalModel, render);
-
 
     //DEPTH Test of the GPU
-    glEnable(GL_DEPTH_TEST);
+    //glEnable(GL_DEPTH_TEST);
 
     //Create a new Camera
 
-    TrackballCamera trackCamera;
-    int prevX = 0;
-    int prevY = 0;
 
     // Application loop:
     bool done = false;
 
     while(!done) {
-        buttonScore.drawButton(vaoButtonScore);
-        buttonPlay.drawButton(vaoButtonPlay);
-        buttonQuit.drawButton(vaoButtonQuit);
-        menuBackground.drawBackground(vaoMenu);
        
        // viewMatrix = trackCamera.getViewMatrix();
         // Event loop:
@@ -160,60 +144,36 @@ int main(int argc, char** argv) {
             if(e.type == SDL_QUIT) {
                 done = true; // Leave the loop after this iteration
             }
-       //     else if(e.type == SDL_MOUSEMOTION){
-        //         glm::ivec2 v = windowManager.getMousePosition();
-        //         if(prevX-v.x>0){
-        //             trackCamera.rotateLeft(5);
-        //         }
-        //         if(prevX-v.x<0){
-        //             trackCamera.rotateLeft(-5);
-        //         }
-        //         if(prevY-v.y>0){
-        //             trackCamera.rotateUp(5);
-        //         }
-        //         if(prevY-v.y<0){
-        //             trackCamera.rotateUp(-5);
-        //         }
-        //         prevX = v.x;
-        //         prevY=v.y;
-        //     }
-        //     else if(e.type == SDL_MOUSEBUTTONDOWN){
-        //         if(e.button.button == SDL_BUTTON_WHEELUP) // scroll up
-        //         {
-        //             trackCamera.moveFront(1.0);
-        //         }
-        //         else if(e.button.button == SDL_BUTTON_WHEELDOWN) // scroll down
-        //         {
-        //             trackCamera.moveFront(-1.0);
-        //         }
+            else if(e.type == SDL_MOUSEMOTION) {
+                int mouse_x, mouse_y;
+                SDL_GetMouseState(&mouse_x, &mouse_y);
+                menuBackground.getButtons()[0].mouseHover(mouse_x,mouse_y);
+                if(menuBackground.getButtons()[0].mouseHover(mouse_x,mouse_y)){
+                    //std::cout << "Hover button Score"<<std::endl;
+                }
+                else if(menuBackground.getButtons()[1].mouseHover(mouse_x,mouse_y)){
+                    //std::cout << "Hover button Play"<<std::endl;
+                }
+                else if(menuBackground.getButtons()[2].mouseHover(mouse_x,mouse_y)){
+                    //std::cout << "Hover button Leave"<<std::endl;
+                }
+            }
+        }
 
-        //     }
-         }
-    
+
         /*********************************
          * HERE SHOULD COME THE RENDERING CODE
          *********************************/
-      //  glClear(GL_COLOR_BUFFER_BIT);
-
-       
-
-        /*render.reset();
-        MVMatrix = glm::translate(glm::mat4(), glm::vec3(0, 0, 0)); 
-
-        MVMatrix = viewMatrix*MVMatrix;
-        render.sendMatrix(MVMatrix);
-
-        render.sendLight(viewMatrix);
-        bonus.draw();*/
-     //   world.drawWorld();
+        //glClear(GL_COLOR_BUFFER_BIT);
+        menuBackground.drawMenu();
 
         // Update the display
         windowManager.swapBuffers();
+
     }
-    buttonScore.freeButtonTexture(vaoButtonScore, vboButtonScore);
+    /*buttonScore.freeButtonTexture(vaoButtonScore, vboButtonScore);
     buttonPlay.freeButtonTexture(vaoButtonPlay, vboButtonPlay);
-    buttonPlay.freeButtonTexture(vaoButtonQuit, vboButtonQuit);
-    menuBackground.freeMenuTexture(vaoMenu, vboMenu);
+    buttonPlay.freeButtonTexture(vaoButtonQuit, vboButtonQuit);*/
 
     return EXIT_SUCCESS;
 }

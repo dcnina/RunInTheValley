@@ -24,6 +24,7 @@
 #include <GL/gl.h>
 #include <vector>
 #include <glimac/Program.hpp>
+#include <glimac/Image.hpp>
 
 #ifndef __TEXTURE2D__
 #define __TEXTURE2D__
@@ -38,9 +39,11 @@ struct Vertex2DUV{
 class Texture2D{
 	protected:
 		GLuint m_idText;
-		std::string m_textureImage; //!<Image of the Texture
-		GLuint uModelMatrix;
-		GLuint uTexture;
+		glimac::FilePath m_textureImage; //!<Image of the Texture
+		GLuint m_uModelMatrix;
+		GLuint m_uTexture;
+		GLuint m_vao;
+		GLuint m_vbo;
 
 	public:
 		glimac::Program *m_prog;
@@ -49,26 +52,26 @@ class Texture2D{
 		*\brief Default constructor   
 		*\details Constructor by default of Texture2D
 		*/
-		Texture2D(glimac::Program *prog);
+		Texture2D(glimac::Program *prog,glimac::FilePath path);
 	
 		/**
 		*\brief copy constructor   
 		*\details Constructor by copy of Texture2D
 		*/
-		Texture2D(const Texture2D &texture);
+		Texture2D(const Texture2D &text);
 
 		///GETTERS
 		/**
 		*\brief Get uModelMatrix
 		*\return current uModelMatrix
 		*/
-		inline GLuint getUModelMatrix() const{ return uModelMatrix; }
+		inline GLuint getUModelMatrix() const{ return m_uModelMatrix; }
 
 		/**
 		*\brief Get uTexture
 		*\return current uTexture
 		*/
-		inline GLuint getUTexture() const{ return uTexture; }
+		inline GLuint getUTexture() const{ return m_uTexture; }
 
 		/**
 		*\brief Get idText
@@ -76,47 +79,33 @@ class Texture2D{
 		*/
 		inline GLuint getIdText() const{ return m_idText; }
 
-
+		inline void setModelMatrix(const GLuint &mat){
+		    m_uModelMatrix = mat;
+		}
 		///METHODS
-		/**
-		*\brief translate matrix
-		*\params translation in X, translation in Y
-		*\return matrix 
-		*/
-		glm::mat3 translate(float tx, float ty) const;
 
-		/**
-		*\brief scale matrix
-		*\params value of scale in x, value of scale in y
-		*\return matrix 
-		*/
-		glm::mat3 scale(float sx, float sy) const;
-
+std::unique_ptr<glimac::Image> loadImg();
 		/**
 		*\brief initialize the texture 
 		*\params vShaders and fShader
 		*\return gluint : vbo 
 		*/
-		GLuint initializeTexture2D(std::string bgImage);
+		void initializeTexture2D(std::unique_ptr<glimac::Image> &texture);
+
 
 		/**
 		*\brief create and bind vao 
 		*\params gluint vbo
 		*\return gluint : vao 
 		*/
-		GLuint createAndBindVao(const GLuint &vbo);
+		void createAndBindVao();
 
 		/**
 		*\brief draw the background texture 
 		*\params gluint vao 
 		*/
-		void drawTexture2D(const GLuint &vao);
+		void drawTexture2D();
 
-		/**
-		*\brief free the texture, vao and vbo 
-		*\params vao and vbo 
-		*/
-		void freeTexture2D(const GLuint &vao, const GLuint &vbo);
 
 		///DESTRUCTOR
 		/**

@@ -18,59 +18,60 @@
  */
 
 #include <glimac/Texture2D.hpp>
-
+#include <glimac/FilePath.hpp>
+#define WINDOW_WIDTH 800
+#define WINDOW_HEIGHT 800
 
 #ifndef __BUTTON__
 #define __BUTTON__
 
 
 class Button{
-	private:
-		Texture2D m_buttonTexture;
-		float m_posX;
-		float m_posY;
-		float m_scaleX;
-		float m_scaleY;
-	public:
-		///CONSTRUCTOR
-		/**
-		*\brief Button constructor   
-		*/
-		Button(const float posX, const float posY, const float scaleX, const float scaleY, const Texture2D &texture);
+private:
+	Texture2D *m_buttonTexture;
+	float m_posX;
+	float m_posY;
+	float m_scaleX;
+	float m_scaleY;
+public:
+	///CONSTRUCTOR
+	/**
+	*\brief Button constructor   
+	*/
+	Button(float posX,float posY, float scaleX, float scaleY,Texture2D *texture);
 
-		///METHODS
-		/**
-		*\brief initialize the texture 
-		*\params vShaders and fShader
-		*\return gluint : vbo 
-		*/
-		GLuint initializeButton(const std::string bgImage);
-			
-		/**
-		*\brief create and bind the button vao 
-		*\params gluint vbo
-		*\return gluint : vao 
-		*/
-		GLuint createButton(const GLuint &vbo);
 
-		/**
-		*\brief draw the background button texture 
-		*\params gluint vao 
-		*/
-		void drawButton(const GLuint &vao);
+	
+	///METHODS
+	/**
+	*\brief initialize the texture 
+	*\params vShaders and fShader
+	*\return gluint : vbo 
+	*/
+	
+	void initializeButton(std::unique_ptr<glimac::Image> &bgImage);
+	
+	/**
+	*\brief create and bind the button vao 
+	*\params gluint vbo
+	*\return gluint : vao 
+	*/
+	void createButton();
 
-		/**
-		*\brief free the button texture, vao and vbo 
-		*\params vao and vbo 
-		*/
-		void freeButtonTexture(const GLuint &vao, const GLuint &vbo);
+	/**
+	*\brief draw the background button texture 
+	*\params gluint vao 
+	*/
+	void drawButton();
 
-		///DESTRUCTOR
-		/**
-		*\brief Default destructor   
-		*\details Destructor by default of Button
-		*/
-		~Button();
+	bool mouseHover(const int posX, const int posY) const;
+
+	///DESTRUCTOR
+	/**
+	*\brief Default destructor   
+	*\details Destructor by default of Button
+	*/
+	~Button();
 };
 
 #endif

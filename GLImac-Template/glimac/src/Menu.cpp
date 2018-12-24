@@ -8,30 +8,29 @@
 #include <glimac/Menu.hpp>
 #include <glimac/Image.hpp>
 #include <glimac/glm.hpp>
+#include <algorithm>
 
 using namespace glimac;
 
 
 
-Menu::Menu(const Texture2D &texture)
- :m_menuTexture(Texture2D(texture)){}
+Menu::Menu(Texture2D *texture)
+ :m_menuTexture(texture){}
 
-GLuint Menu::initializeMenu(const std::string bgImage){
-    GLuint vboMenu = m_menuTexture.initializeTexture2D(bgImage);
-    return vboMenu;
-}
-GLuint Menu::createMenu(const GLuint &vbo){
-    GLuint vaoMenu = m_menuTexture.createAndBindVao(vbo);    
-    return vaoMenu;
+void Menu::drawMenu(){
+	glUniformMatrix3fv(m_menuTexture->getUModelMatrix(), 1, GL_FALSE, glm::value_ptr(glm::mat3()));
+    
+    m_menuTexture->drawTexture2D();
+    auto drawButton = [](Button& button) { button.drawButton(); };
+    for_each(m_buttons.begin(), m_buttons.end(), drawButton);
+   // m_menuTexture.drawTexture2D();
+    //glUniformMatrix3fv(m_menuTexture.getUModelMatrix(), 1, GL_FALSE, glm::value_ptr(glm::mat3()));
+   
+    //m_buttons[2].drawButton();
+	//glUniformMatrix3fv(m_menuTexture.getUModelMatrix(), 1, GL_FALSE, glm::value_ptr(glm::mat3()));
+    
 }
 
-void Menu::drawBackground(const GLuint &vao){
-    m_menuTexture.drawTexture2D(vao);
-}
-
-void Menu::freeMenuTexture(const GLuint &vao, const GLuint &vbo){
-    m_menuTexture.freeTexture2D(vao, vbo);
-}
 
 Menu::~Menu(){}
 
