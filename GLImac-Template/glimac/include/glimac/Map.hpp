@@ -27,9 +27,9 @@
 
 class Map{
 	private:
-		std::vector<Bloc> m_listBlocs; //!< List of blocks 
-		std::vector<Enemy> m_listEnemies; //!< List of enemies
-		unsigned int m_listBlocsSize = 0; //!< Size of the list of blocks
+		std::vector<Bloc> m_listBlocs; /*!< List of blocks  */
+		std::vector<Enemy> m_listEnemies; /*!< List of enemies */
+		unsigned int m_listBlocsSize = 0; /*!< Size of the list of blocks */
 
 	public:
 		///CONSTRUCTOR
@@ -44,6 +44,7 @@ class Map{
 		*\details Constructor of Map
 		*/
 		Map(const char* filename);
+
 
 		/// GETTERS
 		/**
@@ -68,6 +69,7 @@ class Map{
 		///SETTERS
 		/**
 		*\brief Set listBlocs of the map
+		*\params listBlocs
 		*/
 		inline void setListBlocs(const std::vector<Bloc> &listBlocs) { 
 			for(unsigned int i=0; i<listBlocs.size(); i++)
@@ -76,6 +78,7 @@ class Map{
 
 		/**
 		*\brief Set listEnemies of the map
+		*\params listEnemies
 		*/
 		inline void setListEnemies(const std::vector<Enemy> &listEnemies) { 
 			for(unsigned int i=0; i<listEnemies.size(); i++)
@@ -84,6 +87,7 @@ class Map{
 
 		/**
 		*\brief Set the size of the listBlocs of the map
+		*\params size
 		*/
 		inline void setListBlocsSize(const unsigned int size) { m_listBlocsSize = size;}
 
@@ -91,14 +95,14 @@ class Map{
 		/**
 		*\brief initialise list of Blocks   
 		*\details initialise list of blocks from file
-		*\param file
+		*\params file
 		*/
 		void initialiseListBlocFromFile(const char* filename);
 
 		/**
 		*\brief create list of Blocks   
-		*\details create list of Blocks created
-		*\param file 
+		*\params file 
+		*\return std::vector<Bloc> (list of blocks)
 		*/
 		std::vector<Bloc> createListBlocFromFile(const char* &filename);
 		
@@ -109,8 +113,8 @@ class Map{
 		void printMap();
 
 		/**
-		*\brief add a bloc to listBlocs
-		*\details add a bloc to the current list of blocs
+		*\brief add a block to listBlocs
+		*\params bloc to add
 		*/
 		inline void addBlocToList(const Bloc &bloc){ 
 			m_listBlocs.push_back(bloc);
@@ -119,28 +123,27 @@ class Map{
 
 		/**
 		*\brief add an enemy to listEnemies
-		*\details add an enemy to the current list of enemies
+		*\params enemy to add
 		*/
 		inline void addEnemyToList(const Enemy &enemy){ m_listEnemies.push_back(enemy);};
 
 		/**
-		*\brief delete a bloc of listBlocs at a given index
-		*\details delete a bloc to the current list of blocs at a given index
+		*\brief delete a block of listBlocs at a given index
+		*\params index, princessState, princessRelativePosition
 		*/
 		void convertBlocTypeToEmpty(const unsigned int &index, const int &princessState, const int &princessRelativePosition);
 		
 		/**
-		*\brief delete a bloc of listBlocs at a given index
-		*\details delete a bloc to the current list of blocs at a given index
+		*\brief delete a block of listBlocs at a given index
+		*\params index
 		*/
 		inline void deleteEnemyOfList(const unsigned int index){ m_listEnemies.erase(m_listEnemies.begin()+index);};
-
 
 
 		//DESTRUCTOR
 		/**
 		*\brief Default destructor   
-		*\details Destructor by default of Bloc
+		*\details Destructor by default of Map
 		*/
 		~Map();
 	

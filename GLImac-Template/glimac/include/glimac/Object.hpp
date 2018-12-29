@@ -26,7 +26,7 @@
 
 class Object{
 	protected:
-		std::vector<double> m_position; //!< Object position
+		std::vector<double> m_position; /*!< Object position */
 
 	public:
 		///CONSTRUCTOR
@@ -43,10 +43,17 @@ class Object{
 		*/
 		inline std::vector<double> getPosition()const{ return m_position;}
 
+		/**
+		*\brief virtual function draw
+		*\params render, sizeblock
+		*/
 		virtual void draw(Render &render, double &sizeBlock) = 0;
+
+
 		///SETTER
 		/**
 		*\brief Set the current position of a Object
+		*\params position
 		*/
 		inline void setPosition(const std::vector<double> &position){ 
 			for(unsigned int i =0; i<position.size(); i++)

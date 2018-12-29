@@ -29,12 +29,12 @@
 #define ROWS 4 
 #define COLS 3 
 
-class Bloc /*: public Object*/{
+class Bloc {
 	private:
-		/* voir pour utiliser glm::vec3 ...*/
-		std::vector< std::vector<char> > m_matrixTypes; //!< Matrix of blocks' types
-		char m_direction;
-		int m_index;
+		/* voir pour utiliser glm::vec3 ...*/ 
+		std::vector< std::vector<char> > m_matrixTypes; /*!< Matrix of blocks' types */
+		char m_direction; /*!< Direction of the block (L, R or S) */
+		int m_index; /*!< Index of the block */
 
 	public:
 		///CONSTRUCTOR
@@ -57,6 +57,11 @@ class Bloc /*: public Object*/{
 		*/
 		inline std::vector<std::vector<char>> getMatrixTypes() const { return m_matrixTypes;}
 
+		/**
+		*\brief Get a specific element of block's matrix
+		*\params index i and j to select the position of the element in the matrix   
+		*\return an element of the matrix of types of block
+		*/
 		inline char getMatrixTypesElement(const int &i, const int &j) const{return m_matrixTypes[i][j];}
 		
 		/**
@@ -72,7 +77,6 @@ class Bloc /*: public Object*/{
 		inline int getIndex() const { return m_index;};
 		
 
-
 		///SETTER
 		/**
 		*\brief Set an element of the matrix of type
@@ -86,10 +90,22 @@ class Bloc /*: public Object*/{
 		*/
 		inline void setDirection(const char &direction) { m_direction = direction; }
 
+
 		///METHODS
+		/**
+		*\brief Print the type and index of all elements of the block's matrix
+		*/
 		void printBlock();
+
+		/**
+		*\brief redefinition of virtual function draw 
+		*/
 		void draw(Render &render, double &sizeBlock);
 
+		/**
+		*\brief draw the blocks
+		*\params list of models, viewMatrix, render, MVMatrix   
+		*/
 		void drawBlock(std::vector<Model>  &listModel, glm::mat4 viewMatrix, Render render,glm::mat4 MVMatrix);
 
 		///DESTRUCTOR
@@ -98,7 +114,6 @@ class Bloc /*: public Object*/{
 		*\details Destructor by default of Bloc
 		*/
 		~Bloc();
-	
 };
 
 #endif

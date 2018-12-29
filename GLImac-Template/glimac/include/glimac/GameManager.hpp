@@ -27,15 +27,16 @@
 
 class GameManager{
 	private:
-		unsigned int m_gameState; //!< game State
-		unsigned int m_windowDimension; //!< window dimension
+		unsigned int m_gameState; /*!< game State */
+		unsigned int m_windowDimension; /*!< window dimension */
 	public:
 		///CONSTRUCTOR
 		/**
 		*\brief Default constructor   
-		*\details Constructor by default of Player
+		*\details Constructor by default of GameManager
 		*/
 		GameManager();
+
 
 		///GETTERS
 		/**
@@ -44,23 +45,23 @@ class GameManager{
 		*/
 		inline unsigned int getGameState() const{ return m_gameState; }
 
+
 		///METHODS
 		/**
-		*\brief Get game State
-		*\return current gameState
+		*\brief Launch the game
+		*\params argc, argv
 		*/
 		void launchGame(int argc, char** argv);
 
 		/**
 		*\brief Initialize the game, create Window, load GLEW
-		*\return current gameState
 		*/
 		glimac::SDLWindowManager initializeGame();
 
 		///DESTRUCTOR
 		/**
 		*\brief Default destructor   
-		*\details Destructor by default of Player
+		*\details Destructor by default of GameManager
 		*/
 		~GameManager();
 	

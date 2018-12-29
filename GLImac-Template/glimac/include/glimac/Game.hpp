@@ -29,22 +29,21 @@
 
 class Game{
 	private:
-		World *m_world; //!< World 
-		double m_distance; //!< Distance traveled during the game 
+		World *m_world; /*!< World */
+		double m_distance; /*!< Distance traveled during the game */
 		/* à voir pour le meilleur score */
-		//unsigned int m_timeSpend; //!< Time spend during the game
-		TrackballCamera *m_trackballCam;
-		Render m_render; //!< Render for the drawing
-		Princess *m_princess; //!< Character of the game 
-		double m_time = 0.0; //!< Time of the game 
-		int m_direction = 0;
+		/*unsigned int m_timeSpend; //!< Time spend during the game */
+		TrackballCamera *m_trackballCam; /*!< Trackaball camera */
+		Render m_render; /*!< Render for the drawing */
+		Princess *m_princess; /*!< Character of the game  */
+		double m_time = 0.0; /*!< Time of the game  */
+		int m_direction = 0; /*!< Direction of the game  */
 		//glm::mat4 m_globalPosition = glm::mat4();
-		std::vector<Bonus> m_listBonus; //!< Bonus list of the World
-		glm::mat4 m_worldPos;
+		std::vector<Bonus> m_listBonus; /*!< Bonus list of the World */
+		glm::mat4 m_worldPos; /*!< Matrix of world position */
+
 	public:
 		///CONSTRUCTOR
-		
-		
 		/**
 		*\brief Game constructor   
 		*\details Constructor of Game
@@ -66,15 +65,16 @@ class Game{
 		inline double getDistance()const{ return m_distance;};
 
 		/**
-		*\brief Get the map of the World   
-		*\return current Map 
+		*\brief Get the bonus list of the World   
+		*\return current bonus list 
 		*/
 		inline std::vector<Bonus> getListBonus()const{ return m_listBonus;};
 
 
 		/// SETTERS
 		/**
-		*\brief Set distance of the Game   
+		*\brief Set distance of the Game  
+		*\params distance
 		*\details set the current distance
 		*/
 		inline void setDistance(const double &distance){ m_distance = distance;};
@@ -83,10 +83,9 @@ class Game{
 		/// METHODS
 		/**
 		*\brief increment the travelled distance      
-		*\param the distance to increment
+		*\params the distance to increment
 		*/
 		inline void incrementTime(double distance){ m_time += m_time;};
-
 
 		/**
 		*\brief check the end of the game      
@@ -94,6 +93,9 @@ class Game{
 		*/
 		bool endGame();
 
+		/**
+		*\brief check if collision with a bonus or a coin      
+		*/
 		void checkBonusAndCoins();
 
 		/**
@@ -107,11 +109,17 @@ class Game{
 		void drawAll();
 
 		/**
-		*\brief manage events       
+		*\brief manage events 
+		*\params SDK_Event e
+		*\return false if no event detected      
 		*/
 		bool eventManager(SDL_Event &e);
 
+		/**
+		*\brief manage the bonus for deleting or incrementing      
+		*/
 		void manageDeleteAndIncrementBonus();
+
 
 		///DESTRUCTOR
 		/**

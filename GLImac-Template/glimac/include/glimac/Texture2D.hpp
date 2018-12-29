@@ -38,15 +38,16 @@ struct Vertex2DUV{
 
 class Texture2D{
 	protected:
-		GLuint m_idText;
-		glimac::FilePath m_textureImage; //!<Image of the Texture
-		GLuint m_uModelMatrix;
-		GLuint m_uTexture;
-		GLuint m_vao;
-		GLuint m_vbo;
+		GLuint m_idText; /*!< Id of the texture */ 
+		glimac::FilePath m_textureImage; /*!<Image of the Texture */
+		GLuint m_uModelMatrix; /*!< uModelMatrix of the texture */
+		GLuint m_uTexture; /*!< uTexture of the texture */
+		GLuint m_vao; /*!< vao of the texture */
+		GLuint m_vbo; /*!< vbo of the texture */
 
 	public:
-		glimac::Program *m_prog;
+		glimac::Program *m_prog; /*!< program of the texture */
+		
 		///CONSTRUCTOR
 		/**
 		*\brief Default constructor   
@@ -59,6 +60,7 @@ class Texture2D{
 		*\details Constructor by copy of Texture2D
 		*/
 		Texture2D(const Texture2D &text);
+
 
 		///GETTERS
 		/**
@@ -79,30 +81,38 @@ class Texture2D{
 		*/
 		inline GLuint getIdText() const{ return m_idText; }
 
+
+		///SETTERS
+		/**
+		*\brief Set uModelMatrix
+		*\params GLUint mat
+		*/
 		inline void setModelMatrix(const GLuint &mat){
 		    m_uModelMatrix = mat;
 		}
+
+
 		///METHODS
 
-std::unique_ptr<glimac::Image> loadImg();
+		/**
+		*\brief load the Image texture
+		*\return unique_ptr Image
+		*/
+		std::unique_ptr<glimac::Image> loadImg();
+		
 		/**
 		*\brief initialize the texture 
-		*\params vShaders and fShader
-		*\return gluint : vbo 
+		*\params unique_ptr texture
 		*/
 		void initializeTexture2D(std::unique_ptr<glimac::Image> &texture);
 
-
 		/**
 		*\brief create and bind vao 
-		*\params gluint vbo
-		*\return gluint : vao 
 		*/
 		void createAndBindVao();
 
 		/**
-		*\brief draw the background texture 
-		*\params gluint vao 
+		*\brief draw the texture 
 		*/
 		void drawTexture2D();
 
@@ -110,7 +120,7 @@ std::unique_ptr<glimac::Image> loadImg();
 		///DESTRUCTOR
 		/**
 		*\brief Default destructor   
-		*\details Destructor by default of Player
+		*\details Destructor by default of Texture2D
 		*/
 		~Texture2D();
 	

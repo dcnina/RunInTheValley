@@ -37,10 +37,10 @@
 	
 class World{
 	private:
-		Map *m_map; //!< Map of World
-		double m_speed; //!< Speed camera world
-		Player *m_player; //!< Player of the game
-		std::vector<Model> m_listModel; //!< Model list of the world
+		Map *m_map; /*!< Map of World  */
+		double m_speed; /*!< Speed camera world */
+		Player *m_player; /*!< Player of the game */
+		std::vector<Model> m_listModel; /*!< Model list of the world */
 	public:
 		//CONSTRUCTOR
 		/**
@@ -55,17 +55,19 @@ class World{
 		*/
 		World(const char* levelFile, std::vector<Model> listModel);
 		
-
+		/**
+		*\brief World constructor   
+		*\details Constructor of World
+		*/
 		World(const World& world);
 
-		// GETTERS
+
+		/// GETTERS
 		/**
 		*\brief Get the map of the World   
 		*\return current Map 
 		*/
 		inline Map* getMap()const{ return m_map;};
-
-		
 
 		/**
 		*\brief Get backgroundTexture   
@@ -79,19 +81,6 @@ class World{
 		*/
 		inline double getSpeed()const{ return m_speed;};
 
-
-		/// SETTERS
-
-		/**
-		*\brief Set current backgroundTexture of the World   
-		*/
-		//inline void setBackgroundTexture(const GLuint &backgroundTexture){ m_backgroundTexture = backgroundTexture;};
-
-		/**
-		*\brief Set current speed of the World   
-		*/
-		inline void setSpeed(const double &speed){ m_speed = speed;};
-
 		/**
 		*\brief Get Player of the World   
 		*\return current player 
@@ -99,22 +88,31 @@ class World{
 		inline Player* getPlayer(){ return m_player;};
 
 
-		/// METHODS
-
-		void drawWorld( glm::mat4 MVMatrix,glm::mat4 viewMatrix, Render render);
-
+		/// SETTERS
+		/**
+		*\brief Set current backgroundTexture of the World   
+		*/
+		//inline void setBackgroundTexture(const GLuint &backgroundTexture){ m_backgroundTexture = backgroundTexture;};
 
 		/**
-		*\brief   
-		*\param 
-		*\return current player 
+		*\brief Set current speed of the World  
+		*\params speed 
 		*/
+		inline void setSpeed(const double &speed){ m_speed = speed;};
+
+
+		/// METHODS
+		/**
+		*\brief draw the world  
+		*\params MVMatrix, viewMatrix, render 
+		*/
+		void drawWorld( glm::mat4 MVMatrix,glm::mat4 viewMatrix, Render render);
 
 
 		///DESTRUCTOR
 		/**
 		*\brief Default destructor   
-		*\details Destructor by default of Game
+		*\details Destructor by default of World
 		*/
 		~World();
 	

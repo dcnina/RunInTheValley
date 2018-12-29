@@ -1,3 +1,23 @@
+/*
+ * COMBE Audrey, DE CASTRO Nina, LAVALLE Lucas
+ * IMAC2 - TD2 
+ * RunInTheValley - Model.hpp 
+ */
+
+/**
+ *\file Model.hpp
+ *\author  {Audrey.C, Nina.DC, Lucas.L}
+ *\date 17 december 2018
+ *\brief class Model
+*/
+
+/**
+ *\class Model
+ *\brief
+ *  
+ */
+
+
 #ifndef _LIB_IMPORT_MODEL_IMAC_LSM
 #define _LIB_IMPORT_MODEL_IMAC_LSM
 #pragma once
@@ -27,7 +47,7 @@ struct Texture {
 
 class Mesh {
     private:
-        unsigned int vao, vbo, ebo;
+        unsigned int vao, vbo, ebo; /*!< Vao, vbo and ebo */
         void setupMesh();
     public:
         std::vector<Vertex> _vertices;

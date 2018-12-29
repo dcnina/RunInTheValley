@@ -28,10 +28,10 @@
 
 class Player{
 	private:
-		std::string m_pseudo; //!< Player's pseudo
-		unsigned int m_score; //!< Score of the player
-		unsigned int m_money; //!< Number of coins owned by the player
-		Model m_model; //!< Model of the player
+		std::string m_pseudo; /*!< Player's pseudo */
+		unsigned int m_score; /*!< Score of the player */
+		unsigned int m_money; /*!< Number of coins owned by the player */
+		Model m_model; /*!< Model of the player */
 
 	public:
 		///CONSTRUCTOR
@@ -62,7 +62,7 @@ class Player{
 		inline unsigned int getScore() const{ return m_score;}
 
 		/**
-		*\brief Get  of the player
+		*\brief Get money of the player
 		*\return current money
 		*/
 		inline unsigned int getMoney() const{ return m_money;}
@@ -77,36 +77,38 @@ class Player{
 		///SETTERS
 		/**
 		*\brief Set pseudo of the player
+		*\params pseudo
 		*/
 		inline void setPseudo(const std::string &pseudo) { m_pseudo = pseudo; }
 
 		/**
 		*\brief Set score of the player
+		*\params score
 		*/
 		inline void setScore(const unsigned int &score) { m_score = score; }
 
 		/**
 		*\brief Set money of the player
+		*\params money
 		*/
 		inline void setMoney(const unsigned int &money) { m_money = money; }
 
 		/**
 		*\brief Set model of the player
+		*\params model
 		*/
 		inline void setModel(const Model &model) { m_model = model; }
 
 
 		///METHODS
 		/**
-		*\brief add coins to the player money     
-		*\details add the number of coins earned to the player's money  
+		*\brief add coins to the player money      
 		*\param number of coins
 		*/
 		inline void addMoney(unsigned int nbCoins){ m_money += nbCoins; }
 
 		/**
 		*\brief remove coins of the player money     
-		*\details remove the number of coins used of the player's money  
 		*\param number of coins
 		*/
 		inline void removeMoney(unsigned int nbCoins){ m_money -= nbCoins; };
@@ -118,13 +120,16 @@ class Player{
 		inline void addScore(unsigned int score){ m_score += score; }
 
 		/**
-		*\brief remove coins of the player money     
-		*\details remove the number of coins used of the player's money  
-		*\param number of coins
+		*\brief remove points of the player score      
+		*\param number of points
 		*/
 		inline void removeScore(unsigned int &score){ m_score -= score; };
 
+		/**
+		*\brief print the player infos 
+		*/
 		void printInfosPlayer();
+
 
 		///DESTRUCTOR
 		/**

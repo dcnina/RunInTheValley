@@ -25,7 +25,7 @@
 
 class Enemy : public DynamicObject{
 	private:
-		unsigned int m_proximity=3; //!< Enemy's level of proximity
+		unsigned int m_proximity=3; /*!< Enemy's level of proximity */
 
 	public:
 		///CONSTRUCTOR
@@ -44,12 +44,18 @@ class Enemy : public DynamicObject{
 
 		///GETTERS
 		/**
+		*\brief Get position of the enemy
+		*\return current position
+		*/
+		inline std::vector<double> getPosition()const{return m_position;};
+
+		/**
 		*\brief Get proximity of the enemy
 		*\return current proximity
 		*/
-
-		inline std::vector<double> getPosition()const{return m_position;};
 		inline unsigned int getProximity() const {return m_proximity;};
+		
+
 		///SETTERS
 		/**
 		*\brief Set proximity of the enemy
@@ -67,7 +73,13 @@ class Enemy : public DynamicObject{
 		*\brief increase distance of proximity of the enemy
 		*/
 		inline void increaseProximity(){ m_proximity++; }
+
+		/**
+		*\brief redefinition of virtual function draw
+		*/
 		inline void draw(Render &render, double &sizeBlock, glm::mat4 MVMatrix){};
+		
+
 		///DESTRUCTOR
 		/**
 		*\brief Default destructor   

@@ -24,7 +24,7 @@
 #include <glimac/Object.hpp>
 #include <ctime>
 
-class Bonus /*: public Object*/{
+class Bonus{
 	private:
 		unsigned int m_type; /*!< Bonus' type */
 		unsigned int m_time; /*!< Bonus start time */
@@ -50,6 +50,7 @@ class Bonus /*: public Object*/{
 		*\return current type
 		*/
 		inline unsigned int getType() const{ return m_type;}
+
 		/**
 		*\brief Get start time of the bonus
 		*\return current start time
@@ -70,9 +71,22 @@ class Bonus /*: public Object*/{
 
 
 		///METHODS
+		/**
+		*\brief decrease time of the object bonus
+		*/
 		inline void decrementTime(){ if (m_time > 0){m_time--;}};
+
+		/**
+		*\brief redefinition of virtual function draw
+		*/
 		inline void draw(Render &render, double &sizeBlock){};
+
+		/**
+		*\brief create a bonus
+		*\return a bonus with a type and a start time
+		*/
 		Bonus generateBonus();
+
 
 		///DESTRUCTOR
 		/**

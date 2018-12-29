@@ -26,8 +26,8 @@
 
 class Princess : public DynamicObject{
 	private:
-		int m_state = 1;//!< Princess state
-		double m_timeChange = 0.0;
+		int m_state = 1; /*!< Princess state */
+		double m_timeChange = 0.0; /*!< Princess time of changement */
 
 	public:
 		///CONSTRUCTOR
@@ -50,37 +50,50 @@ class Princess : public DynamicObject{
 		*\return the current state
 		*/
 		inline int getState()const{ return m_state;}
+
+		/**
+		*\brief Get the position of Princess   
+		*\return the current position
+		*/
 		inline std::vector<double> getPosition()const {return m_position;};
+		
+		/**
+		*\brief Get the time change of Princess   
+		*\return the current timeChange
+		*/
 		inline double getTimeChange() const{return m_timeChange;};
+
 
 		///METHODS
 		/**
 		*\brief move princess to the left  
-		*\return boolean
+		*\return boolean : true if can go to the left, else false
 		*/
 		bool goLeft();
 
 		/**
 		*\brief move princess to the right  
-		*\return boolean
+		*\return boolean : true if can go to the right, else false
 		*/
 		bool goRight();
 
 		/**
 		*\brief princess jump  
-		*\return boolean
+		*\params timeChange
+		*\return boolean : true if can jump, else false
 		*/
 		bool jump(double &timeChange);
 
 		/**
 		*\brief princess bend down  
-		*\return boolean
+		*\params timeChange
+		*\return boolean : true if can bend down, else false
 		*/
 		bool bendDown(double &timeChange);
 
 		/**
 		*\brief princess come back to normal state 
-		*\return boolean
+		*\params timeChange
 		*/
 		void backToNormalState(double &timeChange);
 
@@ -93,7 +106,13 @@ class Princess : public DynamicObject{
 		*\return 3 : Coins
 		*/
 		int collisionWithBlock(Bloc &bloc);
+
+		/**
+		*\brief redefinition of virtual function draw
+		*/
 		void draw(Render &render, double &sizeBlock, glm::mat4 MVMatrix);
+
+		
 		///DESTRUCTOR
 		/**
 		*\brief Default destructor   

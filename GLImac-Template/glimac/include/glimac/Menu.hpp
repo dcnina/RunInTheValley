@@ -33,13 +33,12 @@
 
 class Menu{
 	private:
-		Texture2D *m_menuTexture;
-		std::vector<Button> m_buttons;
+		Texture2D *m_menuTexture; /*!< menu Texture */
+		std::vector<Button> m_buttons; /*!< list of buttons of the menu */
 		// GLuint uModelMatrix;
 		// GLuint uTexture;
 
 	public:
-		
 		///CONSTRUCTOR
 		/**
 		*\brief Default constructor   
@@ -47,41 +46,47 @@ class Menu{
 		*/
 		Menu(Texture2D *texture);
 
+
+		///GETTERS
+		/**
+		*\brief get the buttons' list of the menu
+		*\return current list of buttons
+		*/
 		inline std::vector<Button> getButtons(){
 			return m_buttons;
 		}
 
+
+		///METHODS
 		/**
 		*\brief initialize the texture 
-		*\params vShaders and fShader
-		*\return gluint : vbo 
+		*\params image filename
 		*/
 		void initializeMenu(const std::string bgImage);
 
 		/**
 		*\brief create and bind the menu vao 
-		*\params gluint vbo
-		*\return gluint : vao 
 		*/
 		void createMenu();
+
+		/**
+		*\brief add a button
+		*\params button to add
+		*/
 		inline void addButton(Button &button){
 			m_buttons.push_back(button);
 		}
+
 		/**
-		*\brief draw the menu with texture 
+		*\brief redefinition of virtual function draw
 		*/
 		void drawMenu();
 		
-		/**
-		*\brief Initialize the game, create Window, load GLEW
-		*\return current gameState
-		*/
-		glimac::SDLWindowManager initializeGame();
 
 		///DESTRUCTOR
 		/**
 		*\brief Default destructor   
-		*\details Destructor by default of Player
+		*\details Destructor by default of Menu
 		*/
 		~Menu();
 	

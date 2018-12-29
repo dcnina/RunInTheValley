@@ -24,11 +24,11 @@
 #define __DYNAMICOBJECT__
 
 
-class DynamicObject/*: public Object*/{
+class DynamicObject{
 	protected:
-		unsigned int m_relativePosition = 1; //!< Object position
-		Model m_model;
-		std::vector<double> m_position;
+		unsigned int m_relativePosition = 1; /*!< Object relative position */
+		Model m_model; /*!< Object Model */
+		std::vector<double> m_position; /*!< positions x, y, z */
 
 	public:
 		///CONSTRUCTOR
@@ -38,28 +38,38 @@ class DynamicObject/*: public Object*/{
 		*/
 		DynamicObject();
 		
+		/**
+		*\brief DynamicObject Constructor
+		*\details Constructor of DynamicObject
+		*/
 		DynamicObject(Model &model);
+
 
 		///GETTER
 		/**
-		*\brief Get the current position of a DynamicObject   
+		*\brief Get the current relative position of a DynamicObject   
 		*\return the current m_relativePosition
 		*/
-
 		inline unsigned int getRelativePosition()const{ return m_relativePosition;}
+
 
 		///SETTER
 		/**
-		*\brief Set the current position of a DynamicObject
+		*\brief Set the current relative position of a DynamicObject
+		*\params relativePosition
 		*/
 		inline void setRelativePosition(const unsigned int &relativePosition){ m_relativePosition = relativePosition;}
 
+		/**
+		*\brief virtual function draw
+		*\params render, sizeblock, MVMatrix
+		*/
 		virtual void draw(Render &render, double &sizeBlock, glm::mat4 MVMatrix) =0;
 
 		///DESTRUCTOR
 		/**
 		*\brief DynamicObject default Ddestructor   
-		*\details Destructor by default of Bloc
+		*\details Destructor by default of DynamicObject
 		*/
 		~DynamicObject(){};
 	

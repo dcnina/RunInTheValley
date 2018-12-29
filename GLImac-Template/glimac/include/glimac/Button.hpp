@@ -40,31 +40,30 @@ public:
 	*/
 	Button(float posX,float posY, float scaleX, float scaleY,Texture2D *texture);
 
-
 	
 	///METHODS
 	/**
 	*\brief initialize the texture 
-	*\params vShaders and fShader
-	*\return gluint : vbo 
+	*\params bgImage
 	*/
-	
 	void initializeButton(std::unique_ptr<glimac::Image> &bgImage);
 	
 	/**
 	*\brief create and bind the button vao 
-	*\params gluint vbo
-	*\return gluint : vao 
 	*/
 	void createButton();
 
 	/**
 	*\brief draw the background button texture 
-	*\params gluint vao 
 	*/
 	void drawButton();
 
-	bool mouseHover(const int posX, const int posY) const;
+	/**
+	*\brief detect the mouseHover
+	*\params mouseX, mouseY
+	*\return bool : true if hover / false if not hover
+	*/
+	bool mouseHover(const int mouseX, const int mouseY) const;
 
 	///DESTRUCTOR
 	/**
