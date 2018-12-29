@@ -11,10 +11,11 @@
 Game::Game(const char* levelFile,std::vector<Model> listModel, Render render)
 {
 	m_world = new World(levelFile,listModel);
-	m_distance = 0.05;
-	m_trackballCam= new TrackballCamera(3.0f,0.5f,-0.0f);
+	m_distance = 0.001;
+	m_trackballCam= new TrackballCamera(3.0f,15.0f,0.0f);
 	m_render = render; 
-	m_princess = new Princess(listModel[0]);  
+	m_princess = new Princess(listModel[0]); 
+	m_worldPos = glm::mat4(); 
 }
 
 void Game::checkBonusAndCoins(){
@@ -24,7 +25,8 @@ void Game::checkBonusAndCoins(){
 	if (result == 2){ //collision with a bonus
 		std::cout << "COLLISION BONUS" << std::endl;
 		Bonus bonus;
-		m_listBonus.push_back(bonus.generateBonus());
+		bonus.generateBonus();
+		m_listBonus.push_back(bonus);
 		m_world->getMap()->convertBlocTypeToEmpty((int)m_time, m_princess->getState(), m_princess->getRelativePosition());
 	}
 	else if (result == 3) {// collision with a coin
@@ -89,53 +91,61 @@ void Game::playGame(){
 
 
 void Game::drawAll(){
-  
-
-    glm::mat4 MVMatrix;
+    glm::mat4 MVMatrix = glm::translate(glm::mat4(), glm::vec3(0,0,0));
     glm::mat4 newMVMatrix;
     glm::mat4 viewMatrix;
 
-    viewMatrix = m_trackballCam->getViewMatrix();
-
+    switch(m_direction){
+    	case (-1):
+    		m_worldPos = glm::rotate(glm::mat4(), glm::radians(-90.0f), glm::vec3(0, 1.0, 0))*m_worldPos;
+    		m_direction = 0;
+    		break;
+    	case 1:
+    		m_worldPos = glm::rotate(glm::mat4(), glm::radians(90.0f), glm::vec3(0, 1.0, 0))*m_worldPos;
+    		m_direction = 0;
+    		break;
+    }
+	viewMatrix = m_trackballCam->getViewMatrix();
+    m_worldPos = glm::translate(glm::mat4(), glm::vec3(0, 0, m_distance))*m_worldPos;
     m_render.reset();
-	MVMatrix= glm::translate(glm::mat4(), glm::vec3(0, -1.0, 0)); 
+
     MVMatrix = viewMatrix*MVMatrix;
     m_render.sendLight(viewMatrix);
     if(m_time-m_princess->getTimeChange()>SIZE_BLOCK*3){
     	m_princess->backToNormalState(m_time);
     }
-
-    newMVMatrix = glm::translate(MVMatrix, glm::vec3(0,0, 0));
-	m_render.sendMatrix(newMVMatrix);
     double sizeBlock = SIZE_BLOCK;
     m_princess->draw(m_render,sizeBlock,MVMatrix);
 
-	MVMatrix = glm::translate(MVMatrix, glm::vec3(0.0, -(SIZE_BLOCK), m_distance));
-	//MVMatrix = MVMatrix*glm::rotate(MVMatrix, float(m_direction*(M_PI/2.0)), glm::vec3(0, 1.0, 0));
-   // m_globalPosition = glm::rotate(MVMatrix, float(m_direction*(M_PI/2.0)), glm::vec3(0, 1.0, 0))*m_globalPosition;	
-	//m_direction = 0;
 
+    MVMatrix = m_worldPos;
+    MVMatrix = viewMatrix*MVMatrix;
+
+    MVMatrix = glm::translate(MVMatrix, glm::vec3(0.0, -1.5, -SIZE_BLOCK/2));
     m_render.sendMatrix(MVMatrix);
     m_world->drawWorld(MVMatrix,viewMatrix,m_render);
-
+  
     //Incremet global time
     m_time+=m_distance;
+    std::cout << m_time << std::endl;
 }
 
-bool Game::eventManager(glimac::SDLWindowManager &window){
-    SDL_Event e;
+bool Game::eventManager(SDL_Event &e){
+   /* SDL_Event e;
     while(window.pollEvent(e)) {
         if(e.type == SDL_QUIT) {
             return true; // Leave the loop after this iteration
-        }
-        else if(e.type == SDL_KEYDOWN){
+        }*/
+        if(e.type == SDL_KEYDOWN){
         	switch(e.key.keysym.sym){
         		case SDLK_LEFT:
         		case SDLK_q:
-        			m_princess->goLeft();
         			if(m_world->getMap()->getListBlocs()[(int)m_time].getDirection()=='L'){
         				std::cout << "GO LEFT " << m_time << std::endl;
-        				//m_direction = -1;
+        				m_direction = -1;
+        			}
+        			else{
+        				m_princess->goLeft();
         			}
         			break;
         		case SDLK_DOWN:
@@ -144,10 +154,12 @@ bool Game::eventManager(glimac::SDLWindowManager &window){
         			break;
         		case SDLK_RIGHT:
         		case SDLK_d: 
-        			m_princess->goRight();
         			if(m_world->getMap()->getListBlocs()[(int)m_time].getDirection()=='R'){
         				std::cout << "GO RIGHT" << std::endl;
         				m_direction = 1;
+        			}
+        			else{
+        				m_princess->goRight();
         			}
         			break;
         		case SDLK_UP:	
@@ -163,9 +175,8 @@ bool Game::eventManager(glimac::SDLWindowManager &window){
         			break;
         	}
         }
+   		 return false;
     }
-    return false;
-}
 
 
 void Game::manageDeleteAndIncrementBonus(){

@@ -42,7 +42,7 @@ int main(int argc, char** argv) {
     //Sound initialization
     /*if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 1024) == -1)
        std::cout << Mix_GetError() << std::endl;
-    Mix_Music *music; //creation of musique*/
+    Mix_Music *music; //creation of musique
 
 
     /*music = Mix_LoadMUS("assets/sound/music.mp3");
@@ -76,7 +76,7 @@ int main(int argc, char** argv) {
     globalModel.push_back(obstacle);
     globalModel.push_back(fond);
     
-    Game game("./assets/map/level-test-bonus.txt", globalModel, render);
+    Game game("./assets/map/level.txt", globalModel, render);
 
     //DEPTH Test of the GPU
     glEnable(GL_DEPTH_TEST);
@@ -96,24 +96,24 @@ int main(int argc, char** argv) {
 
        // glClearColor( 255, 255 ,255, 1.0 );
        /* viewMatrix = trackCamera.getViewMatrix();*/
-        // Event loop: 
-        // SDL_Event e;
-        // while(windowManager.pollEvent(e)) {
-        //         if(e.type == SDL_QUIT) {
-        //             done= true; // Leave the loop after this iteration
-        //         }
-        //     }
+        //Event loop: 
+        SDL_Event e;
+        while(windowManager.pollEvent(e)) {
+                if(e.type == SDL_QUIT) {
+                    done= true; // Leave the loop after this iteration
+                }
+        		game.eventManager(e);
+            }
 
         /*********************************
          * HERE SHOULD COME THE RENDERING CODE
          *********************************/
-        done = game.eventManager(windowManager);
         
         game.playGame();
         game.drawAll();
 
-        if (game.endGame() == true)
-            done = true;
+        //if (game.endGame() == true)
+          //  done = true;
         // Update the display
         windowManager.swapBuffers();
     }

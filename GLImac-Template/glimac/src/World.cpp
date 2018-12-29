@@ -9,7 +9,7 @@
 #include <glimac/Map.hpp>
 
 World::World(const char* levelFile, std::vector<Model> listModel){
-	m_speed = 0.05;
+	m_speed = 0.001;
 	m_map = new Map(levelFile); 
 	m_listModel = listModel;
 	m_player = new Player("audrey",listModel[0]);
@@ -40,9 +40,9 @@ void World::drawWorld(glm::mat4 MVMatrix,glm::mat4 viewMatrix, Render render){
     unsigned int sizeList = m_map->getListBlocsSize();
     std::vector<Bloc> listBloc= m_map->getListBlocs();
 
-    MVMatrix = glm::translate(MVMatrix, glm::vec3(0.0, -(SIZE_BLOCK), m_speed));
+    // MVMatrix = glm::translate(MVMatrix, glm::vec3(0.0, -(SIZE_BLOCK), m_speed));
     
-    m_speed += 0.05;render.sendMatrix(MVMatrix);
+    // m_speed += 0.001;render.sendMatrix(MVMatrix);
     for(int i = 0; i<sizeList;i++){
     	char direction = listBloc[i].getDirection();
 		

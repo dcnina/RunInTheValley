@@ -56,7 +56,7 @@ void Map::convertBlocTypeToEmpty(const unsigned int &index, const int &princessS
 	if(m_listBlocs[index].getMatrixTypesElement(princessState, princessRelativePosition) != 'O')
 		m_listBlocs[index].setMatrixTypesElement('E', princessState, princessRelativePosition);
 	std::cout << "////////////////////////////////////////////////////////////////////////" << std::endl;
-};
+}
 
 
 void Map::printMap(){

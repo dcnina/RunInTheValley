@@ -40,7 +40,7 @@ class Game{
 		int m_direction = 0;
 		//glm::mat4 m_globalPosition = glm::mat4();
 		std::vector<Bonus> m_listBonus; //!< Bonus list of the World
-
+		glm::mat4 m_worldPos;
 	public:
 		///CONSTRUCTOR
 		
@@ -109,7 +109,7 @@ class Game{
 		/**
 		*\brief manage events       
 		*/
-		bool eventManager(glimac::SDLWindowManager &window);
+		bool eventManager(SDL_Event &e);
 
 		void manageDeleteAndIncrementBonus();
 
