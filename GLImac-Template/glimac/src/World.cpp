@@ -27,7 +27,7 @@ World::World(const World& world){
 
 
 
-void World::drawWorld(glm::mat4 MVMatrix,glm::mat4 viewMatrix, Render render){
+void World::drawWorld(glm::mat4 MVMatrix,glm::mat4 viewMatrix, Render render, double time){
     glm::mat4 newMVMatrix;
 	//Draw background
 	newMVMatrix = glm::scale(MVMatrix,glm::vec3(2.0, 2.0, 2.0));
@@ -45,9 +45,7 @@ void World::drawWorld(glm::mat4 MVMatrix,glm::mat4 viewMatrix, Render render){
     // m_speed += 0.001;render.sendMatrix(MVMatrix);
     for(int i = 0; i<sizeList;i++){
     	char direction = listBloc[i].getDirection();
-		
-    	
-    	listBloc[i].drawBlock(m_listModel, viewMatrix, render,MVMatrix);
+    	listBloc[i].drawBlock(m_listModel, viewMatrix, render,MVMatrix,time);
     	switch(direction){
 			case 'L':
 				MVMatrix = glm::rotate(MVMatrix, float(M_PI/2.0), glm::vec3(0, 1.0, 0));

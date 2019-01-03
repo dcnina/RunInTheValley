@@ -77,7 +77,7 @@ class Enemy : public DynamicObject{
 		/**
 		*\brief redefinition of virtual function draw
 		*/
-		inline void draw(Render &render, double &sizeBlock, glm::mat4 MVMatrix){};
+		inline void draw(Render &render, double &sizeBlock, glm::mat4 MVMatrix, double &time){};
 		
 
 		///DESTRUCTOR

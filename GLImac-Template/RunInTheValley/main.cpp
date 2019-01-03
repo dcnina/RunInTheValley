@@ -81,14 +81,6 @@ int main(int argc, char** argv) {
     //DEPTH Test of the GPU
     glEnable(GL_DEPTH_TEST);
 
-    //Create a new Camera
-
-    /*TrackballCamera trackCamera;
-    int prevX = 0;
-    int prevY = 0;*/
-
-
-
     std::srand((int)time(0));;
     // Application loop:
     bool done = false;
@@ -102,7 +94,8 @@ int main(int argc, char** argv) {
                 if(e.type == SDL_QUIT) {
                     done= true; // Leave the loop after this iteration
                 }
-        		game.eventManager(e);
+            	glm::ivec2 v = windowManager.getMousePosition();
+        		game.eventManager(e,v);
             }
 
         /*********************************

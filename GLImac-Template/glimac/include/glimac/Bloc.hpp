@@ -106,7 +106,7 @@ class Bloc {
 		*\brief draw the blocks
 		*\params list of models, viewMatrix, render, MVMatrix   
 		*/
-		void drawBlock(std::vector<Model>  &listModel, glm::mat4 viewMatrix, Render render,glm::mat4 MVMatrix);
+		void drawBlock(std::vector<Model>  &listModel, glm::mat4 viewMatrix, Render render,glm::mat4 MVMatrix, double time);
 
 		///DESTRUCTOR
 		/**

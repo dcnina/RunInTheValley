@@ -104,12 +104,13 @@ int Princess::collisionWithBlock(Bloc &bloc){
 	return 0;
 }
 
-void Princess::draw(Render &render, double &sizeBlock, glm::mat4 MVMatrix){
-	glm::mat4 newMVMatrix = glm::translate(MVMatrix, glm::vec3((-sizeBlock/3)+(m_relativePosition*sizeBlock/3),0.0, 0));
+void Princess::draw(Render &render, double &sizeBlock, glm::mat4 MVMatrix, double &time){
+	glm::mat4 newMVMatrix = glm::translate(MVMatrix, glm::vec3((-sizeBlock/3)+(m_relativePosition*sizeBlock/3),fabs(sinf(time*5))*0.1, 0));
 	//std::cout << "position " << m_relativePosition*sizeBlock/3 << std::endl;
 	//glm::mat4 newMVMatrix = glm::translate(MVMatrix, glm::vec3(-sizeBlock/3+m_relativePosition*sizeBlock/3,-sizeBlock/2.0, 0));
  	if(m_state==0){
 		newMVMatrix = glm::translate(MVMatrix, glm::vec3((-sizeBlock/3)+(m_relativePosition*sizeBlock/3), -sizeBlock/2., 0.));
+		
 		//std::cout << "----------------------------------------" << sizeBlock << "--------------------------------------" << std::endl;
 	}
 	if(m_state == 2)

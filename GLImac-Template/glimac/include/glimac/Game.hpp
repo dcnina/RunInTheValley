@@ -33,14 +33,19 @@ class Game{
 		double m_distance; /*!< Distance traveled during the game */
 		/* à voir pour le meilleur score */
 		/*unsigned int m_timeSpend; //!< Time spend during the game */
-		TrackballCamera *m_trackballCam; /*!< Trackaball camera */
+		Camera *m_trackballCam; /*!< Trackaball camera */
+		Camera *m_firstPersonCam;
 		Render m_render; /*!< Render for the drawing */
 		Princess *m_princess; /*!< Character of the game  */
+		int m_activeCam = 0; /*! Active Camera */
 		double m_time = 0.0; /*!< Time of the game  */
 		int m_direction = 0; /*!< Direction of the game  */
-		//glm::mat4 m_globalPosition = glm::mat4();
 		std::vector<Bonus> m_listBonus; /*!< Bonus list of the World */
 		glm::mat4 m_worldPos; /*!< Matrix of world position */
+		bool m_lockCam = false; /*! Edit state of the camera */
+		int m_mousePrevX = 0;
+		int m_mousePrevY = 0;
+		bool m_rightClicked = false;
 
 	public:
 		///CONSTRUCTOR
@@ -57,7 +62,11 @@ class Game{
 		*\return current World 
 		*/
 		inline World getWorld()const{ return *m_world;};
-
+		inline Camera * getActiveCam() const{
+			if(m_activeCam ==0)
+				return m_trackballCam;
+			return m_firstPersonCam;
+		}
 		/**
 		*\brief Get distance of the Game   
 		*\return current distance
@@ -78,8 +87,13 @@ class Game{
 		*\details set the current distance
 		*/
 		inline void setDistance(const double &distance){ m_distance = distance;};
-
-
+		inline void changeLockCam(){
+			if(m_lockCam)
+				m_lockCam = false;
+			else
+				m_lockCam = true;
+		}
+		void changeActiveCam();
 		/// METHODS
 		/**
 		*\brief increment the travelled distance      
@@ -113,7 +127,7 @@ class Game{
 		*\params SDK_Event e
 		*\return false if no event detected      
 		*/
-		bool eventManager(SDL_Event &e);
+		bool eventManager(SDL_Event &e,glm::ivec2 &mousePos);
 
 		/**
 		*\brief manage the bonus for deleting or incrementing      

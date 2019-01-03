@@ -51,6 +51,8 @@ class Princess : public DynamicObject{
 		*/
 		inline int getState()const{ return m_state;}
 
+		inline int getRelativePos() const{return m_relativePosition;};
+
 		/**
 		*\brief Get the position of Princess   
 		*\return the current position
@@ -110,7 +112,7 @@ class Princess : public DynamicObject{
 		/**
 		*\brief redefinition of virtual function draw
 		*/
-		void draw(Render &render, double &sizeBlock, glm::mat4 MVMatrix);
+		void draw(Render &render, double &sizeBlock, glm::mat4 MVMatrix,double &time);
 
 		
 		///DESTRUCTOR

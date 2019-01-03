@@ -64,7 +64,7 @@ class DynamicObject{
 		*\brief virtual function draw
 		*\params render, sizeblock, MVMatrix
 		*/
-		virtual void draw(Render &render, double &sizeBlock, glm::mat4 MVMatrix) =0;
+		virtual void draw(Render &render, double &sizeBlock, glm::mat4 MVMatrix, double &time) =0;
 
 		///DESTRUCTOR
 		/**

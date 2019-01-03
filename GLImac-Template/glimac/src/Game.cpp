@@ -13,6 +13,7 @@ Game::Game(const char* levelFile,std::vector<Model> listModel, Render render)
 	m_world = new World(levelFile,listModel);
 	m_distance = 0.001;
 	m_trackballCam= new TrackballCamera(3.0f,15.0f,0.0f);
+	m_firstPersonCam= new FirstPersonCamera(1.0f,0.0f);
 	m_render = render; 
 	m_princess = new Princess(listModel[0]); 
 	m_worldPos = glm::mat4(); 
@@ -88,7 +89,14 @@ void Game::playGame(){
 	manageDeleteAndIncrementBonus();
 	//m_world->getPlayer()->printInfosPlayer();
 }
-
+void Game::changeActiveCam(){
+	if(m_activeCam==1){
+		m_activeCam=0;
+	}
+	else{
+		m_activeCam=1;
+	}
+};
 
 void Game::drawAll(){
     glm::mat4 MVMatrix = glm::translate(glm::mat4(), glm::vec3(0,0,0));
@@ -105,17 +113,25 @@ void Game::drawAll(){
     		m_direction = 0;
     		break;
     }
-	viewMatrix = m_trackballCam->getViewMatrix();
+    if(m_activeCam==0)
+    	viewMatrix = m_trackballCam->getViewMatrix();
+	else
+		viewMatrix = m_firstPersonCam->getViewMatrix();
+
     m_worldPos = glm::translate(glm::mat4(), glm::vec3(0, 0, m_distance))*m_worldPos;
     m_render.reset();
+
+    if(m_activeCam == 1)
+    	viewMatrix = glm::translate(viewMatrix, glm::vec3((-SIZE_BLOCK/3)+(m_princess->getRelativePosition()*SIZE_BLOCK/3),fabs(sinf(m_time*5))*0.1,0.0));
 
     MVMatrix = viewMatrix*MVMatrix;
     m_render.sendLight(viewMatrix);
     if(m_time-m_princess->getTimeChange()>SIZE_BLOCK*3){
     	m_princess->backToNormalState(m_time);
     }
+
     double sizeBlock = SIZE_BLOCK;
-    m_princess->draw(m_render,sizeBlock,MVMatrix);
+    m_princess->draw(m_render,sizeBlock,MVMatrix,m_time);
 
 
     MVMatrix = m_worldPos;
@@ -123,14 +139,13 @@ void Game::drawAll(){
 
     MVMatrix = glm::translate(MVMatrix, glm::vec3(0.0, -1.5, -SIZE_BLOCK/2));
     m_render.sendMatrix(MVMatrix);
-    m_world->drawWorld(MVMatrix,viewMatrix,m_render);
+    m_world->drawWorld(MVMatrix,viewMatrix,m_render,m_time);
   
     //Incremet global time
     m_time+=m_distance;
-    std::cout << m_time << std::endl;
 }
 
-bool Game::eventManager(SDL_Event &e){
+bool Game::eventManager(SDL_Event &e,glm::ivec2 &mousePos){
    /* SDL_Event e;
     while(window.pollEvent(e)) {
         if(e.type == SDL_QUIT) {
@@ -166,6 +181,13 @@ bool Game::eventManager(SDL_Event &e){
         		case SDLK_z:
         			m_princess->jump(m_time);
         			break;
+
+        		case SDLK_c:
+        			changeActiveCam();
+        			break;
+        		case SDLK_l:
+        			changeLockCam();
+        			break;
         	}
         }
         else if(e.type == SDL_KEYUP){
@@ -175,6 +197,34 @@ bool Game::eventManager(SDL_Event &e){
         			break;
         	}
         }
+        else if(e.type == SDL_MOUSEMOTION){
+            	if(!m_lockCam && m_rightClicked){
+            		getActiveCam()->rotateLeft(mousePos.y - m_mousePrevY);
+            		getActiveCam()->rotateUp(mousePos.x - m_mousePrevX);
+            	}
+            	m_mousePrevX = mousePos.x;
+            	m_mousePrevY = mousePos.y;
+            }
+        	else if(e.type == SDL_MOUSEBUTTONDOWN){
+            	if(e.button.button == SDL_BUTTON_WHEELUP) // scroll up
+		        {
+		            getActiveCam()->moveFront(0.1);
+		        }
+		        else if(e.button.button == SDL_BUTTON_WHEELDOWN) // scroll down
+		        {
+		            getActiveCam()->moveFront(-0.1);
+		        }
+		        else if(e.button.button == SDL_BUTTON_RIGHT){
+		        	m_rightClicked = true;
+		        }
+
+            }
+            else if(e.type == SDL_MOUSEBUTTONUP){
+            	if(e.button.button == SDL_BUTTON_RIGHT){
+		        	m_rightClicked = false;
+		        }
+
+            }
    		 return false;
     }
 

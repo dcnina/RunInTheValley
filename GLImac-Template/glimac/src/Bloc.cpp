@@ -43,7 +43,7 @@ void Bloc::printBlock(){
 	std::cout << "Type: " << m_direction << " Index: " << m_index << std::endl;
 }
 
-void Bloc::drawBlock(std::vector<Model> &listModel, glm::mat4 viewMatrix, Render render,glm::mat4 MVMatrix){
+void Bloc::drawBlock(std::vector<Model> &listModel, glm::mat4 viewMatrix, Render render,glm::mat4 MVMatrix, double time){
 
     glm::mat4 newMVMatrix, tmpMVMatrix;
     MVMatrix = glm::scale(MVMatrix,glm::vec3(SIZEX,1.0,1.0));
@@ -61,6 +61,7 @@ void Bloc::drawBlock(std::vector<Model> &listModel, glm::mat4 viewMatrix, Render
         	switch(m_matrixTypes[i][j]){
         		case 'B': 	//Bonus
                     newMVMatrix = glm::scale(tmpMVMatrix,glm::vec3(3.0,1.0,1.0));
+                    newMVMatrix = glm::rotate(newMVMatrix, float(time*0.5f),glm::vec3(0.0,1.0,0.0));
                     render.sendMatrix(newMVMatrix);
     				listModel[2].draw();
         			break;
@@ -81,6 +82,7 @@ void Bloc::drawBlock(std::vector<Model> &listModel, glm::mat4 viewMatrix, Render
         			break;
         		case 'C':	//Coins
                     newMVMatrix = glm::scale(tmpMVMatrix,glm::vec3(3.0,1.0,1.0));
+                    newMVMatrix = glm::rotate(newMVMatrix, float(time*0.5f),glm::vec3(0.0,1.0,0.0));
                     render.sendMatrix(newMVMatrix);
     				listModel[3].draw();
         			break;

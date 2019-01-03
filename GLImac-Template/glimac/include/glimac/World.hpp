@@ -106,7 +106,7 @@ class World{
 		*\brief draw the world  
 		*\params MVMatrix, viewMatrix, render 
 		*/
-		void drawWorld( glm::mat4 MVMatrix,glm::mat4 viewMatrix, Render render);
+		void drawWorld( glm::mat4 MVMatrix,glm::mat4 viewMatrix, Render render, double time);
 
 
 		///DESTRUCTOR
