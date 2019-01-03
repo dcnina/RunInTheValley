@@ -37,15 +37,18 @@ class Game{
 		Camera *m_firstPersonCam;
 		Render m_render; /*!< Render for the drawing */
 		Princess *m_princess; /*!< Character of the game  */
+		Enemy *m_enemy;
 		int m_activeCam = 0; /*! Active Camera */
 		double m_time = 0.0; /*!< Time of the game  */
 		int m_direction = 0; /*!< Direction of the game  */
 		std::vector<Bonus> m_listBonus; /*!< Bonus list of the World */
 		glm::mat4 m_worldPos; /*!< Matrix of world position */
+		glm::mat4 m_worldRot; /*!< Matrix of world rotation */
 		bool m_lockCam = false; /*! Edit state of the camera */
 		int m_mousePrevX = 0;
 		int m_mousePrevY = 0;
 		bool m_rightClicked = false;
+		int test = 0;
 
 	public:
 		///CONSTRUCTOR

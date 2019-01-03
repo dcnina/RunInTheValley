@@ -9,7 +9,7 @@
 #include <glimac/Map.hpp>
 
 World::World(const char* levelFile, std::vector<Model> listModel){
-	m_speed = 0.001;
+	m_speed = 0.15;
 	m_map = new Map(levelFile); 
 	m_listModel = listModel;
 	m_player = new Player("audrey",listModel[0]);

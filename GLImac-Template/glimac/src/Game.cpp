@@ -17,6 +17,8 @@ Game::Game(const char* levelFile,std::vector<Model> listModel, Render render)
 	m_render = render; 
 	m_princess = new Princess(listModel[0]); 
 	m_worldPos = glm::mat4(); 
+	m_worldRot = glm::mat4();
+	m_enemy = new Enemy(listModel[3]); 
 }
 
 void Game::checkBonusAndCoins(){
@@ -103,22 +105,11 @@ void Game::drawAll(){
     glm::mat4 newMVMatrix;
     glm::mat4 viewMatrix;
 
-    switch(m_direction){
-    	case (-1):
-    		m_worldPos = glm::rotate(glm::mat4(), glm::radians(-90.0f), glm::vec3(0, 1.0, 0))*m_worldPos;
-    		m_direction = 0;
-    		break;
-    	case 1:
-    		m_worldPos = glm::rotate(glm::mat4(), glm::radians(90.0f), glm::vec3(0, 1.0, 0))*m_worldPos;
-    		m_direction = 0;
-    		break;
-    }
     if(m_activeCam==0)
     	viewMatrix = m_trackballCam->getViewMatrix();
 	else
 		viewMatrix = m_firstPersonCam->getViewMatrix();
 
-    m_worldPos = glm::translate(glm::mat4(), glm::vec3(0, 0, m_distance))*m_worldPos;
     m_render.reset();
 
     if(m_activeCam == 1)
@@ -130,12 +121,19 @@ void Game::drawAll(){
     	m_princess->backToNormalState(m_time);
     }
 
+    /* Draw Princess */
     double sizeBlock = SIZE_BLOCK;
     m_princess->draw(m_render,sizeBlock,MVMatrix,m_time);
 
 
+    /* Draw Ennemies */
+    m_enemy->draw(m_render,sizeBlock,MVMatrix,m_time);
+
     MVMatrix = m_worldPos;
     MVMatrix = viewMatrix*MVMatrix;
+
+
+    /* Draw World */
 
     MVMatrix = glm::translate(MVMatrix, glm::vec3(0.0, -1.5, -SIZE_BLOCK/2));
     m_render.sendMatrix(MVMatrix);
@@ -143,6 +141,32 @@ void Game::drawAll(){
   
     //Incremet global time
     m_time+=m_distance;
+	if(test==0)
+    	m_worldPos = glm::translate(glm::mat4(), glm::vec3(0, 0, m_distance))*m_worldPos;
+
+    double deltaL, deltaR;
+    glm::mat4 rotat;
+    switch(m_direction){
+    	case (-1):
+    		deltaL = m_time - int(m_time);
+    		m_worldPos = glm::translate(glm::mat4(), glm::vec3(0, 0, -deltaL))*m_worldPos;
+    		m_worldPos = glm::rotate(glm::mat4(), glm::radians(-90.0f), glm::vec3(0, 1.0, 0))*m_worldPos;
+    		m_worldPos = glm::translate(glm::mat4(), glm::vec3(-0.5, 0, 0))*m_worldPos;
+    		m_worldPos = glm::translate(glm::mat4(), glm::vec3(0, 0, -0.5+deltaL))*m_worldPos;
+    		
+    		m_direction = 0;
+    		break;
+    	case 1:
+    		deltaR = m_time - int(m_time);
+    		m_worldPos = glm::translate(glm::mat4(), glm::vec3(0, 0, -deltaR))*m_worldPos;
+    		m_worldPos = glm::rotate(glm::mat4(), glm::radians(90.0f), glm::vec3(0, 1.0, 0))*m_worldPos;
+
+    		m_worldPos = glm::translate(glm::mat4(), glm::vec3(0.5, 0, 0))*m_worldPos;
+    		m_worldPos = glm::translate(glm::mat4(), glm::vec3(0, 0, -0.5+deltaR))*m_worldPos;
+    		
+    		m_direction = 0;
+    		break;
+    }
 }
 
 bool Game::eventManager(SDL_Event &e,glm::ivec2 &mousePos){
@@ -156,7 +180,6 @@ bool Game::eventManager(SDL_Event &e,glm::ivec2 &mousePos){
         		case SDLK_LEFT:
         		case SDLK_q:
         			if(m_world->getMap()->getListBlocs()[(int)m_time].getDirection()=='L'){
-        				std::cout << "GO LEFT " << m_time << std::endl;
         				m_direction = -1;
         			}
         			else{
@@ -170,7 +193,6 @@ bool Game::eventManager(SDL_Event &e,glm::ivec2 &mousePos){
         		case SDLK_RIGHT:
         		case SDLK_d: 
         			if(m_world->getMap()->getListBlocs()[(int)m_time].getDirection()=='R'){
-        				std::cout << "GO RIGHT" << std::endl;
         				m_direction = 1;
         			}
         			else{

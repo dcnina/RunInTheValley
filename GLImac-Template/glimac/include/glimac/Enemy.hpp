@@ -39,7 +39,9 @@ class Enemy : public DynamicObject{
 		*\brief Enemy Constructor
 		*\details Constructor of Enemy
 		*/
-		Enemy(const unsigned int &proximity);
+		//Enemy(const unsigned int &proximity);
+
+		Enemy(Model &model);
 
 
 		///GETTERS
@@ -77,7 +79,7 @@ class Enemy : public DynamicObject{
 		/**
 		*\brief redefinition of virtual function draw
 		*/
-		inline void draw(Render &render, double &sizeBlock, glm::mat4 MVMatrix, double &time){};
+		void draw(Render &render, double &sizeBlock, glm::mat4 MVMatrix, double &time);
 		
 
 		///DESTRUCTOR

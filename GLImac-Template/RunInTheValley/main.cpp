@@ -66,6 +66,7 @@ int main(int argc, char** argv) {
     Model coin("assets/obj/coin.obj");
     Model obstacle("assets/obj/obstacle.obj"); 
     Model fond("assets/obj/fond1.obj");    
+    Model ennemy("assets/obj/ennemy-black.obj");  
 
     std::vector<Model> globalModel;
 
@@ -75,6 +76,7 @@ int main(int argc, char** argv) {
     globalModel.push_back(coin);
     globalModel.push_back(obstacle);
     globalModel.push_back(fond);
+    globalModel.push_back(ennemy);
     
     Game game("./assets/map/level.txt", globalModel, render);
 

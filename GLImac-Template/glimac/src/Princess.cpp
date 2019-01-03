@@ -109,12 +109,13 @@ void Princess::draw(Render &render, double &sizeBlock, glm::mat4 MVMatrix, doubl
 	//std::cout << "position " << m_relativePosition*sizeBlock/3 << std::endl;
 	//glm::mat4 newMVMatrix = glm::translate(MVMatrix, glm::vec3(-sizeBlock/3+m_relativePosition*sizeBlock/3,-sizeBlock/2.0, 0));
  	if(m_state==0){
-		newMVMatrix = glm::translate(MVMatrix, glm::vec3((-sizeBlock/3)+(m_relativePosition*sizeBlock/3), -sizeBlock/2., 0.));
+        newMVMatrix = glm::rotate(MVMatrix, float(M_PI/2.0),glm::vec3(1.0,0.0,0.0));
+		newMVMatrix = glm::translate(newMVMatrix, glm::vec3((-sizeBlock/3)+(m_relativePosition*sizeBlock/3), -sizeBlock/8., 0.));
 		
 		//std::cout << "----------------------------------------" << sizeBlock << "--------------------------------------" << std::endl;
 	}
 	if(m_state == 2)
-	 	newMVMatrix = glm::translate(MVMatrix, glm::vec3((-sizeBlock/3)+(m_relativePosition*sizeBlock/3),sizeBlock/8., 0.));
+	 	newMVMatrix = glm::translate(MVMatrix, glm::vec3((-sizeBlock/3)+(m_relativePosition*sizeBlock/3),sizeBlock/2, 0.));
  	render.sendMatrix(newMVMatrix);
 	m_model.draw();
 }
