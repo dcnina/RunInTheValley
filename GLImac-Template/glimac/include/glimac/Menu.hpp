@@ -34,7 +34,7 @@
 class Menu{
 	private:
 		Texture2D *m_menuTexture; /*!< menu Texture */
-		std::vector<Button> m_buttons; /*!< list of buttons of the menu */
+		std::vector<Button*> m_buttons; /*!< list of buttons of the menu */
 		// GLuint uModelMatrix;
 		// GLuint uTexture;
 
@@ -52,7 +52,7 @@ class Menu{
 		*\brief get the buttons' list of the menu
 		*\return current list of buttons
 		*/
-		inline std::vector<Button> getButtons(){
+		inline std::vector<Button*> getButtons(){
 			return m_buttons;
 		}
 
@@ -73,7 +73,7 @@ class Menu{
 		*\brief add a button
 		*\params button to add
 		*/
-		inline void addButton(Button &button){
+		inline void addButton(Button *button){
 			m_buttons.push_back(button);
 		}
 

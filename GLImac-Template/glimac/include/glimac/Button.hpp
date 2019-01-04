@@ -33,6 +33,7 @@ private:
 	float m_posY;
 	float m_scaleX;
 	float m_scaleY;
+	bool m_isActive = false;
 public:
 	///CONSTRUCTOR
 	/**
@@ -48,6 +49,10 @@ public:
 	*/
 	void initializeButton(std::unique_ptr<glimac::Image> &bgImage);
 	
+	inline bool isActive(){return m_isActive;};
+
+	inline void activeButton(bool state){m_isActive = state;};
+	inline float getPosX(){return m_posX;};
 	/**
 	*\brief create and bind the button vao 
 	*/
@@ -63,7 +68,7 @@ public:
 	*\params mouseX, mouseY
 	*\return bool : true if hover / false if not hover
 	*/
-	bool mouseHover(const int mouseX, const int mouseY) const;
+	bool mouseHover(const glm::ivec2 &mousePos) const;
 
 	///DESTRUCTOR
 	/**

@@ -18,7 +18,7 @@ Game::Game(const char* levelFile,std::vector<Model> listModel, Render render)
 	m_princess = new Princess(listModel[0]); 
 	m_worldPos = glm::mat4(); 
 	m_worldRot = glm::mat4();
-	m_enemy = new Enemy(listModel[3]); 
+	m_enemy = new Enemy(listModel[6]); 
 }
 
 void Game::checkBonusAndCoins(){
@@ -113,7 +113,7 @@ void Game::drawAll(){
     m_render.reset();
 
     if(m_activeCam == 1)
-    	viewMatrix = glm::translate(viewMatrix, glm::vec3((-SIZE_BLOCK/3)+(m_princess->getRelativePosition()*SIZE_BLOCK/3),fabs(sinf(m_time*5))*0.1,0.0));
+    	viewMatrix = glm::translate(viewMatrix, glm::vec3((SIZE_BLOCK/3)-(m_princess->getRelativePosition()*SIZE_BLOCK/3),fabs(sinf(m_time*5))*0.1,0.0));
 
     MVMatrix = viewMatrix*MVMatrix;
     m_render.sendLight(viewMatrix);
@@ -163,7 +163,7 @@ void Game::drawAll(){
 
     		m_worldPos = glm::translate(glm::mat4(), glm::vec3(0.5, 0, 0))*m_worldPos;
     		m_worldPos = glm::translate(glm::mat4(), glm::vec3(0, 0, -0.5+deltaR))*m_worldPos;
-    		
+
     		m_direction = 0;
     		break;
     }

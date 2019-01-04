@@ -39,9 +39,10 @@ void Button::drawButton(){
     m_buttonTexture->drawTexture2D();
 }
 
-bool Button::mouseHover(const int mouseX, const int mouseY) const{
-	if(mouseX >= m_posY && mouseX <= m_posX + m_scaleX){
-		if(mouseY >= m_posY && mouseY <= m_posY + m_scaleY){
+bool Button::mouseHover(const glm::ivec2 &mousePos) const{
+
+	if(mousePos.x >= m_posX && mousePos.x <= m_posX + m_scaleX){
+		if(mousePos.y >= m_posY && mousePos.y <= m_posY + m_scaleY){
 			return true;
 		}
 	}
