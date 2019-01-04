@@ -105,6 +105,8 @@ void Game::drawAll(){
     glm::mat4 newMVMatrix;
     glm::mat4 viewMatrix;
 
+    glEnable(GL_DEPTH_TEST);
+
     if(m_activeCam==0)
     	viewMatrix = m_trackballCam->getViewMatrix();
 	else
@@ -177,6 +179,10 @@ bool Game::eventManager(SDL_Event &e,glm::ivec2 &mousePos){
         }*/
         if(e.type == SDL_KEYDOWN){
         	switch(e.key.keysym.sym){
+                case SDLK_ESCAPE:
+                    return true;
+                    break;
+
         		case SDLK_LEFT:
         		case SDLK_q:
         			if(m_world->getMap()->getListBlocs()[(int)m_time].getDirection()=='L'){
@@ -247,7 +253,7 @@ bool Game::eventManager(SDL_Event &e,glm::ivec2 &mousePos){
 		        }
 
             }
-   		 return false;
+   		return false;
     }
 
 

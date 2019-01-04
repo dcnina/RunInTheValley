@@ -18,6 +18,7 @@ Menu::Menu(Texture2D *texture)
  :m_menuTexture(texture){}
 
 void Menu::drawMenu(){
+	glDisable(GL_DEPTH_TEST);
 	glUniformMatrix3fv(m_menuTexture->getUModelMatrix(), 1, GL_FALSE, glm::value_ptr(glm::mat3()));
     
     m_menuTexture->drawTexture2D();

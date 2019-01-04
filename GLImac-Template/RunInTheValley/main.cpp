@@ -69,7 +69,7 @@ int main(int argc, char** argv) {
 
     //!< Prepare the render data (shaders) for the 2d parts
     glimac::Program progMenu = glimac::loadProgram(appPath.dirPath() + "shaders/tex2D.vs.glsl", appPath.dirPath() + "shaders/tex2D.fs.glsl");
-    progMenu.use();
+    //progMenu.use();
    
    	int gameState = MAIN_MENU; 
 
@@ -106,10 +106,15 @@ int main(int argc, char** argv) {
 		 * 2D Initialisation - Textures
 		 *********************************/
 
-    // Background Menu Texture
+    // Background Main Menu Texture
     Texture2D backgroundMainText(&progMenu,appPath.dirPath()+"assets/textures/menu.png");
     std::unique_ptr<glimac::Image> backgroundMenuImg = backgroundMainText.loadImg();
     backgroundMainText.initializeTexture2D(backgroundMenuImg);
+
+    // Background Menu Texture
+    Texture2D backgroundPauseText(&progMenu,appPath.dirPath()+"assets/textures/pause.png");
+    std::unique_ptr<glimac::Image> backgroundPauseImg = backgroundPauseText.loadImg();
+    backgroundPauseText.initializeTexture2D(backgroundPauseImg);
     
     // Button Score Texture
     Texture2D textureScore(&progMenu,appPath.dirPath()+"assets/textures/score.png");
@@ -143,11 +148,17 @@ int main(int argc, char** argv) {
    	//Main Menu
     Menu menuBackground(&backgroundMainText);
 
+    //Pause Menu
+    Menu menuPause(&backgroundPauseText);
+
     //Adding button to menu
     menuBackground.addButton(&buttonScore);
     menuBackground.addButton(&buttonPlay);
     menuBackground.addButton(&buttonQuit);
 
+    menuPause.addButton(&buttonScore);
+    menuPause.addButton(&buttonPlay);
+    menuPause.addButton(&buttonQuit);
 
 
 
@@ -212,10 +223,46 @@ int main(int argc, char** argv) {
 
             	}
             	else if(gameState == PLAYING){
-        			game.eventManager(e,v);
+        			bool pauseGame = game.eventManager(e,v);
+        			if(pauseGame)
+			            gameState = PAUSE_MENU;
             	}
             	else if(gameState == PAUSE_MENU){
+            		if(e.type == SDL_MOUSEMOTION) {
+		                Button *bScore = menuPause.getButtons()[0];
+			            Button *bPlay = menuPause.getButtons()[1];
+			            Button *bLeave = menuPause.getButtons()[2];
+			            if(bPlay->mouseHover(v)){
+			                bPlay->activeButton(true);
+			                bScore->activeButton(false);
+			                bLeave->activeButton(false);
+			            }
+			            else if(bScore->mouseHover(v)){
+			                bScore->activeButton(true);
+			                bPlay->activeButton(false);
+			                bLeave->activeButton(false);
+			            }
+			            else if(bLeave->mouseHover(v)){
+			                bLeave->activeButton(true);
+			                bPlay->activeButton(false);
+			                bScore->activeButton(false);
+			            }
 
+		            }
+		            else if(e.type == SDL_MOUSEBUTTONDOWN){
+
+		                Button *bScore = menuPause.getButtons()[0];
+			            Button *bPlay = menuPause.getButtons()[1];
+			            Button *bLeave = menuPause.getButtons()[2];
+			            if(bScore->isActive()){
+			            }
+			            else if(bPlay->isActive()){
+			                gameState = PLAYING;
+			            }
+			            else if(bLeave->isActive()){
+			            	done = true;
+			            }
+		            }
             	}
             	else if(gameState == SCORE_MENU){
 
@@ -227,16 +274,17 @@ int main(int argc, char** argv) {
          *********************************/
         
         if(gameState == MAIN_MENU){
+        	progMenu.use();
     		menuBackground.drawMenu();
     	}
     	else if(gameState == PLAYING){
     		progGame.use();
-    		glEnable(GL_DEPTH_TEST);
 	        game.playGame();
 	        game.drawAll();
     	}
     	else if(gameState == PAUSE_MENU){
-
+    		progMenu.use();
+    		menuPause.drawMenu();
     	}
     	else if(gameState == SCORE_MENU){
 
