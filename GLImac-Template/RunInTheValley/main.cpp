@@ -30,7 +30,7 @@
 using namespace glimac;
 
 int main(int argc, char** argv) {
-    /* Initialization of SDL 
+    /* Initialization of SDL
     if(-1 == SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO)) {
         fprintf(stderr, "Impossible to initialize SDL. End of programme.\n");
         return EXIT_FAILURE;
@@ -70,8 +70,8 @@ int main(int argc, char** argv) {
     //!< Prepare the render data (shaders) for the 2d parts
     glimac::Program progMenu = glimac::loadProgram(appPath.dirPath() + "shaders/tex2D.vs.glsl", appPath.dirPath() + "shaders/tex2D.fs.glsl");
     //progMenu.use();
-   
-   	int gameState = MAIN_MENU; 
+
+   	int gameState = MAIN_MENU;
 
     /*********************************
      * HERE SHOULD COME THE INITIALIZATION CODE
@@ -84,9 +84,9 @@ int main(int argc, char** argv) {
     Model bloc("assets/obj/bloc.obj");
     Model bonus("assets/obj/bonus.obj");
     Model coin("assets/obj/coin.obj");
-    Model obstacle("assets/obj/obstacle.obj"); 
-    Model fond("assets/obj/fond1.obj");    
-    Model enemy("assets/obj/enemy-black.obj");  
+    Model obstacle("assets/obj/obstacle.obj");
+    Model fond("assets/obj/fond1.obj");
+    Model enemy("assets/obj/enemy-black.obj");
 
     std::vector<Model> globalModel;
 
@@ -99,7 +99,7 @@ int main(int argc, char** argv) {
     globalModel.push_back(enemy);
 
     //!< Creating a new game
-    
+
     Game game("./assets/map/level.txt", globalModel, render);
 
 		/*********************************
@@ -115,19 +115,19 @@ int main(int argc, char** argv) {
     Texture2D backgroundPauseText(&progMenu,appPath.dirPath()+"assets/textures/pause.png");
     std::unique_ptr<glimac::Image> backgroundPauseImg = backgroundPauseText.loadImg();
     backgroundPauseText.initializeTexture2D(backgroundPauseImg);
-    
+
     // Button Score Texture
     Texture2D textureScore(&progMenu,appPath.dirPath()+"assets/textures/score.png");
     std::unique_ptr<glimac::Image> backgroundScore = textureScore.loadImg();
-    
+
     // Button Play Texture
     Texture2D texturePlay(&progMenu,appPath.dirPath()+"assets/textures/play.png");
     std::unique_ptr<glimac::Image> backgroundPlay = texturePlay.loadImg();
-    
+
     // Button Quit Texture
     Texture2D textureQuit(&progMenu,appPath.dirPath()+"assets/textures/quit.png");
     std::unique_ptr<glimac::Image> backgroundQuit = textureQuit.loadImg();
-    
+
 
     /***** Buttons Creations *********/
 
@@ -144,7 +144,7 @@ int main(int argc, char** argv) {
     buttonQuit.createButton();
 
     /******** Menu Creations ***********/
-   
+
    	//Main Menu
     Menu menuBackground(&backgroundMainText);
 
@@ -172,7 +172,7 @@ int main(int argc, char** argv) {
 
        // glClearColor( 255, 255 ,255, 1.0 );
        /* viewMatrix = trackCamera.getViewMatrix();*/
-        //Event loop: 
+        //Event loop:
         SDL_Event e;
         while(windowManager.pollEvent(e)) {
                 if(e.type == SDL_QUIT) {
@@ -272,7 +272,7 @@ int main(int argc, char** argv) {
         /*********************************
          * HERE SHOULD COME THE RENDERING CODE
          *********************************/
-        
+
         if(gameState == MAIN_MENU){
         	progMenu.use();
     		menuBackground.drawMenu();
@@ -290,8 +290,12 @@ int main(int argc, char** argv) {
 
     	}
 
-        //if (game.endGame() == true)
-          //  done = true;
+        /*if (game.endGame() == true){
+            unsigned int bestScore = game.saveBestScore();
+            game.getWorld().getDescription();
+            std::cout << "BEST SCORE : " << bestScore << std::endl;
+            done = true;
+        }*/
         // Update the display
         windowManager.swapBuffers();
     }

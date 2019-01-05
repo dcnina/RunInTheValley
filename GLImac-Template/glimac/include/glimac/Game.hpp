@@ -1,7 +1,7 @@
 /*
  * COMBE Audrey, DE CASTRO Nina, LAVALLE Lucas
- * IMAC2 - TD2 
- * RunInTheValley - Game.hpp 
+ * IMAC2 - TD2
+ * RunInTheValley - Game.hpp
  */
 
 /**
@@ -14,7 +14,7 @@
 /**
  *\class Game
  *\brief Manage the game
- *  
+ *
  */
 
 
@@ -44,7 +44,7 @@ class Game{
 		std::vector<Bonus> m_listBonus; /*!< Bonus list of the World */
 		glm::mat4 m_worldPos; /*!< Matrix of world position */
 		glm::mat4 m_worldRot; /*!< Matrix of world rotation */
-		bool m_lockCam = false; /*! Edit state of the camera */
+		bool m_lockCam = false; /*!< Edit state of the camera */
 		int m_mousePrevX = 0;
 		int m_mousePrevY = 0;
 		bool m_rightClicked = false;
@@ -53,16 +53,16 @@ class Game{
 	public:
 		///CONSTRUCTOR
 		/**
-		*\brief Game constructor   
+		*\brief Game constructor
 		*\details Constructor of Game
 		*/
 		Game(const char* levelFile,std::vector<Model> listModel, Render render);
-		
-		
+
+
 		/// GETTERS
 		/**
-		*\brief Getter World of the Game   
-		*\return current World 
+		*\brief Getter World of the Game
+		*\return current World
 		*/
 		inline World getWorld()const{ return *m_world;};
 		inline Camera * getActiveCam() const{
@@ -71,21 +71,21 @@ class Game{
 			return m_firstPersonCam;
 		}
 		/**
-		*\brief Get distance of the Game   
+		*\brief Get distance of the Game
 		*\return current distance
 		*/
 		inline double getDistance()const{ return m_distance;};
 
 		/**
-		*\brief Get the bonus list of the World   
-		*\return current bonus list 
+		*\brief Get the bonus list of the World
+		*\return current bonus list
 		*/
 		inline std::vector<Bonus> getListBonus()const{ return m_listBonus;};
 
 
 		/// SETTERS
 		/**
-		*\brief Set distance of the Game  
+		*\brief Set distance of the Game
 		*\params distance
 		*\details set the current distance
 		*/
@@ -99,52 +99,57 @@ class Game{
 		void changeActiveCam();
 		/// METHODS
 		/**
-		*\brief increment the travelled distance      
+		*\brief increment the travelled distance
 		*\params the distance to increment
 		*/
 		inline void incrementTime(double distance){ m_time += m_time;};
 
 		/**
-		*\brief check the end of the game      
+		*\brief check the end of the game
 		*\ return true if the end is ended, else false
 		*/
 		bool endGame();
 
 		/**
-		*\brief check if collision with a bonus or a coin      
+		*\brief check if collision with a bonus or a coin
 		*/
 		void checkBonusAndCoins();
 
 		/**
-		*\brief play a game      
+		*\brief play a game
 		*/
 		void playGame();
 
 		/**
-		*\brief draw all element of the game      
+		*\brief draw all element of the game
 		*/
 		void drawAll();
 
 		/**
-		*\brief manage events 
+		*\brief manage events
 		*\params SDK_Event e
-		*\return false if no event detected      
+		*\return false if no event detected
 		*/
 		bool eventManager(SDL_Event &e,glm::ivec2 &mousePos);
 
 		/**
-		*\brief manage the bonus for deleting or incrementing      
+		*\brief manage the bonus for deleting or incrementing
 		*/
 		void manageDeleteAndIncrementBonus();
 
+		/**
+		*\brief save in a file the score if he's better than the score in the
+		*\ return the best score
+		*/
+		unsigned int saveBestScore();
 
 		///DESTRUCTOR
 		/**
-		*\brief Default destructor   
+		*\brief Default destructor
 		*\details Destructor by default of Game
 		*/
 		~Game();
-	
+
 };
 
 #endif

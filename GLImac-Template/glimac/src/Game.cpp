@@ -1,7 +1,7 @@
 /*
  * COMBE Audrey, DE CASTRO Nina, LAVALLE Lucas
- * IMAC2 - TD2 
- * RunInTheValley - Game.cpp 
+ * IMAC2 - TD2
+ * RunInTheValley - Game.cpp
  */
 
 
@@ -14,11 +14,11 @@ Game::Game(const char* levelFile,std::vector<Model> listModel, Render render)
 	m_distance = 0.001;
 	m_trackballCam= new TrackballCamera(3.0f,15.0f,0.0f);
 	m_firstPersonCam= new FirstPersonCamera(1.0f,0.0f);
-	m_render = render; 
-	m_princess = new Princess(listModel[0]); 
-	m_worldPos = glm::mat4(); 
+	m_render = render;
+	m_princess = new Princess(listModel[0]);
+	m_worldPos = glm::mat4();
 	m_worldRot = glm::mat4();
-	m_enemy = new Enemy(listModel[6]); 
+	m_enemy = new Enemy(listModel[6]);
 }
 
 void Game::checkBonusAndCoins(){
@@ -40,10 +40,10 @@ void Game::checkBonusAndCoins(){
 }
 
 bool Game::endGame(){
-	/* End of the map */ 
+	/* End of the map */
 	if ((int)m_time == m_world->getMap()->getListBlocsSize()){
 		//m_world->getMap()->printMap();
-		return true; 
+		return true;
 	}
 
 	/* Collision with a block or an empty block */
@@ -63,24 +63,24 @@ bool Game::endGame(){
 void Game::playGame(){
 	checkBonusAndCoins();
 	Player *player = m_world->getPlayer();
-	/* Increment score of the player */ 
+	/* Increment score of the player */
 	player->addScore(1);
-	
+
 	/* Apply bonus on the game */
 	//std::cout << "***************************** switch type: "<< m_listBonus.size() << std::endl;
 	for (unsigned int i = 0; i < m_listBonus.size(); i++){
 		//std::cout << "***************************** switch type: "<< m_world->getListBonus()[i].getType() << std::endl;
 		switch(m_listBonus[i].getType()){
-			case 1: 
+			case 1:
 				//std::cout << "***************************** case 1" << std::endl;
-				player->addMoney(2); //BONUS TYPE 1 : add 2 coins every loop tour 
+				player->addMoney(2); //BONUS TYPE 1 : add 2 coins every loop tour
 				break;
-			case 2: 
+			case 2:
 				//std::cout << "***************************** case 2" << std::endl;
 				player->addScore(5);
 				m_listBonus[i].setTime(5);
 				break;
-			case 3: 
+			case 3:
 				//std::cout << "***************************** case 3" << std::endl;
 				player->addMoney(10);
 				m_listBonus[i].setTime(0);
@@ -140,7 +140,7 @@ void Game::drawAll(){
     MVMatrix = glm::translate(MVMatrix, glm::vec3(0.0, -1.5, -SIZE_BLOCK/2));
     m_render.sendMatrix(MVMatrix);
     m_world->drawWorld(MVMatrix,viewMatrix,m_render,m_time);
-  
+
     //Incremet global time
     m_time+=m_distance;
 	if(test==0)
@@ -155,7 +155,7 @@ void Game::drawAll(){
     		m_worldPos = glm::rotate(glm::mat4(), glm::radians(-90.0f), glm::vec3(0, 1.0, 0))*m_worldPos;
     		m_worldPos = glm::translate(glm::mat4(), glm::vec3(-0.5, 0, 0))*m_worldPos;
     		m_worldPos = glm::translate(glm::mat4(), glm::vec3(0, 0, -0.5+deltaL))*m_worldPos;
-    		
+
     		m_direction = 0;
     		break;
     	case 1:
@@ -193,11 +193,11 @@ bool Game::eventManager(SDL_Event &e,glm::ivec2 &mousePos){
         			}
         			break;
         		case SDLK_DOWN:
-        		case SDLK_s: 
+        		case SDLK_s:
         			m_princess->bendDown(m_time);
         			break;
         		case SDLK_RIGHT:
-        		case SDLK_d: 
+        		case SDLK_d:
         			if(m_world->getMap()->getListBlocs()[(int)m_time].getDirection()=='R'){
         				m_direction = 1;
         			}
@@ -205,7 +205,7 @@ bool Game::eventManager(SDL_Event &e,glm::ivec2 &mousePos){
         				m_princess->goRight();
         			}
         			break;
-        		case SDLK_UP:	
+        		case SDLK_UP:
         		case SDLK_z:
         			m_princess->jump(m_time);
         			break;
@@ -220,7 +220,7 @@ bool Game::eventManager(SDL_Event &e,glm::ivec2 &mousePos){
         }
         else if(e.type == SDL_KEYUP){
         	switch(e.key.keysym.sym){
-        		case SDLK_s: 
+        		case SDLK_s:
         			m_princess->backToNormalState(m_time);
         			break;
         	}
@@ -261,9 +261,27 @@ void Game::manageDeleteAndIncrementBonus(){
 	for (unsigned int i = 0; i < m_listBonus.size(); i++){
 		if(m_listBonus[i].getTime() == 0)
 			m_listBonus.erase(m_listBonus.begin()+i);
-		else 
+		else
 			m_listBonus[i].decrementTime();
 	}
 }
 
+
+unsigned int saveBestScore(){
+	FILE *file;
+	unsigned int bestScore;
+	unsigned int courantScore = m_wolrd->getPlayer()->getScore();
+	file = fopen("bestscore.txt", "r+");
+	if(!file){
+		std::cerr << "erreur chargement fichier : " << filename << std::endl;
+		exit(EXIT_FAILURE);
+	}
+	while(!feof(file))
+		fscanf(file,"%d",&bestScore);
+	if (courantScore > bestScore){
+		fseek(file, 0, SEEK_SET);
+		fprintf(file, "%d\n%s\n", courantScore, m_wolrd->getPlayer()->getPseudo());
+	}
+	fclose(file);
+}
 Game::~Game(){}

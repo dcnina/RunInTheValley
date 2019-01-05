@@ -1,7 +1,7 @@
 /*
  * COMBE Audrey, DE CASTRO Nina, LAVALLE Lucas
- * IMAC2 - TD2 
- * RunInTheValley - Player.hpp 
+ * IMAC2 - TD2
+ * RunInTheValley - Player.hpp
  */
 
 /**
@@ -14,7 +14,7 @@
 /**
  *\class Player
  *\brief Manage the Player
- *  
+ *
  */
 
 #include <string>
@@ -36,7 +36,7 @@ class Player{
 	public:
 		///CONSTRUCTOR
 		/**
-		*\brief Default constructor   
+		*\brief Default constructor
 		*\details Constructor by default of Player
 		*/
 		Player();
@@ -73,6 +73,14 @@ class Player{
 		*/
 		inline Model getModel() const{ return m_model;}
 
+        /**
+		*\brief Print description of the player
+		*/
+		inline Model getDescription() const{
+            std::cout << "PLAYER NAME : " << m_pseudo << std::endl
+            std::cout << "SCORE : " << m_score << std::endl;
+            std::cout << "MONEY : " << m_money << std::endl;
+        }
 
 		///SETTERS
 		/**
@@ -102,42 +110,42 @@ class Player{
 
 		///METHODS
 		/**
-		*\brief add coins to the player money      
+		*\brief add coins to the player money
 		*\param number of coins
 		*/
 		inline void addMoney(unsigned int nbCoins){ m_money += nbCoins; }
 
 		/**
-		*\brief remove coins of the player money     
+		*\brief remove coins of the player money
 		*\param number of coins
 		*/
 		inline void removeMoney(unsigned int nbCoins){ m_money -= nbCoins; };
 
 		/**
-		*\brief add points to the player score       
+		*\brief add points to the player score
 		*\param number of points
 		*/
 		inline void addScore(unsigned int score){ m_score += score; }
 
 		/**
-		*\brief remove points of the player score      
+		*\brief remove points of the player score
 		*\param number of points
 		*/
 		inline void removeScore(unsigned int &score){ m_score -= score; };
 
 		/**
-		*\brief print the player infos 
+		*\brief print the player infos
 		*/
 		void printInfosPlayer();
 
 
 		///DESTRUCTOR
 		/**
-		*\brief Default destructor   
+		*\brief Default destructor
 		*\details Destructor by default of Player
 		*/
 		~Player();
-	
+
 };
 
 #endif
