@@ -169,10 +169,6 @@ int main(int argc, char** argv) {
     // Application loop:
     bool done = false;
     while(!done) {
-
-       // glClearColor( 255, 255 ,255, 1.0 );
-       /* viewMatrix = trackCamera.getViewMatrix();*/
-        //Event loop:
         SDL_Event e;
         while(windowManager.pollEvent(e)) {
                 if(e.type == SDL_QUIT) {
@@ -209,7 +205,7 @@ int main(int argc, char** argv) {
 			            Button *bPlay = menuBackground.getButtons()[1];
 			            Button *bLeave = menuBackground.getButtons()[2];
 			            if(bScore->isActive()){
-			                std::cout << "Click on Score Button" << std::endl;
+                            Game::displayBestScores();
 			            }
 			            else if(bPlay->isActive()){
 			                std::cout << "Click on Play Button" << std::endl;
@@ -265,7 +261,6 @@ int main(int argc, char** argv) {
 		            }
             	}
             	else if(gameState == SCORE_MENU){
-
             	}
             }
 
@@ -290,12 +285,10 @@ int main(int argc, char** argv) {
 
     	}
 
-        /*if (game.endGame() == true){
-            unsigned int bestScore = game.saveBestScore();
-            game.getWorld().getDescription();
-            std::cout << "BEST SCORE : " << bestScore << std::endl;
+        if (game.isEnd() == true){
+            game.endGame();
             done = true;
-        }*/
+        }
         // Update the display
         windowManager.swapBuffers();
     }

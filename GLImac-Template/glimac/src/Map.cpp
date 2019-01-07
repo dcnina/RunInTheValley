@@ -55,7 +55,6 @@ void Map::initialiseListBlocFromFile(const char* filename){
 void Map::convertBlocTypeToEmpty(const unsigned int &index, const int &princessState, const int &princessRelativePosition){ 
 	if(m_listBlocs[index].getMatrixTypesElement(princessState, princessRelativePosition) != 'O')
 		m_listBlocs[index].setMatrixTypesElement('E', princessState, princessRelativePosition);
-	std::cout << "////////////////////////////////////////////////////////////////////////" << std::endl;
 }
 
 

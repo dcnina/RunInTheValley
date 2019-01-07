@@ -61,6 +61,7 @@ void Bloc::drawBlock(std::vector<Model> &listModel, glm::mat4 viewMatrix, Render
         	switch(m_matrixTypes[i][j]){
         		case 'B': 	//Bonus
                     newMVMatrix = glm::scale(tmpMVMatrix,glm::vec3(3.0,1.0,1.0));
+                        newMVMatrix = glm::translate(newMVMatrix,glm::vec3(0, SIZEY/3.0, 0)); 
                     newMVMatrix = glm::rotate(newMVMatrix, float(time*0.5f),glm::vec3(0.0,1.0,0.0));
                     render.sendMatrix(newMVMatrix);
     				listModel[2].draw();
@@ -82,6 +83,7 @@ void Bloc::drawBlock(std::vector<Model> &listModel, glm::mat4 viewMatrix, Render
         			break;
         		case 'C':	//Coins
                     newMVMatrix = glm::scale(tmpMVMatrix,glm::vec3(3.0,1.0,1.0));
+                        newMVMatrix = glm::translate(newMVMatrix,glm::vec3(0, SIZEY/3.0, 0)); 
                     newMVMatrix = glm::rotate(newMVMatrix, float(time*0.5f),glm::vec3(0.0,1.0,0.0));
                     render.sendMatrix(newMVMatrix);
     				listModel[3].draw();

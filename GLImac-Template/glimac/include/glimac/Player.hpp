@@ -76,8 +76,8 @@ class Player{
         /**
 		*\brief Print description of the player
 		*/
-		inline Model getDescription() const{
-            std::cout << "PLAYER NAME : " << m_pseudo << std::endl
+		inline void getDescription() const{
+            std::cout << "PLAYER NAME : " << m_pseudo << std::endl;
             std::cout << "SCORE : " << m_score << std::endl;
             std::cout << "MONEY : " << m_money << std::endl;
         }
@@ -132,6 +132,8 @@ class Player{
 		*\param number of points
 		*/
 		inline void removeScore(unsigned int &score){ m_score -= score; };
+
+		void askingForPseudo();
 
 		/**
 		*\brief print the player infos

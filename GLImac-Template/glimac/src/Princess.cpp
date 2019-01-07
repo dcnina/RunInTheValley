@@ -56,14 +56,11 @@ void Princess::backToNormalState(double &timeChange){
 int Princess::collisionWithBlock(Bloc &bloc){
 	//Test if princess is in the air (jump)
 	if(m_state == 2){
-		if(bloc.getMatrixTypes()[0][m_relativePosition] == 'F' || bloc.getMatrixTypes()[1][m_relativePosition] == 'F')
-			return 1;
-		else if(bloc.getMatrixTypes()[0][m_relativePosition] == 'O' || bloc.getMatrixTypes()[1][m_relativePosition] == 'O')
+		if(bloc.getMatrixTypes()[0][m_relativePosition] == 'O' || bloc.getMatrixTypes()[1][m_relativePosition] == 'O')
 			return 1;
 		else if(bloc.getMatrixTypes()[0][m_relativePosition] == 'B' || bloc.getMatrixTypes()[1][m_relativePosition] == 'B')
 			return 2;
 		else if(bloc.getMatrixTypes()[0][m_relativePosition] == 'C' || bloc.getMatrixTypes()[1][m_relativePosition] == 'C'){
-			std::cout << "je suis un coin " << std::endl; 
 			return 3;
 		}
 		return 0;
@@ -71,9 +68,7 @@ int Princess::collisionWithBlock(Bloc &bloc){
 
 	//Test if princess stands up
 	if(m_state == 1){
-		switch(bloc.getMatrixTypes()[1][m_relativePosition]){
-			case 'F' : return 1;
-				break;
+		switch(bloc.getMatrixTypes()[2][m_relativePosition]){
 			case 'O' : return 1;
 				break;
 			case 'B' : return 2;
@@ -86,8 +81,6 @@ int Princess::collisionWithBlock(Bloc &bloc){
 	if(m_state == 1 || m_state == 0){
 
 		switch(bloc.getMatrixTypes()[2][m_relativePosition]){
-			case 'F' : return 1;
-				break;
 			case 'O' : return 1;
 				break;
 			case 'B' : return 2;

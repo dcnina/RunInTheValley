@@ -20,5 +20,23 @@ void Player::printInfosPlayer(){
 	std::cout << "Money: " <<	m_money << std::endl;
 }
 
+void Player::askingForPseudo(){
+	std::string pseudo;
+	bool isOk = false;
+
+	while(!isOk){
+		std::cout << "Enter your pseudo:" << std::endl;
+		std::cin >> pseudo;
+		if(pseudo.length() > 15){
+			std::cerr << "Your pseudo is too long" << std::endl << std::endl;
+		}
+		else{
+			isOk = true;
+		}
+	}
+
+	m_pseudo = pseudo;
+}
+
 
 Player::~Player(){}

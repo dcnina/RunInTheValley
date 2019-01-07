@@ -35,8 +35,6 @@ class Menu{
 	private:
 		Texture2D *m_menuTexture; /*!< menu Texture */
 		std::vector<Button*> m_buttons; /*!< list of buttons of the menu */
-		// GLuint uModelMatrix;
-		// GLuint uTexture;
 
 	public:
 		///CONSTRUCTOR

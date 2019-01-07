@@ -6,7 +6,10 @@
 
 
 #include <glimac/Game.hpp>
-
+#include <iostream>
+#include <string>
+#include <fstream>
+#include <sstream>
 
 Game::Game(const char* levelFile,std::vector<Model> listModel, Render render)
 {
@@ -26,20 +29,30 @@ void Game::checkBonusAndCoins(){
 	int result = m_princess->collisionWithBlock(m_world->getMap()->getListBlocs()[(int)m_time]);
 
 	if (result == 2){ //collision with a bonus
-		std::cout << "COLLISION BONUS" << std::endl;
 		Bonus bonus;
 		bonus.generateBonus();
 		m_listBonus.push_back(bonus);
-		m_world->getMap()->convertBlocTypeToEmpty((int)m_time, m_princess->getState(), m_princess->getRelativePosition());
+        int currentState = m_princess->getState();
+        if(currentState == 0 || currentState == 1)
+            m_world->getMap()->convertBlocTypeToEmpty((int)m_time, 2, m_princess->getRelativePosition());
+        if(currentState == 1 || currentState == 2)
+            m_world->getMap()->convertBlocTypeToEmpty((int)m_time, 1, m_princess->getRelativePosition());
+        if(currentState == 2)
+            m_world->getMap()->convertBlocTypeToEmpty((int)m_time, 0, m_princess->getRelativePosition());
 	}
 	else if (result == 3) {// collision with a coin
 		m_world->getPlayer()->addMoney(1);
-		std::cout << "Collision coin" << std::endl;
-		m_world->getMap()->convertBlocTypeToEmpty((int)m_time, m_princess->getState(), m_princess->getRelativePosition());
+        int currentState = m_princess->getState();
+        if(currentState == 0 || currentState == 1)
+            m_world->getMap()->convertBlocTypeToEmpty((int)m_time, 2, m_princess->getRelativePosition());
+        if(currentState == 1 || currentState == 2)
+            m_world->getMap()->convertBlocTypeToEmpty((int)m_time, 1, m_princess->getRelativePosition());
+        if(currentState == 2)
+            m_world->getMap()->convertBlocTypeToEmpty((int)m_time, 0, m_princess->getRelativePosition());
 	}
 }
 
-bool Game::endGame(){
+bool Game::isEnd(){
 	/* End of the map */
 	if ((int)m_time == m_world->getMap()->getListBlocsSize()){
 		//m_world->getMap()->printMap();
@@ -57,6 +70,12 @@ bool Game::endGame(){
 	/*if ()
 	*/
 	return false;
+}
+
+void Game::endGame(){
+    unsigned int bestScore = saveBestScore();
+    getWorld().getPlayer()->getDescription();
+    std::cout << "YOUR BEST SCORE : " << bestScore << std::endl;
 }
 
 
@@ -115,7 +134,7 @@ void Game::drawAll(){
     m_render.reset();
 
     if(m_activeCam == 1)
-    	viewMatrix = glm::translate(viewMatrix, glm::vec3((SIZE_BLOCK/3)-(m_princess->getRelativePosition()*SIZE_BLOCK/3),fabs(sinf(m_time*5))*0.1,0.0));
+    	viewMatrix = glm::translate(viewMatrix, glm::vec3((SIZE_BLOCK/3)-(m_princess->getRelativePosition()*SIZE_BLOCK/3),SIZE_BLOCK/2-m_princess->getState()*SIZE_BLOCK/3,0.0));
 
     MVMatrix = viewMatrix*MVMatrix;
     m_render.sendLight(viewMatrix);
@@ -148,26 +167,28 @@ void Game::drawAll(){
 
     double deltaL, deltaR;
     glm::mat4 rotat;
+    
+
     switch(m_direction){
-    	case (-1):
-    		deltaL = m_time - int(m_time);
-    		m_worldPos = glm::translate(glm::mat4(), glm::vec3(0, 0, -deltaL))*m_worldPos;
-    		m_worldPos = glm::rotate(glm::mat4(), glm::radians(-90.0f), glm::vec3(0, 1.0, 0))*m_worldPos;
-    		m_worldPos = glm::translate(glm::mat4(), glm::vec3(-0.5, 0, 0))*m_worldPos;
-    		m_worldPos = glm::translate(glm::mat4(), glm::vec3(0, 0, -0.5+deltaL))*m_worldPos;
+        case (-1):
+            deltaL = m_time - int(m_time);
+            m_worldPos = glm::translate(glm::mat4(), glm::vec3(0, 0, -deltaL))*m_worldPos;
+            m_worldPos = glm::rotate(glm::mat4(), glm::radians(-90.0f), glm::vec3(0, 1.0, 0))*m_worldPos;
+            m_worldPos = glm::translate(glm::mat4(), glm::vec3(-0.5, 0, 0))*m_worldPos;
+            m_worldPos = glm::translate(glm::mat4(), glm::vec3(0, 0, -0.5+deltaL))*m_worldPos;
 
-    		m_direction = 0;
-    		break;
-    	case 1:
-    		deltaR = m_time - int(m_time);
-    		m_worldPos = glm::translate(glm::mat4(), glm::vec3(0, 0, -deltaR))*m_worldPos;
-    		m_worldPos = glm::rotate(glm::mat4(), glm::radians(90.0f), glm::vec3(0, 1.0, 0))*m_worldPos;
+            m_direction = 0;
+            break;
+        case 1:
+            deltaR = m_time - int(m_time);
+            m_worldPos = glm::translate(glm::mat4(), glm::vec3(0, 0, -deltaR))*m_worldPos;
+            m_worldPos = glm::rotate(glm::mat4(), glm::radians(90.0f), glm::vec3(0, 1.0, 0))*m_worldPos;
 
-    		m_worldPos = glm::translate(glm::mat4(), glm::vec3(0.5, 0, 0))*m_worldPos;
-    		m_worldPos = glm::translate(glm::mat4(), glm::vec3(0, 0, -0.5+deltaR))*m_worldPos;
+            m_worldPos = glm::translate(glm::mat4(), glm::vec3(0.5, 0, 0))*m_worldPos;
+            m_worldPos = glm::translate(glm::mat4(), glm::vec3(0, 0, -0.5+deltaR))*m_worldPos;
 
-    		m_direction = 0;
-    		break;
+            m_direction = 0;
+            break;
     }
 }
 
@@ -186,7 +207,10 @@ bool Game::eventManager(SDL_Event &e,glm::ivec2 &mousePos){
         		case SDLK_LEFT:
         		case SDLK_q:
         			if(m_world->getMap()->getListBlocs()[(int)m_time].getDirection()=='L'){
-        				m_direction = -1;
+                        if(lastTurn + double(SIZE_BLOCK) < m_time){ //Impeach to spam the rotation when player is on a rotation bloc
+                            m_direction = -1;
+                            lastTurn = m_time;
+                        }
         			}
         			else{
         				m_princess->goLeft();
@@ -199,7 +223,11 @@ bool Game::eventManager(SDL_Event &e,glm::ivec2 &mousePos){
         		case SDLK_RIGHT:
         		case SDLK_d:
         			if(m_world->getMap()->getListBlocs()[(int)m_time].getDirection()=='R'){
-        				m_direction = 1;
+        				
+                        if(lastTurn + double(SIZE_BLOCK) < m_time){ //Impeach to spam the rotation when player is on a rotation bloc
+                            m_direction = 1;
+                            lastTurn = m_time;
+                        }
         			}
         			else{
         				m_princess->goRight();
@@ -267,21 +295,81 @@ void Game::manageDeleteAndIncrementBonus(){
 }
 
 
-unsigned int saveBestScore(){
-	FILE *file;
-	unsigned int bestScore;
-	unsigned int courantScore = m_wolrd->getPlayer()->getScore();
-	file = fopen("bestscore.txt", "r+");
-	if(!file){
-		std::cerr << "erreur chargement fichier : " << filename << std::endl;
-		exit(EXIT_FAILURE);
-	}
-	while(!feof(file))
-		fscanf(file,"%d",&bestScore);
-	if (courantScore > bestScore){
-		fseek(file, 0, SEEK_SET);
-		fprintf(file, "%d\n%s\n", courantScore, m_wolrd->getPlayer()->getPseudo());
-	}
-	fclose(file);
+unsigned int Game::saveBestScore(){
+    Player* player = m_world->getPlayer();
+    player->askingForPseudo();
+
+    std::string currentPseudo = player->getPseudo();
+    unsigned int currentScore = player->getScore();
+    unsigned int best = 0;
+
+    std::ifstream file("assets/bestscore.txt", std::ios::in);  
+    std::ofstream tmpFile("assets/tmp.txt",std::ios::out | std::ios::trunc);
+    bool change = false;
+    bool isIn = false;
+
+    if(file && tmpFile) 
+    {
+            std::string content;
+            std::string pseudo;
+            int score;
+            while(getline(file, content)) 
+            {
+                std::istringstream line(content);
+                line >> pseudo >> score;
+                if(pseudo == currentPseudo){
+                    isIn = true;
+                    if(currentScore > score){
+                        best = currentScore;
+                        change = true;
+                    }
+                    else{
+                        best = score;
+                    }
+                }
+                if(change)
+                    tmpFile << pseudo <<  " " << currentScore << std::endl;
+                else
+                    tmpFile << pseudo <<  " " << score << std::endl;
+
+            }
+            if(!isIn)
+                tmpFile << currentPseudo << " " << currentScore << std::endl;
+
+            tmpFile.close();
+            file.close();
+            remove("assets/bestscore.txt");
+            rename("assets/tmp.txt","assets/bestscore.txt");
+
+            return best;
+    }
+    else{
+        std::cerr << "Impossible d'ouvrir le fichier !" << std::endl;
+    }
+    return 0;
 }
+
+void Game::displayBestScores(){
+    std::ifstream file("assets/bestscore.txt", std::ios::in);  
+    if(file) 
+    {
+        std::string content;
+        std::string pseudo;
+        int score;
+        std::cout << "Scoreboard:" << std::endl;
+        std::cout << "\tPseudo:\t\tScore:" << std::endl;
+        while(getline(file, content)) 
+        {
+            std::istringstream line(content);
+            line >> pseudo >> score;
+            std::cout << "\t"<< pseudo <<"\t\t" << score << std::endl;
+        }
+        
+        file.close();
+    }
+    else{
+        std::cerr << "Impossible d'ouvrir le fichier !" << std::endl;
+    }
+}
+
 Game::~Game(){}

@@ -27,6 +27,7 @@
 #include <glimac/Bonus.hpp>
 #include <glimac/SDLWindowManager.hpp>
 
+
 class Game{
 	private:
 		World *m_world; /*!< World */
@@ -49,6 +50,7 @@ class Game{
 		int m_mousePrevY = 0;
 		bool m_rightClicked = false;
 		int test = 0;
+		double lastTurn = 0.0;
 
 	public:
 		///CONSTRUCTOR
@@ -108,7 +110,9 @@ class Game{
 		*\brief check the end of the game
 		*\ return true if the end is ended, else false
 		*/
-		bool endGame();
+		bool isEnd();
+
+		void endGame();
 
 		/**
 		*\brief check if collision with a bonus or a coin
@@ -142,6 +146,11 @@ class Game{
 		*\ return the best score
 		*/
 		unsigned int saveBestScore();
+		
+		/**
+		*\brief static method that display the scoreboard in the console
+		*/
+		static void displayBestScores();
 
 		///DESTRUCTOR
 		/**
