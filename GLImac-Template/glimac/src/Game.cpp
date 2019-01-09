@@ -18,11 +18,11 @@ void Game::chooseLevel(char* levelFile, char* nameFile){
 
 Game::Game(char* levelFile,std::vector<Model> listModel, Render render)
 {   
-         char nameFile[256];
+    char nameFile[256];
     Game::chooseLevel(levelFile, nameFile);
 
 	m_world = new World(nameFile,listModel);
-	m_distance = 0.001;
+	m_distance = 0.035;
 	m_trackballCam= new TrackballCamera(3.0f,15.0f,0.0f);
 	m_firstPersonCam= new FirstPersonCamera(1.0f,0.0f);
 	m_render = render;

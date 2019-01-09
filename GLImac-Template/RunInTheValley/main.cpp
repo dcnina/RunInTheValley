@@ -21,6 +21,8 @@
 #include <glimac/Button.hpp>
 #include <glimac/Texture2D.hpp>
 
+#include <SDL/SDL_mixer.h>
+
 #define MAIN_MENU 0
 #define PLAYING 1
 #define PAUSE_MENU 2
@@ -31,14 +33,14 @@ using namespace glimac;
 
 int main(int argc, char** argv) {
     std::srand((int)time(0));
-    /* Initialization of SDL
+    /* Initialization of SDL */
     if(-1 == SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO)) {
         fprintf(stderr, "Impossible to initialize SDL. End of programme.\n");
         return EXIT_FAILURE;
-    }*/
+    }
 
     // Initialize SDL and open a window
-    SDLWindowManager windowManager(800, 800, "GLImac");
+    SDLWindowManager windowManager(800, 800, "Run In The Valley");
 
 
     // Initialize glew for OpenGL3+ support
@@ -51,14 +53,14 @@ int main(int argc, char** argv) {
     std::cout << "GLEW Version : " << glewGetString(GLEW_VERSION) << std::endl;
 
     //Sound initialization
-    /*if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 1024) == -1)
+    if(Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 1024) == -1)
        std::cout << Mix_GetError() << std::endl;
     Mix_Music *music; //creation of musique
 
 
-    /*music = Mix_LoadMUS("assets/sound/music.mp3");
+    music = Mix_LoadMUS("assets/sound/music.mp3");
     Mix_PlayMusic(music, -1);
-    Mix_VolumeMusic(MIX_MAX_VOLUME);*/
+    Mix_VolumeMusic(MIX_MAX_VOLUME);
 
     const GLuint VERTEX_ATTR_POS = 0;
     const GLuint VERTEX_ATTR_NORM = 1;
@@ -293,8 +295,8 @@ int main(int argc, char** argv) {
         windowManager.swapBuffers();
     }
 
-/*    //Free music data
+    //Free music data
     Mix_FreeMusic(music);
-    Mix_CloseAudio();*/
+    Mix_CloseAudio();
     return EXIT_SUCCESS;
 }
