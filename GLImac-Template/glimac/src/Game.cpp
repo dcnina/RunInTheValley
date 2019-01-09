@@ -12,28 +12,24 @@
 #include <sstream>
 
 void Game::chooseLevel(char* levelFile, char* nameFile){
-    std::cout << "NAMEFILE" << std::endl;
     int nbLevel = (std::rand()%4) + 1; //code ascii 4 et 1
-    std::cout << "NAMEFILE" << std::endl;
     sprintf(nameFile,"%slevel%d.txt",levelFile, nbLevel);
-    std::cout << "NAMEFILE" << nameFile << std::endl;
 }
 
 Game::Game(char* levelFile,std::vector<Model> listModel, Render render)
 {   
          char nameFile[256];
     Game::chooseLevel(levelFile, nameFile);
-     std::cout << "NAMEFILE" << test << std::endl;
 
 	m_world = new World(nameFile,listModel);
-	m_distance = 0.030;
+	m_distance = 0.001;
 	m_trackballCam= new TrackballCamera(3.0f,15.0f,0.0f);
 	m_firstPersonCam= new FirstPersonCamera(1.0f,0.0f);
 	m_render = render;
 	m_princess = new Princess(listModel[0]);
 	m_worldPos = glm::mat4();
 	m_worldRot = glm::mat4();
-	m_enemy = new Enemy(listModel[6]);
+	m_enemy = new Enemy(listModel[6], m_princess);
 }
 
 void Game::checkBonusAndCoins(){
