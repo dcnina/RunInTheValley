@@ -101,11 +101,7 @@ int main(int argc, char** argv) {
 
     //!< Creating a new game
 
-<<<<<<< HEAD
-    Game game("./assets/map/level2.txt", globalModel, render);
-=======
     Game game("./assets/map/", globalModel, render);
->>>>>>> 0631c0fac8d87a906447ad7eb1f65621e81296b4
 
 		/*********************************
 		 * 2D Initialisation - Textures
