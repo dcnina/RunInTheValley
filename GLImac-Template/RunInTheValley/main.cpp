@@ -30,6 +30,7 @@
 using namespace glimac;
 
 int main(int argc, char** argv) {
+    std::srand((int)time(0));
     /* Initialization of SDL
     if(-1 == SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO)) {
         fprintf(stderr, "Impossible to initialize SDL. End of programme.\n");
@@ -100,7 +101,7 @@ int main(int argc, char** argv) {
 
     //!< Creating a new game
 
-    Game game("./assets/map/level.txt", globalModel, render);
+    Game game("./assets/map/", globalModel, render);
 
 		/*********************************
 		 * 2D Initialisation - Textures
@@ -165,7 +166,6 @@ int main(int argc, char** argv) {
     //DEPTH Test of the GPU
     //glEnable(GL_DEPTH_TEST);
 
-    std::srand((int)time(0));;
     // Application loop:
     bool done = false;
     while(!done) {
