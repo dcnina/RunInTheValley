@@ -83,13 +83,13 @@ int main(int argc, char** argv) {
 	//!< Loading of the 3D Models
 
 
-    Model princessModel("assets/obj/princess.obj");
-    Model bloc("assets/obj/bloc.obj");
-    Model bonus("assets/obj/bonus.obj");
-    Model coin("assets/obj/coin.obj");
-    Model obstacle("assets/obj/obstacle.obj");
+    Model princessModel("assets/obj/princess-textured.obj");
+    Model bloc("assets/obj/bloc-2.obj");
+    Model bonus("assets/obj/bonus-2.obj");
+    Model coin("assets/obj/coin-2.obj");
+    Model obstacle("assets/obj/obstacle-2.obj");
     Model fond("assets/obj/fond1.obj");
-    Model enemy("assets/obj/enemy-black.obj");
+    Model enemy("assets/obj/enemy-textured.obj");
 
     std::vector<Model> globalModel;
 
