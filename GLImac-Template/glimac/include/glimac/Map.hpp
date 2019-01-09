@@ -45,6 +45,7 @@ class Map{
 		*/
 		Map(const char* filename);
 
+		static void randomMap(const int length);
 
 		/// GETTERS
 		/**

@@ -311,11 +311,11 @@ unsigned int Game::saveBestScore(){
     unsigned int currentScore = player->getScore();
     unsigned int best = 0;
 
-    std::ifstream file("assets/bestscore.txt", std::ios::in);  
-    std::ofstream tmpFile("assets/tmp.txt",std::ios::out | std::ios::trunc);
+    std::ifstream file;
+    file.open("./assets/bestscore.txt", std::ifstream::out);  
+    std::ofstream tmpFile("./assets/tmp.txt",std::ios::out | std::ios::trunc);
     bool change = false;
     bool isIn = false;
-
     if(file && tmpFile) 
     {
             std::string content;
@@ -346,8 +346,8 @@ unsigned int Game::saveBestScore(){
 
             tmpFile.close();
             file.close();
-            remove("assets/bestscore.txt");
-            rename("assets/tmp.txt","assets/bestscore.txt");
+            remove("./assets/bestscore.txt");
+            rename("./assets/tmp.txt","assets/bestscore.txt");
 
             return best;
     }
