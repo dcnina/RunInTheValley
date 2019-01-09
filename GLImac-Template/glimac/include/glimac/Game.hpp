@@ -26,6 +26,7 @@
 #include <glimac/Player.hpp>
 #include <glimac/Bonus.hpp>
 #include <glimac/SDLWindowManager.hpp>
+#include <string>
 
 
 class Game{
@@ -58,7 +59,7 @@ class Game{
 		*\brief Game constructor
 		*\details Constructor of Game
 		*/
-		Game(const char* levelFile,std::vector<Model> listModel, Render render);
+		Game(char* levelFile,std::vector<Model> listModel, Render render);
 
 
 		/// GETTERS
@@ -151,6 +152,8 @@ class Game{
 		*\brief static method that display the scoreboard in the console
 		*/
 		static void displayBestScores();
+
+		static void chooseLevel(char* levelFile, char* nameFile);
 
 		///DESTRUCTOR
 		/**
