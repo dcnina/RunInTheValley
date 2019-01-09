@@ -18,14 +18,17 @@
  */
 
 
+
 #ifndef __ENEMY__
 #define __ENEMY__
 
 #include <glimac/DynamicObject.hpp>
+#include <glimac/Princess.hpp>
 
 class Enemy : public DynamicObject{
 	private:
 		unsigned int m_proximity=3; /*!< Enemy's level of proximity */
+		Princess *m_princess;
 
 	public:
 		///CONSTRUCTOR
@@ -41,8 +44,7 @@ class Enemy : public DynamicObject{
 		*/
 		//Enemy(const unsigned int &proximity);
 
-		Enemy(Model &model);
-
+		Enemy(Model &model, Princess *princess);
 
 		///GETTERS
 		/**

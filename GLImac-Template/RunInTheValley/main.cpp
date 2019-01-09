@@ -100,7 +100,7 @@ int main(int argc, char** argv) {
 
     //!< Creating a new game
 
-    Game game("./assets/map/level.txt", globalModel, render);
+    Game game("./assets/map/level2.txt", globalModel, render);
 
 		/*********************************
 		 * 2D Initialisation - Textures
