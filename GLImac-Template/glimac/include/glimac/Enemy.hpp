@@ -27,7 +27,6 @@
 
 class Enemy : public DynamicObject{
 	private:
-		//unsigned int m_proximity=3; /*!< Enemy's level of proximity */
 		Princess *m_princess;
 
 	public:
@@ -52,12 +51,6 @@ class Enemy : public DynamicObject{
 		*\return current position
 		*/
 		inline std::vector<double> getPosition()const{return m_position;};
-
-		// *
-		// *\brief Get proximity of the enemy
-		// *\return current proximity
-		
-		// inline unsigned int getProximity() const {return m_proximity;};
 		
 
 		///SETTERS

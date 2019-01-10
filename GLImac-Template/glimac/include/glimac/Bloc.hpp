@@ -31,7 +31,6 @@
 
 class Bloc {
 	private:
-		/* voir pour utiliser glm::vec3 ...*/ 
 		std::vector< std::vector<char> > m_matrixTypes; /*!< Matrix of blocks' types */
 		char m_direction; /*!< Direction of the block (L, R or S) */
 		int m_index; /*!< Index of the block */

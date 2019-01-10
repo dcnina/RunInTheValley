@@ -51,8 +51,6 @@ int main(int argc, char** argv) {
         std::cerr << glewGetErrorString(glewInitError) << std::endl;
         return EXIT_FAILURE;
     }
-    std::cout << "OpenGL Version : " << glGetString(GL_VERSION) << std::endl;
-    std::cout << "GLEW Version : " << glewGetString(GLEW_VERSION) << std::endl;
 
     //Sound initialization
     if(Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 1024) == -1)
@@ -169,6 +167,7 @@ int main(int argc, char** argv) {
     menuPause.addButton(&buttonQuit);
 
 
+    Map::randomMap(60);
 
     //DEPTH Test of the GPU
     //glEnable(GL_DEPTH_TEST);
