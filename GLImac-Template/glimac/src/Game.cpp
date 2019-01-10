@@ -33,51 +33,55 @@ Game::Game(char* levelFile,std::vector<Model> listModel, Render render)
 }
 
 void Game::checkBonusAndCoins(){
-	//std::cout << "je suis dans checkBonusAndCoins" << std::endl;
-	int result = m_princess->collisionWithBlock(m_world->getMap()->getListBlocs()[(int)m_time]);
+	//std::cout << "je suis dans checkBonusAndCoins" << std::endl;*
+    Map* map = m_world->getMap();
+	int result = m_princess->collisionWithBlock(map->getListBlocs()[(int)m_time]);
 
 	if (result == 2){ //collision with a bonus
 		Bonus bonus;
 		bonus.generateBonus();
 		m_listBonus.push_back(bonus);
         int currentState = m_princess->getState();
+        
+
         if(currentState == 0 || currentState == 1)
-            m_world->getMap()->convertBlocTypeToEmpty((int)m_time, 2, m_princess->getRelativePosition());
+            map->convertBlocTypeToEmpty((int)m_time, 2, m_princess->getRelativePosition());
         if(currentState == 1 || currentState == 2)
-            m_world->getMap()->convertBlocTypeToEmpty((int)m_time, 1, m_princess->getRelativePosition());
+            map->convertBlocTypeToEmpty((int)m_time, 1, m_princess->getRelativePosition());
         if(currentState == 2)
-            m_world->getMap()->convertBlocTypeToEmpty((int)m_time, 0, m_princess->getRelativePosition());
+            map->convertBlocTypeToEmpty((int)m_time, 0, m_princess->getRelativePosition());
 	}
 	else if (result == 3) {// collision with a coin
 		m_world->getPlayer()->addMoney(1);
         int currentState = m_princess->getState();
         if(currentState == 0 || currentState == 1)
-            m_world->getMap()->convertBlocTypeToEmpty((int)m_time, 2, m_princess->getRelativePosition());
+            map->convertBlocTypeToEmpty((int)m_time, 2, m_princess->getRelativePosition());
         if(currentState == 1 || currentState == 2)
-            m_world->getMap()->convertBlocTypeToEmpty((int)m_time, 1, m_princess->getRelativePosition());
+            map->convertBlocTypeToEmpty((int)m_time, 1, m_princess->getRelativePosition());
         if(currentState == 2)
-            m_world->getMap()->convertBlocTypeToEmpty((int)m_time, 0, m_princess->getRelativePosition());
+            map->convertBlocTypeToEmpty((int)m_time, 0, m_princess->getRelativePosition());
 	}
 }
 
 void Game::checkCollisionSmallObstacle(){
-    if(m_princess->collisionWithBlock(m_world->getMap()->getListBlocs()[(int)m_time]) == 4 && m_time-m_lastHit > 1.0){
+    Map* map = m_world->getMap();
+    if(m_princess->collisionWithBlock(map->getListBlocs()[(int)m_time]) == 4 && m_time-m_lastHit > 1.0){
         m_lastHit = m_time;
         m_princess->decreaseProximity();
     }
 }
 
 bool Game::isEnd(){
-    
-    char lastDir = m_world->getMap()->getListBlocs()[(int)m_time - 1].getDirection();
+    Map* map = m_world->getMap();
+    char lastDir = map->getListBlocs()[(int)m_time - 1].getDirection();
     /* End of the map */
-	if ((int)m_time == m_world->getMap()->getListBlocsSize()){
+	if ((int)m_time == map->getListBlocsSize()){
 		//m_world->getMap()->printMap();
 		return true;
 	}
 
 	/* Collision with a block or an empty block */
-	else if (m_princess->collisionWithBlock(m_world->getMap()->getListBlocs()[(int)m_time]) == 1)
+	else if (m_princess->collisionWithBlock(map->getListBlocs()[(int)m_time]) == 1)
 		return true;
 
     /* Forgot to turn at a turn */
@@ -98,8 +102,11 @@ bool Game::isEnd(){
 
 void Game::endGame(){
     unsigned int bestScore = saveBestScore();
-    getWorld().getPlayer()->getDescription();
+    World *w = this->getWorld();
+    w->getPlayer()->getDescription();
     std::cout << "YOUR BEST SCORE : " << bestScore << std::endl;
+
+    resetGame();
 }
 
 
@@ -143,6 +150,34 @@ void Game::changeActiveCam(){
 		m_activeCam=1;
 	}
 };
+
+void Game::resetGame(){
+    std::vector<Model> list = m_world->getModels();
+    freeGame();
+
+    char nameFile[256];
+    Game::chooseLevel("./assets/map/", nameFile);
+
+    m_world = new World(nameFile,list);
+    m_trackballCam= new TrackballCamera(3.0f,15.0f,0.0f);
+    m_firstPersonCam= new FirstPersonCamera(1.0f,0.0f);
+    m_princess = new Princess(list[0]);
+    m_worldPos = glm::mat4();
+    m_worldRot = glm::mat4();
+    m_enemy = new Enemy(list[6], m_princess);
+    m_activeCam = 0; 
+    m_time = 0.0;
+    m_direction = 0;
+    m_listBonus.clear(); /*!< Bonus list of the World */
+    m_lockCam = false; /*!< Edit state of the camera */
+    m_mousePrevX = 0;
+    m_mousePrevY = 0;
+    m_rightClicked = false;
+    test = 0;
+    lastTurn = 0.0;
+    m_lastHit = 0.0;
+
+}
 
 void Game::drawAll(){
     glm::mat4 MVMatrix = glm::translate(glm::mat4(), glm::vec3(0,0,0));
@@ -223,6 +258,8 @@ bool Game::eventManager(SDL_Event &e,glm::ivec2 &mousePos){
         if(e.type == SDL_QUIT) {
             return true; // Leave the loop after this iteration
         }*/
+
+        Map* map = m_world->getMap();
         if(e.type == SDL_KEYDOWN){
         	switch(e.key.keysym.sym){
                 case SDLK_ESCAPE:
@@ -231,7 +268,7 @@ bool Game::eventManager(SDL_Event &e,glm::ivec2 &mousePos){
 
         		case SDLK_LEFT:
         		case SDLK_q:
-        			if(m_world->getMap()->getListBlocs()[(int)m_time].getDirection()=='L'){
+        			if(map->getListBlocs()[(int)m_time].getDirection()=='L'){
                         if(lastTurn + double(SIZE_BLOCK) < m_time){ //Impeach to spam the rotation when player is on a rotation bloc
                             m_direction = -1;
                             lastTurn = m_time;
@@ -247,7 +284,7 @@ bool Game::eventManager(SDL_Event &e,glm::ivec2 &mousePos){
         			break;
         		case SDLK_RIGHT:
         		case SDLK_d:
-        			if(m_world->getMap()->getListBlocs()[(int)m_time].getDirection()=='R'){
+        			if(map->getListBlocs()[(int)m_time].getDirection()=='R'){
         				
                         if(lastTurn + double(SIZE_BLOCK) < m_time){ //Impeach to spam the rotation when player is on a rotation bloc
                             m_direction = 1;
@@ -321,11 +358,11 @@ void Game::manageDeleteAndIncrementBonus(){
 
 
 unsigned int Game::saveBestScore(){
-    Player* player = m_world->getPlayer();
-    player->askingForPseudo();
+    Player player = *(m_world->getPlayer());
+    player.askingForPseudo();
 
-    std::string currentPseudo = player->getPseudo();
-    unsigned int currentScore = player->getScore();
+    std::string currentPseudo = player.getPseudo();
+    unsigned int currentScore = player.getScore();
     unsigned int best = 0;
 
     std::fstream file;
@@ -397,10 +434,14 @@ void Game::displayBestScores(){
     }
 }
 
-Game::~Game(){
-   // delete m_world;
+void Game::freeGame(){
+    delete m_world;
     delete m_trackballCam;
     delete m_firstPersonCam;
     delete m_princess;
     delete m_enemy;
+}
+
+Game::~Game(){
+    freeGame();
 }

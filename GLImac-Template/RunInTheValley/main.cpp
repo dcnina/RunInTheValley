@@ -85,12 +85,12 @@ int main(int argc, char** argv) {
 	//!< Loading of the 3D Models
 
 
-    Model princessModel("assets/obj/princess-textured.obj");
+    Model princessModel("assets/obj/princess-textured-2.obj");
     Model bloc("assets/obj/bloc-2.obj");
     Model bonus("assets/obj/bonus-2.obj");
     Model coin("assets/obj/coin-2.obj");
     Model obstacle("assets/obj/obstacle-2.obj");
-    Model fond("assets/obj/fond1.obj");
+    Model fond("assets/obj/fond-2.obj");
     Model enemy("assets/obj/enemy-textured.obj");
 
     std::vector<Model> globalModel;
@@ -294,7 +294,7 @@ int main(int argc, char** argv) {
 
         if (game.isEnd() == true){
             game.endGame();
-            done = true;
+            gameState = MAIN_MENU;
         }
         // Update the display
         windowManager.swapBuffers();

@@ -44,6 +44,7 @@ class Map{
 		*\details Constructor of Map
 		*/
 		Map(const char* filename);
+		Map(const Map& map);
 
 		static void randomMap(const int length);
 

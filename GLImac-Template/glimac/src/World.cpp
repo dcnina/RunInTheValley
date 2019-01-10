@@ -16,7 +16,6 @@ World::World(const char* levelFile, std::vector<Model> listModel){
 	//std::vector<Bonus> listBonus;
 	//m_listBonus = listBonus;
 }
-
 World::World(const World& world){
 	m_speed = world.m_speed;
 	m_map = world.m_map;

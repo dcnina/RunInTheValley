@@ -87,6 +87,11 @@ class World{
 		*/
 		inline Player* getPlayer(){ return m_player;};
 
+		/**
+		*\brief Get Model list  
+		*\return list of models 
+		*/
+		inline std::vector<Model> getModels(){return m_listModel;};
 
 		/// SETTERS
 		/**

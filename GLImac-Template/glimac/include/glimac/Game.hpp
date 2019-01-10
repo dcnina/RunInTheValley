@@ -53,6 +53,7 @@ class Game{
 		int test = 0;
 		double lastTurn = 0.0;
 		double m_lastHit = 0.0;
+		
 
 	public:
 		///CONSTRUCTOR
@@ -68,7 +69,7 @@ class Game{
 		*\brief Getter World of the Game
 		*\return current World
 		*/
-		inline World getWorld()const{ return *m_world;};
+		inline World* getWorld()const{ return m_world;};
 		inline Camera * getActiveCam() const{
 			if(m_activeCam ==0)
 				return m_trackballCam;
@@ -153,7 +154,16 @@ class Game{
 		*\ return the best score
 		*/
 		unsigned int saveBestScore();
-		
+
+		/**
+		*\brief Reset the data from the game
+		*/
+		void resetGame();
+
+		/**
+		*\brief Free the game
+		*/
+		void freeGame();
 		/**
 		*\brief static method that display the scoreboard in the console
 		*/

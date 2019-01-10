@@ -18,10 +18,21 @@ Map::Map(){
 
 	for(unsigned int i = 0; i < m_listEnemies.size(); i++)
 		addEnemyToList(Enemy());
+
+	std::cout << "NEw map" << std::endl;
 }
 
 Map::Map(const char* filename){
 	this->initialiseListBlocFromFile(filename);
+
+	std::cout << "NEw map2" << std::endl;
+}
+
+Map::Map(const Map& map){
+	std::cout << "jsjriugbdrgbdirgfvhcybrgiu "<< std::endl;
+	m_listBlocs = map.m_listBlocs;
+	m_listEnemies = map.m_listEnemies;
+	m_listBlocsSize = map.m_listBlocsSize;
 }
 
 void Map::initialiseListBlocFromFile(const char* filename){
