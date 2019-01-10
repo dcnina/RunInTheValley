@@ -9,10 +9,10 @@
 #include <glimac/Map.hpp>
 
 World::World(const char* levelFile, std::vector<Model> listModel){
-	m_speed = 0.035;
+	m_speed = 0.004;
 	m_map = new Map(levelFile); 
 	m_listModel = listModel;
-	m_player = new Player("audrey",listModel[0]);
+	m_player = new Player("",listModel[0]);
 	//std::vector<Bonus> listBonus;
 	//m_listBonus = listBonus;
 }
@@ -61,5 +61,8 @@ void World::drawWorld(glm::mat4 MVMatrix,glm::mat4 viewMatrix, Render render, do
 	}
 }
 
-World::~World(){}
+World::~World(){
+	delete m_map;
+	delete m_player;
+}
 

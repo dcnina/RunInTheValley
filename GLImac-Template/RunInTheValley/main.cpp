@@ -20,6 +20,7 @@
 #include <glimac/Menu.hpp>
 #include <glimac/Button.hpp>
 #include <glimac/Texture2D.hpp>
+#include <glimac/Exception.hpp>
 
 #include <SDL/SDL_mixer.h>
 
@@ -27,6 +28,7 @@
 #define PLAYING 1
 #define PAUSE_MENU 2
 #define SCORE_MENU 3
+#define WINDOW_SIZE 800
 
 
 using namespace glimac;
@@ -40,7 +42,7 @@ int main(int argc, char** argv) {
     }
 
     // Initialize SDL and open a window
-    SDLWindowManager windowManager(800, 800, "Run In The Valley");
+    SDLWindowManager windowManager(WINDOW_SIZE, WINDOW_SIZE, "Run In The Valley");
 
 
     // Initialize glew for OpenGL3+ support
@@ -109,42 +111,45 @@ int main(int argc, char** argv) {
 		 * 2D Initialisation - Textures
 		 *********************************/
 
-    // Background Main Menu Texture
-    Texture2D backgroundMainText(&progMenu,appPath.dirPath()+"assets/textures/menu.png");
-    std::unique_ptr<glimac::Image> backgroundMenuImg = backgroundMainText.loadImg();
-    backgroundMainText.initializeTexture2D(backgroundMenuImg);
 
-    // Background Menu Texture
-    Texture2D backgroundPauseText(&progMenu,appPath.dirPath()+"assets/textures/pause.png");
-    std::unique_ptr<glimac::Image> backgroundPauseImg = backgroundPauseText.loadImg();
-    backgroundPauseText.initializeTexture2D(backgroundPauseImg);
+        // Background Main Menu Texture
+        Texture2D backgroundMainText(&progMenu,appPath.dirPath()+"assets/textures/menu.png");
+        std::unique_ptr<glimac::Image> backgroundMenuImg = backgroundMainText.loadImg();
+        backgroundMainText.initializeTexture2D(backgroundMenuImg);
 
-    // Button Score Texture
-    Texture2D textureScore(&progMenu,appPath.dirPath()+"assets/textures/score.png");
-    std::unique_ptr<glimac::Image> backgroundScore = textureScore.loadImg();
+        // Background Menu Texture
+        Texture2D backgroundPauseText(&progMenu,appPath.dirPath()+"assets/textures/pause.png");
+        std::unique_ptr<glimac::Image> backgroundPauseImg = backgroundPauseText.loadImg();
+        backgroundPauseText.initializeTexture2D(backgroundPauseImg);
 
-    // Button Play Texture
-    Texture2D texturePlay(&progMenu,appPath.dirPath()+"assets/textures/play.png");
-    std::unique_ptr<glimac::Image> backgroundPlay = texturePlay.loadImg();
+        // Button Score Texture
+        Texture2D textureScore(&progMenu,appPath.dirPath()+"assets/textures/score.png");
+        std::unique_ptr<glimac::Image> backgroundScore = textureScore.loadImg();
 
-    // Button Quit Texture
-    Texture2D textureQuit(&progMenu,appPath.dirPath()+"assets/textures/quit.png");
-    std::unique_ptr<glimac::Image> backgroundQuit = textureQuit.loadImg();
+        // Button Play Texture
+        Texture2D texturePlay(&progMenu,appPath.dirPath()+"assets/textures/play.png");
+        std::unique_ptr<glimac::Image> backgroundPlay = texturePlay.loadImg();
+
+        // Button Quit Texture
+        Texture2D textureQuit(&progMenu,appPath.dirPath()+"assets/textures/quit.png");
+        std::unique_ptr<glimac::Image> backgroundQuit = textureQuit.loadImg();
 
 
-    /***** Buttons Creations *********/
 
-    Button buttonScore(430, 410, 200, 200, &textureScore);
-    buttonScore.initializeButton(backgroundScore);
-    buttonScore.createButton();
+        /***** Buttons Creations *********/
 
-    Button buttonPlay(170, 410, 200, 200, &texturePlay);
-    buttonPlay.initializeButton(backgroundPlay);
-    buttonPlay.createButton();
+        Button buttonScore(430, 410, 200, 200, &textureScore);
+        buttonScore.initializeButton(backgroundScore);
+        buttonScore.createButton();
 
-    Button buttonQuit(700, 0, 100, 100, &textureQuit);
-    buttonQuit.initializeButton(backgroundQuit);
-    buttonQuit.createButton();
+        Button buttonPlay(170, 410, 200, 200, &texturePlay);
+        buttonPlay.initializeButton(backgroundPlay);
+        buttonPlay.createButton();
+
+        Button buttonQuit(700, 0, 100, 100, &textureQuit);
+        buttonQuit.initializeButton(backgroundQuit);
+        buttonQuit.createButton();
+
 
     /******** Menu Creations ***********/
 

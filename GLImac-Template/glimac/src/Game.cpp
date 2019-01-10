@@ -22,7 +22,7 @@ Game::Game(char* levelFile,std::vector<Model> listModel, Render render)
     Game::chooseLevel(levelFile, nameFile);
 
 	m_world = new World(nameFile,listModel);
-	m_distance = 0.035;
+	m_distance = 0.004;
 	m_trackballCam= new TrackballCamera(3.0f,15.0f,0.0f);
 	m_firstPersonCam= new FirstPersonCamera(1.0f,0.0f);
 	m_render = render;
@@ -61,7 +61,9 @@ void Game::checkBonusAndCoins(){
 }
 
 bool Game::isEnd(){
-	/* End of the map */
+    
+    char lastDir = m_world->getMap()->getListBlocs()[(int)m_time - 1].getDirection();
+    /* End of the map */
 	if ((int)m_time == m_world->getMap()->getListBlocsSize()){
 		//m_world->getMap()->printMap();
 		return true;
@@ -70,6 +72,11 @@ bool Game::isEnd(){
 	/* Collision with a block or an empty block */
 	else if (m_princess->collisionWithBlock(m_world->getMap()->getListBlocs()[(int)m_time]) == 1)
 		return true;
+
+    /* Forgot to turn at a turn */
+    else if (m_time-lastTurn>2.0 && (lastDir == 'L' || lastDir == 'R') ){
+        return true;
+    }
 
 	/* Collision with a enemy */
 	//if (m_world->getMap().getListEnemies()[0].getProximity() == 0)
@@ -146,7 +153,7 @@ void Game::drawAll(){
 
     MVMatrix = viewMatrix*MVMatrix;
     m_render.sendLight(viewMatrix);
-    if(m_time-m_princess->getTimeChange()>SIZE_BLOCK*3){
+    if(m_time-m_princess->getTimeChange()>SIZE_BLOCK*2){
     	m_princess->backToNormalState(m_time);
     }
 
@@ -311,8 +318,8 @@ unsigned int Game::saveBestScore(){
     unsigned int currentScore = player->getScore();
     unsigned int best = 0;
 
-    std::ifstream file;
-    file.open("./assets/bestscore.txt", std::ifstream::out);  
+    std::fstream file;
+    file.open("./assets/bestscore.txt", std::fstream::out);  
     std::ofstream tmpFile("./assets/tmp.txt",std::ios::out | std::ios::trunc);
     bool change = false;
     bool isIn = false;
@@ -380,4 +387,10 @@ void Game::displayBestScores(){
     }
 }
 
-Game::~Game(){}
+Game::~Game(){
+    delete m_world;
+    delete m_trackballCam;
+    delete m_firstPersonCam;
+    delete m_princess;
+    delete m_enemy;
+}

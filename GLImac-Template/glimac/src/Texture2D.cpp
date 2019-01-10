@@ -8,6 +8,7 @@
 #include <glimac/Texture2D.hpp>
 #include <glimac/Image.hpp>
 #include <glimac/glm.hpp>
+#include <glimac/Exception.hpp>
 
 using namespace glimac;
 
@@ -33,7 +34,7 @@ std::unique_ptr<glimac::Image> Texture2D::loadImg()
 {
     std::unique_ptr<glimac::Image> image = loadImage(m_textureImage);
     if(image == NULL){
-        //Error mess
+        THROW_EXCEPTION("Error during image load");
     }
     return image;
 }

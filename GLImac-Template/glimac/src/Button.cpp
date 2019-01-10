@@ -8,11 +8,27 @@
 #include <glimac/Button.hpp>
 #include <glimac/Image.hpp>
 #include <glimac/glm.hpp>
-
+#include <glimac/Exception.hpp>
 using namespace glimac;
 
 Button::Button(float posX,float posY, float scaleX, float scaleY, Texture2D *texture)
-:m_buttonTexture(texture), m_posX(posX), m_posY(posY), m_scaleX(scaleX), m_scaleY(scaleY){}
+{
+    if(posX <= WINDOW_WIDTH-scaleX && posX >=0){
+        if(posY >= 0 && posY <= WINDOW_HEIGHT-scaleY){
+            m_buttonTexture = texture;
+            m_posX = posX;
+            m_posY = posY;
+            m_scaleX = scaleX;
+            m_scaleY = scaleY;
+        }
+        else{
+            THROW_EXCEPTION("Invalid coordinates (out of window) for this button -> Y coords");
+        }
+    }
+    else{
+        THROW_EXCEPTION("Invalid coordinates (out of window) for this button");
+    }
+}
  
 void Button::initializeButton(std::unique_ptr<glimac::Image> &bgImage){
     m_buttonTexture->initializeTexture2D(bgImage);

@@ -10,6 +10,7 @@
 #include <fstream> 
 #include <vector>
 #include <glimac/Bloc.hpp>
+#include <glimac/Exception.hpp>
 
 Map::Map(){
 	for(unsigned int i = 0; i < m_listBlocs.size(); i++)
@@ -28,10 +29,8 @@ void Map::initialiseListBlocFromFile(const char* filename){
 	file = fopen(filename, "r");
 
 	if(!file){
-		std::cerr << "erreur chargement fichier : " << filename << std::endl;
-		exit(EXIT_FAILURE);
+		THROW_EXCEPTION("Loading file failed");
 	}
-
 	while(!feof(file)){
 		int index;
 		char type, direction;
@@ -55,7 +54,7 @@ void Map::initialiseListBlocFromFile(const char* filename){
 
 
 void Map::randomMap(const int length){
-	int lastTurn = 0, lastObst = 0, lastHole = 0;
+	/*int lastTurn = 0, lastObst = 0, lastHole = 0;
 	bool firstTurn = true;
 	char typeLastTurn = 'S';
  
@@ -126,7 +125,7 @@ void Map::randomMap(const int length){
     }
     else{
         std::cerr << "Impossible d'ouvrir le fichier !" << std::endl;
-    }
+    }*/
 }
 
 void Map::convertBlocTypeToEmpty(const unsigned int &index, const int &princessState, const int &princessRelativePosition){ 
