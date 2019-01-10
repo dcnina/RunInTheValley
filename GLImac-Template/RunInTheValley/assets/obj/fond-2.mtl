@@ -1,62 +1,62 @@
-# Blender MTL File: 'fond.blend'
+# Blender MTL File: 'fond-2.blend'
 # Material Count: 6
 
-newmtl cote4
-Ns 96.078431
+newmtl None
+Ns 0.000000
 Ka 0.000000 0.000000 0.000000
 Kd 0.640000 0.640000 0.640000
-Ks 0.500000 0.500000 0.500000
+Ks 0.800000 0.800000 0.800000
 Ni 1.000000
 d 1.000000
 illum 2
-map_Kd C:\Users\COMBE A\Documents\Travail\IMAC\IMAC-2\S3\openGL\fond\fond-cote-2.png
+map_Kd fond-cote-1.png
 
-newmtl cote4_fond-bottom.png
-Ns 96.078431
+newmtl None_fond-bottom.png
+Ns 0.000000
 Ka 0.000000 0.000000 0.000000
 Kd 0.640000 0.640000 0.640000
-Ks 0.500000 0.500000 0.500000
+Ks 0.800000 0.800000 0.800000
 Ni 1.000000
 d 1.000000
 illum 2
-map_Kd C:\Users\COMBE A\Documents\Travail\IMAC\IMAC-2\S3\openGL\fond\fond-bottom.png
+map_Kd fond-bottom.png
 
-newmtl cote4_fond-cote-1.png
-Ns 96.078431
+newmtl None_fond-cote-2.png
+Ns 0.000000
 Ka 0.000000 0.000000 0.000000
 Kd 0.640000 0.640000 0.640000
-Ks 0.500000 0.500000 0.500000
+Ks 0.800000 0.800000 0.800000
 Ni 1.000000
 d 1.000000
 illum 2
-map_Kd C:\Users\COMBE A\Documents\Travail\IMAC\IMAC-2\S3\openGL\fond\fond-cote-1.png
+map_Kd fond-cote-2.png
 
-newmtl cote4_fond-cote-3.png
-Ns 96.078431
+newmtl None_fond-cote-3.png
+Ns 0.000000
 Ka 0.000000 0.000000 0.000000
 Kd 0.640000 0.640000 0.640000
-Ks 0.500000 0.500000 0.500000
+Ks 0.800000 0.800000 0.800000
 Ni 1.000000
 d 1.000000
 illum 2
-map_Kd C:\Users\COMBE A\Documents\Travail\IMAC\IMAC-2\S3\openGL\fond\fond-cote-3.png
+map_Kd fond-cote-3.png
 
-newmtl cote4_fond-cote-4.png
-Ns 96.078431
+newmtl None_fond-cote-4.png
+Ns 0.000000
 Ka 0.000000 0.000000 0.000000
 Kd 0.640000 0.640000 0.640000
-Ks 0.500000 0.500000 0.500000
+Ks 0.800000 0.800000 0.800000
 Ni 1.000000
 d 1.000000
 illum 2
-map_Kd C:\Users\COMBE A\Documents\Travail\IMAC\IMAC-2\S3\openGL\fond\fond-cote-4.png
+map_Kd fond-cote-4.png
 
-newmtl cote4_fond-top.png
-Ns 96.078431
+newmtl None_fond-top.png
+Ns 0.000000
 Ka 0.000000 0.000000 0.000000
 Kd 0.640000 0.640000 0.640000
-Ks 0.500000 0.500000 0.500000
+Ks 0.800000 0.800000 0.800000
 Ni 1.000000
 d 1.000000
 illum 2
-map_Kd C:\Users\COMBE A\Documents\Travail\IMAC\IMAC-2\S3\openGL\fond\fond-top.png
+map_Kd fond-top.png
