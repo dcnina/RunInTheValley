@@ -27,7 +27,7 @@
 
 class Enemy : public DynamicObject{
 	private:
-		unsigned int m_proximity=3; /*!< Enemy's level of proximity */
+		//unsigned int m_proximity=3; /*!< Enemy's level of proximity */
 		Princess *m_princess;
 
 	public:
@@ -53,30 +53,30 @@ class Enemy : public DynamicObject{
 		*/
 		inline std::vector<double> getPosition()const{return m_position;};
 
-		/**
-		*\brief Get proximity of the enemy
-		*\return current proximity
-		*/
-		inline unsigned int getProximity() const {return m_proximity;};
+		// *
+		// *\brief Get proximity of the enemy
+		// *\return current proximity
+		
+		// inline unsigned int getProximity() const {return m_proximity;};
 		
 
 		///SETTERS
-		/**
-		*\brief Set proximity of the enemy
-		*/
-		inline void setProximity(const unsigned int &proximity) { m_proximity = proximity; }
+		// /**
+		// *\brief Set proximity of the enemy
+		// */
+		// inline void setProximity(const unsigned int &proximity) { m_proximity = proximity; }
 
 
 		///METHODS
 		/**
 		*\brief decrease distance of proximity of the enemy
 		*/
-		inline void decreaseProximity(){ m_proximity--; }
+		//inline void decreaseProximity(){ m_proximity--; }
 
 		/**
 		*\brief increase distance of proximity of the enemy
 		*/
-		inline void increaseProximity(){ m_proximity++; }
+		//inline void increaseProximity(){ m_proximity++; }
 
 		/**
 		*\brief redefinition of virtual function draw

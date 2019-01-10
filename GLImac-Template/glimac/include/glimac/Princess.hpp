@@ -28,6 +28,7 @@ class Princess : public DynamicObject{
 	private:
 		int m_state = 1; /*!< Princess state */
 		double m_timeChange = 0.0; /*!< Princess time of changement */
+		unsigned int m_proximity=3; /*!< Princess level of proximity of the enemies*/
 
 	public:
 		///CONSTRUCTOR
@@ -54,6 +55,12 @@ class Princess : public DynamicObject{
 		inline int getRelativePos() const{return m_relativePosition;};
 
 		/**
+		*\brief Get proximity between enemies and princess
+		*\return current proximity
+		*/
+		inline unsigned int getProximity() const {return m_proximity;};
+
+		/**
 		*\brief Get the position of Princess   
 		*\return the current position
 		*/
@@ -65,6 +72,7 @@ class Princess : public DynamicObject{
 		*/
 		inline double getTimeChange() const{return m_timeChange;};
 
+		
 
 		///METHODS
 		/**
@@ -106,8 +114,14 @@ class Princess : public DynamicObject{
 		*\return 1 : collision with a wall or an obstacle (princess die) or fall in a empty block
 		*\return 2 : Bonus
 		*\return 3 : Coins
+		*\return 4 : Half obstacle
 		*/
 		int collisionWithBlock(Bloc &bloc);
+
+		/**
+		*\brief Set proximity between princess and enemies
+		*/
+		inline void decreaseProximity() { m_proximity--; }
 
 		/**
 		*\brief redefinition of virtual function draw

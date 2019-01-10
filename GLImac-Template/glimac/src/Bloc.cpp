@@ -44,7 +44,6 @@ void Bloc::printBlock(){
 }
 
 void Bloc::drawBlock(std::vector<Model> &listModel, glm::mat4 viewMatrix, Render render,glm::mat4 MVMatrix, double time){
-
     glm::mat4 newMVMatrix, tmpMVMatrix;
     MVMatrix = glm::scale(MVMatrix,glm::vec3(SIZEX,1.0,1.0));
     MVMatrix = glm::translate(MVMatrix, glm::vec3(-1.0, 0.0, 0));
@@ -81,6 +80,17 @@ void Bloc::drawBlock(std::vector<Model> &listModel, glm::mat4 viewMatrix, Render
                     }
     				listModel[4].draw();
         			break;
+                case 'H':   //Half obstacle
+                    if(i != ROWS-1){
+                        newMVMatrix = glm::scale(tmpMVMatrix,glm::vec3(1.0,SIZEY/6.0,1.0));
+                        newMVMatrix = glm::translate(newMVMatrix,glm::vec3(0, SIZEY*1.5, 0)); 
+                        render.sendMatrix(newMVMatrix);
+                    }
+                    else{
+                        render.sendMatrix(tmpMVMatrix);
+                    }
+                    listModel[4].draw();
+                    break;
         		case 'C':	//Coins
                     newMVMatrix = glm::scale(tmpMVMatrix,glm::vec3(3.0,1.0,1.0));
                         newMVMatrix = glm::translate(newMVMatrix,glm::vec3(0, SIZEY/3.0, 0)); 

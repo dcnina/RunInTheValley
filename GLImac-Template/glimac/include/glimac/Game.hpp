@@ -52,6 +52,7 @@ class Game{
 		bool m_rightClicked = false;
 		int test = 0;
 		double lastTurn = 0.0;
+		double m_lastHit = 0.0;
 
 	public:
 		///CONSTRUCTOR
@@ -106,6 +107,11 @@ class Game{
 		*\params the distance to increment
 		*/
 		inline void incrementTime(double distance){ m_time += m_time;};
+
+		/**
+		*\brief check the collision of princess with a small block and decrease enemies distance
+		*/
+		void checkCollisionSmallObstacle();
 
 		/**
 		*\brief check the end of the game

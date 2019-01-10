@@ -72,8 +72,10 @@ int Princess::collisionWithBlock(Bloc &bloc){
 			return 1;
 		else if(bloc.getMatrixTypes()[2][m_relativePosition] == 'B' || bloc.getMatrixTypes()[1][m_relativePosition] == 'B')
 			return 2;
-		else if(bloc.getMatrixTypes()[2][m_relativePosition] == 'C' || bloc.getMatrixTypes()[1][m_relativePosition] == 'C'){
-			return 3;
+		else if(bloc.getMatrixTypes()[2][m_relativePosition] == 'C' || bloc.getMatrixTypes()[1][m_relativePosition] == 'C')
+			return 3;	
+		else if(bloc.getMatrixTypes()[2][m_relativePosition] == 'H'){
+			return 4;
 		}
 	}
 
@@ -85,6 +87,8 @@ int Princess::collisionWithBlock(Bloc &bloc){
 			case 'B' : return 2;
 				break;
 			case 'C' : return 3;
+				break;
+			case 'H' : return 4;
 				break;
 		}
 

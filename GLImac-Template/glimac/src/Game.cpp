@@ -60,6 +60,13 @@ void Game::checkBonusAndCoins(){
 	}
 }
 
+void Game::checkCollisionSmallObstacle(){
+    if(m_princess->collisionWithBlock(m_world->getMap()->getListBlocs()[(int)m_time]) == 4 && m_time-m_lastHit > 1.0){
+        m_lastHit = m_time;
+        m_princess->decreaseProximity();
+    }
+}
+
 bool Game::isEnd(){
     
     char lastDir = m_world->getMap()->getListBlocs()[(int)m_time - 1].getDirection();
@@ -79,6 +86,8 @@ bool Game::isEnd(){
     }
 
 	/* Collision with a enemy */
+    if(m_princess->getProximity() == 0)
+        return true;
 	//if (m_world->getMap().getListEnemies()[0].getProximity() == 0)
 	//	return true;
 
@@ -96,6 +105,7 @@ void Game::endGame(){
 
 void Game::playGame(){
 	checkBonusAndCoins();
+    checkCollisionSmallObstacle();
 	Player *player = m_world->getPlayer();
 	/* Increment score of the player */
 	player->addScore(1);
@@ -388,7 +398,7 @@ void Game::displayBestScores(){
 }
 
 Game::~Game(){
-    delete m_world;
+   // delete m_world;
     delete m_trackballCam;
     delete m_firstPersonCam;
     delete m_princess;
