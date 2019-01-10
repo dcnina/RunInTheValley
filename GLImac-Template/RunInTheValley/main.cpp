@@ -28,6 +28,7 @@
 #define PLAYING 1
 #define PAUSE_MENU 2
 #define SCORE_MENU 3
+#define END_MENU 4
 #define WINDOW_SIZE 800
 
 
@@ -75,6 +76,7 @@ int main(int argc, char** argv) {
     //progMenu.use();
 
    	int gameState = MAIN_MENU;
+    int enAttente = false;
 
     /*********************************
      * HERE SHOULD COME THE INITIALIZATION CODE
@@ -120,6 +122,11 @@ int main(int argc, char** argv) {
         std::unique_ptr<glimac::Image> backgroundPauseImg = backgroundPauseText.loadImg();
         backgroundPauseText.initializeTexture2D(backgroundPauseImg);
 
+        // Background Menu Texture
+        Texture2D backgroundEndText(&progMenu,appPath.dirPath()+"assets/textures/end.png");
+        std::unique_ptr<glimac::Image> backgroundEndImg = backgroundEndText.loadImg();
+        backgroundEndText.initializeTexture2D(backgroundEndImg);
+
         // Button Score Texture
         Texture2D textureScore(&progMenu,appPath.dirPath()+"assets/textures/score.png");
         std::unique_ptr<glimac::Image> backgroundScore = textureScore.loadImg();
@@ -157,6 +164,9 @@ int main(int argc, char** argv) {
     //Pause Menu
     Menu menuPause(&backgroundPauseText);
 
+    //End Menu
+    Menu menuEnd(&backgroundEndText);
+
     //Adding button to menu
     menuBackground.addButton(&buttonScore);
     menuBackground.addButton(&buttonPlay);
@@ -167,7 +177,7 @@ int main(int argc, char** argv) {
     menuPause.addButton(&buttonQuit);
 
 
-    Map::randomMap(60);
+    menuEnd.addButton(&buttonQuit);
 
     //DEPTH Test of the GPU
     //glEnable(GL_DEPTH_TEST);
@@ -214,7 +224,6 @@ int main(int argc, char** argv) {
                             Game::displayBestScores();
 			            }
 			            else if(bPlay->isActive()){
-			                std::cout << "Click on Play Button" << std::endl;
 			                gameState = PLAYING;
 			            }
 			            else if(bLeave->isActive()){
@@ -257,6 +266,7 @@ int main(int argc, char** argv) {
 			            Button *bPlay = menuPause.getButtons()[1];
 			            Button *bLeave = menuPause.getButtons()[2];
 			            if(bScore->isActive()){
+                            Game::displayBestScores();
 			            }
 			            else if(bPlay->isActive()){
 			                gameState = PLAYING;
@@ -266,13 +276,35 @@ int main(int argc, char** argv) {
 			            }
 		            }
             	}
-            	else if(gameState == SCORE_MENU){
+            	else if(gameState == END_MENU){
+                    if(e.type == SDL_MOUSEMOTION) {
+                        Button *bLeave = menuEnd.getButtons()[0];
+                        if(bLeave->mouseHover(v)){
+                            bLeave->activeButton(true);
+                        }
+                        else{
+                            bLeave->activeButton(false);
+                        }
+
+                    }
+                    else if(e.type == SDL_MOUSEBUTTONDOWN){
+                        Button *bLeave = menuEnd.getButtons()[0];
+                        if(bLeave->isActive()){
+                            gameState = MAIN_MENU;
+                        }
+                    }
             	}
             }
 
         /*********************************
          * HERE SHOULD COME THE RENDERING CODE
          *********************************/
+         if (game.isEnd() == true && gameState == PLAYING){
+            gameState = END_MENU;
+            progMenu.use();
+            menuEnd.drawMenu();
+            game.endGame();
+        }
 
         if(gameState == MAIN_MENU){
         	progMenu.use();
@@ -287,14 +319,12 @@ int main(int argc, char** argv) {
     		progMenu.use();
     		menuPause.drawMenu();
     	}
-    	else if(gameState == SCORE_MENU){
-
+    	else if(gameState == END_MENU){
+            progMenu.use();
+            menuEnd.drawMenu();
     	}
 
-        if (game.isEnd() == true){
-            game.endGame();
-            gameState = MAIN_MENU;
-        }
+        
         // Update the display
         windowManager.swapBuffers();
     }

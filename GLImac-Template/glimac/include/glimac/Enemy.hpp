@@ -61,15 +61,6 @@ class Enemy : public DynamicObject{
 
 
 		///METHODS
-		/**
-		*\brief decrease distance of proximity of the enemy
-		*/
-		//inline void decreaseProximity(){ m_proximity--; }
-
-		/**
-		*\brief increase distance of proximity of the enemy
-		*/
-		//inline void increaseProximity(){ m_proximity++; }
 
 		/**
 		*\brief redefinition of virtual function draw

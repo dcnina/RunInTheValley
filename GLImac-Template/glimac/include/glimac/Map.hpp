@@ -41,11 +41,23 @@ class Map{
 
 		/**
 		*\brief Map Constructor
+		*\params char * filename
 		*\details Constructor of Map
 		*/
 		Map(const char* filename);
+
+
+		/**
+		*\brief Map Copy Constructor
+		*\params Map
+		*\details Copy Constructor of Map
+		*/
 		Map(const Map& map);
 
+		/**
+		*\brief create a random level file   
+		*\params int length of the level
+		*/
 		static void randomMap(const int length);
 
 		/// GETTERS

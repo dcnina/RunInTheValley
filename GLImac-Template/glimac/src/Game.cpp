@@ -357,15 +357,15 @@ void Game::manageDeleteAndIncrementBonus(){
 
 
 unsigned int Game::saveBestScore(){
-    Player player = *(m_world->getPlayer());
-    player.askingForPseudo();
+    Player *player = m_world->getPlayer();
+    player->askingForPseudo();
 
-    std::string currentPseudo = player.getPseudo();
-    unsigned int currentScore = player.getScore();
+    std::string currentPseudo = player->getPseudo();
+    unsigned int currentScore = player->getScore();
     unsigned int best = 0;
 
     std::fstream file;
-    file.open("./assets/bestscore.txt", std::fstream::out);  
+    file.open("./assets/bestscore.txt", std::ios::out);  
     std::ofstream tmpFile("./assets/tmp.txt",std::ios::out | std::ios::trunc);
     bool change = false;
     bool isIn = false;

@@ -47,12 +47,12 @@ class Game{
 		glm::mat4 m_worldPos; /*!< Matrix of world position */
 		glm::mat4 m_worldRot; /*!< Matrix of world rotation */
 		bool m_lockCam = false; /*!< Edit state of the camera */
-		int m_mousePrevX = 0;
-		int m_mousePrevY = 0;
-		bool m_rightClicked = false;
+		int m_mousePrevX = 0;/*!< Keep in memory the last mouse X position */
+		int m_mousePrevY = 0;/*!< Keep in memory the last mouse Y position */
+		bool m_rightClicked = false; /*!< Right click or not */
 		int test = 0;
-		double lastTurn = 0.0;
-		double m_lastHit = 0.0;
+		double lastTurn = 0.0; /*!< Keep the time of the last Big Turn*/
+		double m_lastHit = 0.0;/*!< Keep the time of the last Hit (little obstacle)*/
 		
 
 	public:
@@ -70,6 +70,12 @@ class Game{
 		*\return current World
 		*/
 		inline World* getWorld()const{ return m_world;};
+
+
+		/**
+		*\brief Getter Camera of the Game
+		*\return current camera
+		*/
 		inline Camera * getActiveCam() const{
 			if(m_activeCam ==0)
 				return m_trackballCam;
@@ -95,13 +101,23 @@ class Game{
 		*\details set the current distance
 		*/
 		inline void setDistance(const double &distance){ m_distance = distance;};
+
+		/**
+		*\brief change the state of the camera (Lock or not)
+		*/
+
 		inline void changeLockCam(){
 			if(m_lockCam)
 				m_lockCam = false;
 			else
 				m_lockCam = true;
 		}
+
+		/**
+		*\brief change the active camera
+		*/
 		void changeActiveCam();
+
 		/// METHODS
 		/**
 		*\brief increment the travelled distance
@@ -119,6 +135,10 @@ class Game{
 		*\ return true if the end is ended, else false
 		*/
 		bool isEnd();
+
+		/**
+		*\brief method call when this is the end of the game
+		*/
 
 		void endGame();
 
@@ -169,6 +189,9 @@ class Game{
 		*/
 		static void displayBestScores();
 
+		/**
+		*\brief static method that choose randomly a preset level
+		*/
 		static void chooseLevel(char* levelFile, char* nameFile);
 
 		///DESTRUCTOR

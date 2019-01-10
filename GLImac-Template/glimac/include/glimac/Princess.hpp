@@ -52,6 +52,10 @@ class Princess : public DynamicObject{
 		*/
 		inline int getState()const{ return m_state;}
 
+		/**
+		*\brief Get the relativePosition of the princess   
+		*\return relative position
+		*/
 		inline int getRelativePos() const{return m_relativePosition;};
 
 		/**

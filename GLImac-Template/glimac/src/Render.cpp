@@ -46,3 +46,12 @@ void Render::sendMatrix(glm::mat4 MVMatrix) const {
 }
 
 Render::~Render(){}
+
+void Light::sendUniform(GLuint progGLId, int i) const {
+
+    GLuint uPos = glGetUniformLocation(progGLId,("worldLights["+std::to_string(i)+"].position").c_str());
+    GLuint uIntensity = glGetUniformLocation(progGLId,("worldLights["+std::to_string(i)+"].intensity").c_str());
+    
+    glUniform3fv(uPos,1,glm::value_ptr(m_position));
+    glUniform3fv(uIntensity,1,glm::value_ptr(m_intensity));
+}

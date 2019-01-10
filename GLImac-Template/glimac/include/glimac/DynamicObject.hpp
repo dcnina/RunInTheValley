@@ -13,7 +13,7 @@
 
 /**
  *\class DynamicObject
- *\brief
+ *\brief Mother class for dynamics objects
  *  
  */
 
